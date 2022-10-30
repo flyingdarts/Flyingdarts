@@ -1,0 +1,38 @@
+.flyingdarts-login-main {
+  .registration-title {
+    font-size: 2em;
+    margin-top: 20px;
+  }
+  .registration-subtitle {
+    font-size: 1.2em;
+  }
+  .socials-button {
+    background: #3c46a7;
+    border-radius: 10px;
+    margin: 15px 0;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    :hover {
+      color: white;
+      background: #303886;
+    }
+    :disabled {
+      background: #3c46a7;
+      color: #3c46a7;
+      :hover {
+        background: #3c46a7;
+        color: #3c46a7;
+      }
+    }
+    .socials-button-subtitle {
+      font-size: 0.7em;
+    }
+  }
+}
