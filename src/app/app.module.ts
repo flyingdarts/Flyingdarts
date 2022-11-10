@@ -9,6 +9,7 @@ import { MainComponent } from './login/main/main.component';
 import { AcceptTocComponent } from './login/main/accept-toc/accept-toc.component';
 import { X01Component } from './x01/x01.component';
 import { WebcamModule } from 'ngx-webcam';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { WebcamModule } from 'ngx-webcam';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    WebcamModule
+    WebcamModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

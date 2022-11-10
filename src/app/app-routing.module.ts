@@ -14,7 +14,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'x01',
+    path: 'x01/:roomId',
     component: X01Component
   }
 ];

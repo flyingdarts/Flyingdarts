@@ -7,13 +7,13 @@ import { map } from 'rxjs/operators';
 const WEBSOCKET_API_URL = "ws://AMAZON_URL_ENDPOINT";
 
 export interface Message {
-  source: string;
+  message: string;
   content: string;
 }
 
 @Injectable()
 export class WebsocketService {
-  private subject: AnonymousSubject<MessageEvent>;
+  private subject!: AnonymousSubject<MessageEvent>;
   public messages: Subject<Message>;
 
   constructor() {
@@ -21,8 +21,7 @@ export class WebsocketService {
       map(
         (response: MessageEvent): Message => {
           console.log(response.data);
-          let data = JSON.parse(response.data);
-          return data;
+          return { message: "onreceive", content: response.data};
         }
       )
     )
@@ -47,7 +46,7 @@ export class WebsocketService {
       error: () => {},
       complete: () => {},
       next: (data: Object) => {
-        console.log(`Message sent to websocket: ${data}`);
+        console.log(`Message sent to websocket:`, data);
         if (webSocket.readyState === WebSocket.OPEN) {
           webSocket.send(JSON.stringify(data));
         }

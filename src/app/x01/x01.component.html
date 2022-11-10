@@ -8,15 +8,43 @@
               <div>
                 <p>Player</p>
               </div>
+              <div class="row">
+                <div class="column">
+                  <textarea
+                    [(ngModel)]="content"
+                    name="contentInput"
+                    cols="40"
+                    rows="5"
+                  ></textarea>
+                  <br />
+                  <button (click)="sendMsg()">Send Message</button>
+                </div>
+              </div>
+              <br />
               <div>
-                <webcam [width]="1300" [height]="944"></webcam>
+                <h1>Sent Messages</h1>
+                <br />
+                <ul>
+                  <li *ngFor="let item of sent">
+                    Source: {{ item.source }} -> Content {{ item.content }}
+                  </li>
+                </ul>
               </div>
-              <div class="miniature">
-                <webcam [width]="400" [height]="300"></webcam>
+              <br />
+              <div>
+                <h1>Received Messages</h1>
+                <br />
+                <ul>
+                  <li *ngFor="let item of received">
+                    Source: {{ item.source }} -> Content {{ item.content }}
+                  </li>
+                </ul>
               </div>
-              </div>
+            </div>
           </div>
-          <div class="col-sm-12 col-md-12 col-lg-4 p-0 flyingdarts-mobile-container">
+          <div
+            class="col-sm-12 col-md-12 col-lg-4 p-0 flyingdarts-mobile-container"
+          >
             <div class="calc-header">
               <div class="row g-0">
                 <div class="col-12">
@@ -24,10 +52,10 @@
                     <h1 class="mb-0 mt-3">FLYINGDARTS</h1>
                   </div>
                 </div>
-               </div>
+              </div>
               <div class="row g-0">
                 <div class="col-6">
-                  <div class="row text-center" >
+                  <div class="row text-center">
                     <p class="mb-0">501</p>
                   </div>
                   <div class="row text-center">
@@ -38,7 +66,7 @@
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="row text-center" >
+                  <div class="row text-center">
                     <p class="mb-0">501</p>
                   </div>
                   <div class="row text-center">
@@ -48,14 +76,14 @@
                     <h3 class="mb-0">AVG: 45</h3>
                   </div>
                 </div>
-               </div>
-               <div class="row g-0">
+              </div>
+              <div class="row g-0">
                 <div class="col-12">
                   <div class="row text-center">
                     <p class="mb-0 mt-3">T20 T20 T12</p>
                   </div>
                 </div>
-               </div>
+              </div>
             </div>
             <div class="calc-body d-flex flex-column">
               <div class="d-flex">
