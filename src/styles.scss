@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+/* @import './../../../node_modules/@aws-amplify/ui-angular/theme.css'; */
 @import '~@aws-amplify/ui-angular/theme.css';
 
 $input-bg: white;
@@ -50,6 +51,11 @@ $body-bg: white;
 input.amplify-field-group__control {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+}
+
+[data-amplify-authenticator] {
+    display: flex;
+    flex-direction: column;
 }
 
 [data-amplify-authenticator] [data-amplify-router] {
@@ -146,7 +152,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Poppins";
+    font-family: "Poppins" !important;
     font-style: normal;
     font-weight: 400;
 }
@@ -265,10 +271,10 @@ h6 {
     }
 }
 
-.sign-in-header {
-    padding-left: 32px;
-}
 
+.w-max {
+    width: max-content;
+}
 
 // .federated-sign-in-button,
 // .federated-sign-in-button-row {
