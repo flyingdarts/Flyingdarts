@@ -1,0 +1,34 @@
+.card {
+    padding: 20px;
+
+    .card-body {
+        border: 1px solid lightgrey;
+        border-radius: 4px;
+    }
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+    .card {
+        padding: 0;
+        margin: 0;
+        border: unset !important;
+
+        .card-body {
+            border: none;
+            border-radius: unset !important;
+        }
+    }
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {}
+
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+/* Media Query for Laptops and Desktops */
+@media (min-width: 1025px) and (max-width: 1280px) {}
+
+/* Media Query for Large screens */
+@media (min-width: 1281px) {}

@@ -154,7 +154,7 @@ body {
 }
 
 $input-bg: white;
-$body-bg: #4c56c0;
+$body-bg: unset;
 
 
 .amplify-tabs {
@@ -209,7 +209,6 @@ input.amplify-field-group__control {
     display: flex;
     flex-direction: column;
     height: -webkit-fill-available;
-    --amplify-components-divider-border-color: red;
 }
 
 [data-amplify-authenticator] [data-amplify-router] {
@@ -222,7 +221,6 @@ input.amplify-field-group__control {
 [data-amplify-container] {
     width: 100% !important;
     height: -webkit-fill-available;
-    padding: 20px;
 }
 
 
@@ -261,11 +259,6 @@ button[data-variation='link'] {
     font-size: var(--bs-body-font-size);
     text-decoration: underline;
     color: #f9617d;
-
-}
-
-.my-sign-in-header {
-    margin: 0 20px;
 }
 
 .my-sign-in-no-account {
@@ -332,6 +325,11 @@ amplify-slot[name='force-new-password-header'] .amplify-heading {
     @extend .rounded !optional;
 }
 
+.federated-sign-in-container {
+    padding-bottom: 0;
+}
+
+
 .federated-sign-in-button {
     background: white;
     border-width: 1px;
@@ -365,3 +363,24 @@ amplify-slot[name='force-new-password-header'] .amplify-heading {
         }
     }
 }
+
+.my-primary-button {
+    background-color: #f9617d;
+    border-color: #f9617d;
+    margin-top: 20px;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {}
+
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+/* Media Query for Laptops and Desktops */
+@media (min-width: 1025px) and (max-width: 1280px) {}
+
+/* Media Query for Large screens */
+@media (min-width: 1281px) {}
