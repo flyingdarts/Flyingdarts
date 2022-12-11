@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-flyingdarts-dev-100510-authRole",
+      "UnauthRoleArn": "arn:aws:iam::561462764262:role/amplify-flyingdarts-dev-100510-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::561462764262:role/amplify-flyingdarts-dev-100510-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-flyingdarts-dev-100510-deployment",
+      "UnauthRoleName": "amplify-flyingdarts-dev-100510-unauthRole",
+      "StackName": "amplify-flyingdarts-dev-100510",
+      "StackId": "arn:aws:cloudformation:eu-west-1:561462764262:stack/amplify-flyingdarts-dev-100510/ec0500f0-7932-11ed-a27b-0a84a518b5bf",
+      "AmplifyAppId": "dqi432kvg1ge8"
+    },
+    "categories": {
+      "auth": {
+        "flyingdarts92f24606": {}
+      }
+    }
+  }
+}
