@@ -1,1 +1,282 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@aws-amplify/ui-angular/theme.css';
+
+$input-bg: white;
+$body-bg: white;
+
+.amplify-tabs {
+    display: none;
+}
+
+.amplify-input {
+    background-color: $input-bg;
+    @extend .form-control !optional;
+    @extend .form-control-lg !optional;
+    @extend .border-2 !optional;
+    @extend .rounded !optional;
+}
+
+.amplify-input[name='password'] {
+    background-color: $input-bg;
+    @extend .form-control !optional;
+    @extend .form-control-lg !optional;
+    @extend .border-2 !optional;
+    @extend .rounded-0 !optional;
+    @extend .rounded-start !optional;
+}
+
+.amplify-input[name='confirm_password'] {
+    background-color: $input-bg;
+    @extend .form-control !optional;
+    @extend .form-control-lg !optional;
+    @extend .border-2 !optional;
+    @extend .rounded-0 !optional;
+    @extend .rounded-start !optional;
+}
+
+.amplify-button[data-variation='primary'] {
+    @extend .bg-primary !optional;
+    @extend .px-5 !optional;
+    @extend .text-white !optional;
+    @extend .rounded !optional;
+    @extend .fw-bold !optional;
+    font-size: 1.125rem;
+}
+
+.amplify-tabs-item {
+    @extend .text-primary !optional;
+}
+
+input.amplify-field-group__control {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+[data-amplify-authenticator] [data-amplify-router] {
+    background-color: $body-bg;
+    border-width: 0;
+    box-shadow: none;
+}
+
+[data-amplify-container] {
+    @extend .w-100 !optional;
+}
+
+[data-amplify-form] {
+    padding: 0 32px 0 32px !important;
+}
+
+button[data-variation='link'] {
+    width: fit-content;
+    @extend .float-start !optional;
+    @extend .p-0 !optional;
+    @extend .my-1 !optional;
+    font-size: var(--bs-body-font-size);
+    text-decoration: underline;
+}
+
+button[data-variation='link']:hover {
+    background-color: inherit;
+}
+
+[amplify-button][type='submit'] {
+    width: fit-content;
+    @extend .float-end !optional;
+    @extend .mt-4 !optional;
+    @extend .ms-auto !optional;
+}
+
+[amplify-button][aria-label='Show password'] {
+    background-color: $input-bg;
+    @extend .form-control !optional;
+    @extend .form-control-lg !optional;
+    @extend .border-2 !optional;
+    @extend .rounded-0 !optional;
+    @extend .border-start-0 !optional;
+    @extend .rounded-end !optional;
+}
+
+[amplify-button][aria-label='Hide password'] {
+    background-color: $input-bg;
+    @extend .form-control !optional;
+    @extend .form-control-lg !optional;
+    @extend .border-2 !optional;
+    @extend .rounded-0 !optional;
+    @extend .border-start-0 !optional;
+    @extend .rounded-end !optional;
+}
+
+amplify-slot[name='reset-password-header'] .amplify-heading {
+    display: none;
+}
+
+amplify-slot[name='confirm-reset-password-header'] .amplify-heading {
+    display: none;
+}
+
+amplify-slot[name='force-new-password-header'] .amplify-heading {
+    display: none;
+}
+
+.amplify-alert {
+    @extend .rounded !optional;
+}
+
+
+/* You can add global styles to this file, and also import other style files */
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+body,
+.body-content {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body,
+a,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+}
+
+.body-content {
+    height: 100%;
+    width: 100%;
+    max-width: -webkit-fill-available;
+
+    .card {
+        height: 100%;
+
+        .card-body {
+            padding: 0px;
+            border: none;
+
+            .container {
+                width: 100%;
+                height: 100%;
+                max-width: -webkit-fill-available;
+            }
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .top-container {
+        display: none;
+    }
+
+    .copy-text {
+        color: white;
+    }
+
+    .carousel-caption p {
+        font-size: 0.9em !important;
+    }
+}
+
+@media (min-width: 551px) and (max-width: 985px) {
+
+    .copy-text {
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    a,
+    p,
+    span,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    div {
+        padding: 0;
+        margin: 0;
+    }
+
+    .carousel-custom-top {
+        margin-bottom: 40px;
+    }
+
+    .carousel-custom-top img {
+        height: 150px !important;
+    }
+
+    .carousel-caption .carousel-caption h5 {
+        margin-top: 30px;
+        font-size: 2em !important;
+    }
+
+    .carousel-caption p {
+        font-size: 1em !important;
+    }
+
+    .container {
+        max-width: unset;
+    }
+
+    .my-primary-button {
+        margin-top: 30px;
+    }
+}
+
+@media (min-width: 986px) {
+    .carousel-custom-top>img {
+        max-height: 200px !important;
+        width: unset !important;
+    }
+
+    .container {
+        max-width: unset;
+    }
+
+    .carousel-caption h5 {
+        font-size: 1.8em;
+        margin-top: 40px;
+    }
+}
+
+@media (min-width: 1312px) {
+    body {
+        padding: 15px !important;
+    }
+
+    .body-content {
+        margin: 0px !important;
+        padding: 0px !important;
+        max-width: unset;
+    }
+
+    .container {
+        max-width: unset;
+    }
+}
+
+.sign-in-header {
+    padding-left: 32px;
+}
+
+
+// .federated-sign-in-button,
+// .federated-sign-in-button-row {
+//   width: 100%;
+//   align-items: center;
+//   padding-top: 10px;
+
+//   svg {
+//     max-height: 40px;
+//   }
+// }
