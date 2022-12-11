@@ -149,6 +149,10 @@ h6 {
 /* @import './../../../node_modules/@aws-amplify/ui-angular/theme.css'; */
 @import '~@aws-amplify/ui-angular/theme.css';
 
+body {
+    padding: 0 !important;
+}
+
 $input-bg: white;
 $body-bg: #4c56c0;
 
