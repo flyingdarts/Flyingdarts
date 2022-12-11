@@ -235,6 +235,20 @@ input.amplify-field-group__control {
     background: none !important;
 }
 
+.amplify-divider--label::after {
+    background-color: #4c56c0;
+    color: white;
+    display: none;
+}
+
+[data-amplify-fieldset] {
+    display: none !important;
+}
+
+[data-amplify-footer] {
+    display: none !important;
+}
+
 .amplify-divider .amplify-divider--label .amplify-divider--small {
     background: none !important;
 }
