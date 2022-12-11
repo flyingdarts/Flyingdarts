@@ -5,25 +5,20 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
-import { LoginComponent } from './login/login.component';
-import { CarouselComponent } from './login/carousel/carousel.component';
-import { MainComponent } from './login/main/main.component';
-import { AcceptTocComponent } from './login/main/accept-toc/accept-toc.component';
+import { SigninComponent } from './signin/signin.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,
-    LoginComponent,
+    SigninComponent,
     CarouselComponent,
-    MainComponent,
-    AcceptTocComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    /* configure App with AmplifyAuthenticatorModule */
     AmplifyAuthenticatorModule
   ],
   providers: [],

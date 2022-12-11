@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthFormFields } from '@aws-amplify/ui';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class MainComponent implements OnInit {
-  public loginEndpoint = ""
+export class SignupComponent implements OnInit {
 
   constructor() { }
 

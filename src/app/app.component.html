@@ -1,86 +1,12 @@
 <div class="w-100 vh-100">
-  <amplify-authenticator [formFields]="signInFormFields" [hideSignUp]="true">
-    <!-- <ng-template amplifySlot="sign-in-header">
-       <div class="d-flex justify-content-center align-items-center vh-100">
-       </div>
-    </ng-template> -->
+  <amplify-authenticator [hideSignUp]="false" initialState="signUp">
+    <ng-template amplifySlot="sign-up">
+      <app-signup></app-signup>
+    </ng-template>
     <ng-template amplifySlot="sign-in">
-      <app-layout></app-layout>
-      <!-- <div class="d-flex flex-column align-items-center w-100 vh-100 justify-content-center">
-        <form data-amplify-form class="container-fluid">
-          <div class="col-md-6 sign-in-header">
-            <h1 class="fw-bold">Sign-in</h1>
-            <div class="d-flex fw-bold flex-wrap w-max">
-              <span>
-                <p class="mb-0 text-secondary">No account yet? <a href="mailto:info@bofiscad.be"
-                    class="text-primary">Register here.</a></p>
-              </span>
-            </div>
-          </div>
-          <div class="row g-0 mt-md-4 mt-2">
-            <div class="col-md-6 offset-md-3">
-              <amplify-authenticator [formFields]="signInFormFields"></amplify-authenticator>
-            </div>
-          </div>
-        </form>
-      </div> -->
+      <app-signin></app-signin>
     </ng-template>
-    <ng-template amplifySlot="reset-password">
-      <div class="d-flex flex-column align-items-center w-100 vh-100 justify-content-center">
-        <form data-amplify-form class="container-fluid">
-          <div class="col-md-6 offset-md-3">
-            <h1 class="fw-bold">Wachtwoord herstellen</h1>
-            <div class="d-flex fw-bold flex-wrap">
-              <p class="mb-0 text-secondary">Vul je emailadres aan, we sturen je dan een code waarna je
-                dan een nieuw wachtwoord kan invoeren.</p>
-            </div>
-          </div>
-          <div class="row g-0 mt-md-4 mt-2">
-            <div class="col-md-6 offset-md-3">
-              <amplify-authenticator [formFields]="signInFormFields"></amplify-authenticator>
-            </div>
-          </div>
-        </form>
-      </div>
-    </ng-template>
-    <ng-template amplifySlot="confirm-reset-password">
-      <div class="d-flex flex-column align-items-center w-100 vh-100 justify-content-center">
-        <form data-amplify-form class="container-fluid">
-          <div class="col-md-6 offset-md-3">
-            <h1 class="fw-bold">Wachtwoord herstellen voltooien</h1>
-            <div class="d-flex fw-bold flex-wrap">
-              <p class="mb-0 text-secondary">
-                We hebben een e-mail verstuurd naar met een eenmalige code, vul de code aan in
-                onderstaand veld en een nieuw wachtwoord om je account te herstellen.
-              </p>
-            </div>
-          </div>
-          <div class="row g-0 mt-md-4 mt-2">
-            <div class="col-md-6 offset-md-3">
-              <amplify-authenticator></amplify-authenticator>
-            </div>
-          </div>
-        </form>
-      </div>
-    </ng-template>
-    <ng-template amplifySlot="force-new-password">
-      <div class="d-flex flex-column align-items-center w-100 vh-100 justify-content-center">
-        <form data-amplify-form class="container-fluid">
-          <div class="col-md-6 offset-md-3">
-            <h1 class="fw-bold">Ingave nieuw wachtwoord</h1>
-            <div class="d-flex fw-bold flex-wrap">
-              <p class="mb-0 text-secondary">Om je account veiliger te maken vragen we je een nieuw
-                wachtwoord op te geven</p>
-            </div>
-          </div>
-          <div class="row g-0 mt-md-4 mt-2">
-            <div class="col-md-6 offset-md-3">
-              <amplify-authenticator></amplify-authenticator>
-            </div>
-          </div>
-        </form>
-      </div>
-    </ng-template>
+
     <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
       <div class="page">
         <div class="container-fluid overflow-hidden">

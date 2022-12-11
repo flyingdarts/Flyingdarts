@@ -108,6 +108,14 @@ h6 {
     }
 }
 
+[data-amplify-router-content][ng-reflect-active='true'] {
+    height: 100%;
+
+    div {
+        height: 100%;
+    }
+}
+
 @media (min-width: 986px) {
     .carousel-custom-top>img {
         max-height: 200px !important;
@@ -223,6 +231,9 @@ input.amplify-field-group__control {
     height: -webkit-fill-available;
 }
 
+// [data-amplify-router-content] {
+//     height: 100% !important
+// }
 
 [data-amplify-form] {
     padding: 0 !important;
@@ -369,6 +380,44 @@ amplify-slot[name='force-new-password-header'] .amplify-heading {
     border-color: #f9617d;
     margin-top: 20px;
 }
+
+:root {
+    --amplify-components-checkbox-button-before-border-color: #f9617d;
+    --amplify-components-checkbox-button-after-border-color: #f9617d;
+    --amplify-components-checkbox-button-before-border-width: 1px;
+    --amplify-components-checkbox-button-after-border-width: 1px;
+    --amplify-components-checkbox-button-after-border-style: solid;
+    // --amplify-components-checkbox-button-color: red;
+    // --amplify-components-checkbox-button-disabled-border-color: red;
+    // --amplify-components-checkbox-button-error-border-color: red;
+    // --amplify-components-checkbox-button-error-focus-border-color: red;
+    // --amplify-components-checkbox-button-focus-border-color: red;
+    // --amplify-components-checkbox-button-focus-outline-color: red;
+    // --amplify-components-checkbox-icon-background-color: red;
+    // --amplify-components-checkbox-icon-checked-disabled-background-color: red;
+    // --amplify-components-checkbox-label-disabled-color: red;
+
+}
+
+.my-amplify-checkbox {
+
+
+    .amplify-checkbox__button {
+        .amplify-checkbox__icon {
+            color: #f9617d;
+            background-color: #4c56c0;
+            border: 1px solid;
+        }
+
+        border-color: white;
+    }
+
+    .amplify-checkbox__label {
+        color: white !important
+    }
+}
+
+
 
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {}

@@ -1,0 +1,34 @@
+<div class="container body-content">
+    <div class="card">
+        <div class="card-body">
+            <div class="container px-0">
+                <div class="flyingdarts-login-container d-flex">
+                    <div class="col-sm-0 col-md-12 col-lg-8 top-container">
+                        <app-carousel></app-carousel>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-4 p-0 flyingdarts-mobile-container">
+                        <amplify-authenticator>
+                            <ng-template amplifySlot="sign-in">
+                                <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
+                                <amplify-authenticator [formFields]="signInFormFields"></amplify-authenticator>
+                                <div id="authForm" class="input-group">
+                                    <div class="form-control checkbox-control">
+                                        <input id="checkBoxAccept" type="checkbox" name="checkbox-checked" />
+                                        <span>
+                                            By clicking Confirm, you agree to our <a href="#">Terms of Service</a>
+                                            and <a href="#">Privacy policy</a>
+                                        </span>
+                                    </div>
+                                    <div class="input-group">
+                                        <input id="submitBtn" type="submit" class="btn btn-primary my-primary-button"
+                                            Value="Confirm" />
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </amplify-authenticator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
