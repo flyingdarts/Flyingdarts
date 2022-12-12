@@ -1,59 +1,46 @@
 <div class="w-100 vh-100">
-  <amplify-authenticator [hideSignUp]="false" initialState="signUp">
-    <ng-template amplifySlot="sign-up">
-      <app-signup></app-signup>
-    </ng-template>
+  <amplify-authenticator [hideSignUp]="true" initialState="signIn">
     <ng-template amplifySlot="sign-in">
-      <app-signin></app-signin>
-    </ng-template>
+      <div class="container body-content">
+        <div class="card">
+          <div class="card-body">
+            <div class="container px-0">
+              <div class="flyingdarts-login-container d-flex">
+                <div class="col-sm-0 col-md-12 col-lg-8 top-container">
+                  <app-carousel></app-carousel>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 p-0 flyingdarts-mobile-container">
+                  <amplify-authenticator>
+                    <ng-template amplifySlot="sign-in" let-validationErrors="validationErrors">
+                      <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
+                      <amplify-authenticator [formFields]="signInFormFields"></amplify-authenticator>
+                      <div class="d-flex">
+                        <amplify-checkbox class="my-amplify-checkbox checkbox-control"
+                          [errorMessage]="validationErrors.acknowledgement"
+                          [hasError]="!!validationErrors.acknowledgement" name="acknowledgement" value="yes">
 
-    <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
-      <div class="page">
-        <div class="container-fluid overflow-hidden">
-          <div class="row vh-100 overflow-auto">
-            <div class="col-12 col-sm-3 col-xl-2 px-sm-2 p-md-2 px-0 bg-primary d-flex sticky-top">
-              <div
-                class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start text-white">
-                <ul
-                  class="nav text-uppercase nav-pills text-white mt-5 fw-bold flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
-                  id="menu">
-                  <li class="nav-item">
-                    <a [routerLink]="['/', 'dashboard', 'awaiting-approval']" class="nav-link">
-                      <img src="/assets/icons/overview-search-icon.svg" /><span
-                        class="ms-md-4 align-middle d-none d-sm-inline">Overzicht</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a [routerLink]="['/', 'dashboard', 'my-company', 'my-company-details']" class="nav-link">
-                      <img src="/assets/icons/overview-search-icon.svg" /><span
-                        class="ms-md-4 align-middle d-none d-sm-inline">Mijn onderneming</span>
-                    </a>
-                  </li>
-                  <!-- <li class="nav-item">
-            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link">
-              <img src="/assets/icons/overview-list-icon.svg" /><span class="ms-md-4 align-middle d-none d-sm-inline">Facturen maken</span>
-            </a>
-          </li> -->
-                  <!-- <li class="nav-item">
-            <a href="#" class="nav-link"> <img src="/assets/icons/settings-icon.svg" /><span class="ms-md-4 align-middle d-none d-sm-inline">Instellingen</span> </a>
-          </li> -->
-                </ul>
-                <div class="py-sm-4 w-100 text-center d-none d-sm-block">
-                  <button (click)="signOut()" class="btn btn-link p-0 text-white text-decoration-none">afmelden</button>
+                        </amplify-checkbox>
+                        <span>
+                          By clicking Confirm, you agree to our <a href="#">Terms of Service</a>
+                          and <a href="#">Privacy policy</a>
+                        </span>
+                      </div>
+                    </ng-template>
+                  </amplify-authenticator>
                 </div>
               </div>
             </div>
-            <div class="col d-flex flex-column h-sm-100">
-              <div class="row p-5 pb-0">
-                <div class="col">
-                  <img class="img-fluid" src="/assets/logo.png" />
-                </div>
-              </div>
-              <div class="row p-5">
-                <main class="col">
-                  <router-outlet></router-outlet>
-                </main>
-              </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
+      <div class="container body-content">
+        <div class="card">
+          <div class="card-body">
+            <div class="container px-0">
+              Ah yeet
             </div>
           </div>
         </div>
