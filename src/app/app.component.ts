@@ -42,51 +42,7 @@ export class AppComponent {
         order: 2,
         placeholder: 'Password',
       },
-    },
-    forceNewPassword: {
-      password: {
-        isRequired: true,
-        labelHidden: true,
-        order: 2,
-        placeholder: 'Password',
-      },
-      confirm_password: {
-        isRequired: true,
-        labelHidden: true,
-        order: 2,
-        placeholder: 'Confirm password',
-      },
-    },
-    confirmResetPassword: {
-      confirmation_code: {
-        isRequired: true,
-        autocomplete: 'email',
-        labelHidden: true,
-        order: 1,
-        placeholder: 'Receive code',
-      },
-      password: {
-        isRequired: true,
-        labelHidden: true,
-        order: 2,
-        placeholder: 'Password',
-      },
-      confirm_password: {
-        isRequired: true,
-        labelHidden: true,
-        order: 2,
-        placeholder: 'Confirm password',
-      },
-    },
-    resetPassword: {
-      username: {
-        isRequired: true,
-        autocomplete: 'email',
-        labelHidden: true,
-        order: 1,
-        placeholder: 'E-mailadres',
-      },
-    },
+    }
   };
 }
 export function isNullOrUndefined(value: any): boolean {

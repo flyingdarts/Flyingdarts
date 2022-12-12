@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { LobbyComponent } from './lobby/lobby.component';
+import { WebsocketService } from './services/websocket.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { LobbyComponent } from './lobby/lobby.component';
     AppRoutingModule,
     AmplifyAuthenticatorModule
   ],
-  providers: [],
+  providers: [WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
