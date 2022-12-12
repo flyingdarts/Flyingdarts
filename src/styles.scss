@@ -108,9 +108,8 @@ h6 {
     }
 }
 
-[data-amplify-router-content][ng-reflect-active='true'],
-[data-amplify-router-content][data-state='active'] {
-    height: 100%;
+body>app-root>div>amplify-authenticator>div>div>div>amplify-tabs>amplify-tab-item:nth-child(3) {
+    height: 100% !important;
 
     div {
         height: 100%;
@@ -388,21 +387,9 @@ amplify-slot[name='force-new-password-header'] .amplify-heading {
     --amplify-components-checkbox-button-before-border-width: 1px;
     --amplify-components-checkbox-button-after-border-width: 1px;
     --amplify-components-checkbox-button-after-border-style: solid;
-    // --amplify-components-checkbox-button-color: red;
-    // --amplify-components-checkbox-button-disabled-border-color: red;
-    // --amplify-components-checkbox-button-error-border-color: red;
-    // --amplify-components-checkbox-button-error-focus-border-color: red;
-    // --amplify-components-checkbox-button-focus-border-color: red;
-    // --amplify-components-checkbox-button-focus-outline-color: red;
-    // --amplify-components-checkbox-icon-background-color: red;
-    // --amplify-components-checkbox-icon-checked-disabled-background-color: red;
-    // --amplify-components-checkbox-label-disabled-color: red;
-
 }
 
 .my-amplify-checkbox {
-
-
     .amplify-checkbox__button {
         .amplify-checkbox__icon {
             color: #f9617d;
