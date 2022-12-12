@@ -89,3 +89,6 @@ export class AppComponent {
     },
   };
 }
+export function isNullOrUndefined(value: any): boolean {
+  return value == null || value == undefined
+}

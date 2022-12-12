@@ -1,0 +1,17 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="mx-5" *ngFor="let player of players">
+                <p>{{player.id}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="mx-5">
+                <button type="button" class="btn btn-primary" (click)="joinLobby()">Join lobby</button>
+                <button type="button" class="btn btn-primary mx-1" (click)="createPlayerRoom()">Create room</button>
+            </div>
+        </div>
+    </div>
+</div>
