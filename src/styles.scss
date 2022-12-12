@@ -108,7 +108,8 @@ h6 {
     }
 }
 
-[data-amplify-router-content][ng-reflect-active='true'] {
+[data-amplify-router-content][ng-reflect-active='true'],
+[data-amplify-router-content][data-state='active'] {
     height: 100%;
 
     div {
