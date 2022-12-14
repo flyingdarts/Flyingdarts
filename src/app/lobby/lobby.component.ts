@@ -17,7 +17,7 @@ export class LobbyComponent implements OnInit {
     webSocketService.messages.subscribe(msg => {
       console.log("Response from websocket");
       console.log(JSON.parse(msg.message));
-      this.countryCode = 'BE'
+      this.countryCode = 'BE'.toLowerCase()
       if (JSON.parse(msg.message).action == "room/joined") {
         this.players.push({ id: JSON.parse(msg.message).message, country: this.countryCode })
       }
