@@ -1,0 +1,47 @@
+.flyingdarts-mobile-container {
+    color: white;
+    background: #4c56c0;
+    height: -webkit-fill-available;
+    align-items: center;
+    padding: 0 20px !important;
+}
+
+.flyingdarts-login-main {
+    width: 100%;
+}
+
+.flyingdarts-login-container {
+    height: 100%;
+}
+
+p {
+    font-size: 40px;
+}
+
+.calc-header {}
+
+.calc-body {
+    height: calc(100% - 320px);
+
+    div {
+        flex-grow: 1;
+
+        div {
+            justify-content: center;
+            align-items: center;
+            background-color: #3c46a7;
+            margin: 1px;
+        }
+    }
+}
+
+.miniature {
+    position: absolute;
+    bottom: 0;
+    right: calc(100% - 66.6666667%)
+}
+
+.invite-link {
+    font-size: 1.4em;
+    text-align: center;
+}

@@ -12,16 +12,18 @@ import { WebsocketService } from '../services/websocket.service';
 export class LobbyComponent implements OnInit {
   public players: IPlayer[] = []
   public player!: IPlayer
+  public countryCode: string = ''
   constructor(private webSocketService: WebsocketService, private router: Router) {
     webSocketService.messages.subscribe(msg => {
       console.log("Response from websocket");
       console.log(JSON.parse(msg.message));
+      this.countryCode = 'BE'
       if (JSON.parse(msg.message).action == "room/joined") {
-        this.players.push({ id: JSON.parse(msg.message).message })
+        this.players.push({ id: JSON.parse(msg.message).message, country: this.countryCode })
       }
       if (JSON.parse(msg.message).action == "lobby/joined") {
         var playerIds: string[] = JSON.parse(msg.message).message;
-        playerIds.forEach(x => this.players.push({ id: x }))
+        playerIds.forEach(x => this.players.push({ id: x, country: this.countryCode }))
       }
     })
   }
@@ -29,7 +31,7 @@ export class LobbyComponent implements OnInit {
     var playerId = sessionStorage.getItem("playerId");
     if (!isNullOrUndefined(playerId)) {
       this.player = {
-        id: playerId!,
+        id: playerId!, country: this.countryCode
       }
     }
   }
@@ -51,4 +53,5 @@ export class LobbyComponent implements OnInit {
 
 export interface IPlayer {
   id: string
+  country: string
 }

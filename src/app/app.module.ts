@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { WebsocketService } from './services/websocket.service';
+import { X01Component } from './x01/x01.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarouselComponent,
-    LobbyComponent
+    LobbyComponent,
+    X01Component
   ],
   imports: [
     BrowserModule,

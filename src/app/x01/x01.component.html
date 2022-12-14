@@ -1,0 +1,145 @@
+<div class="flyingdarts-login-container d-flex">
+    <div class="col-sm-0 col-md-12 col-lg-7 top-container">
+        <div class="d-flex flex-column h-100">
+            <p class="invite-link">{{ inviteLink }}</p>
+            <div class="row">
+                <div class="col-lg-6 text-center">
+                    <h1>Player 1</h1>
+                    <br />
+                    <ul>
+                        <li *ngFor="let item of player">
+                            {{ item }}
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="col-lg-6 text-center">
+                    <h1>Player 2</h1>
+                    <br />
+                    <ul>
+                        <li *ngFor="let item of opponent">
+                            {{ item }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-5 p-0 flyingdarts-mobile-container">
+        <div class="calc-header">
+            <div class="row g-0">
+                <div class="col-12">
+                    <div class="row text-center">
+                        <h1 class="mb-0 mt-3">FLYINGDARTS</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-6">
+                    <div class="row text-center">
+                        <p class="mb-0">{{ player_score }}</p>
+                    </div>
+                    <div class="row text-center">
+                        <p class="mb-4">Player 1</p>
+                    </div>
+                    <div class="row text-center">
+                        <h3 class="mb-0">AVG: {{ player_avg }}</h3>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row text-center">
+                        <p class="mb-0">{{ opponent_score }}</p>
+                    </div>
+                    <div class="row text-center">
+                        <p class="mb-4">Player 2</p>
+                    </div>
+                    <div class="row text-center">
+                        <h3 class="mb-0">AVG: {{ opponent_avg }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-12">
+                    <div class="row text-center">
+                        <p class="mb-0 mt-3">T20 T20 T12</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="calc-body d-flex flex-column">
+            <div class="d-flex">
+                <div class="d-flex">
+                    <p>1</p>
+                </div>
+                <div class="d-flex">
+                    <p>{{ currentInput }}</p>
+                </div>
+                <div class="d-flex">
+                    <p>1</p>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex" (click)="sendScore(26)">
+                    <p>26</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(1)">
+                    <p>1</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(2)">
+                    <p>2</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(3)">
+                    <p>3</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(60)">
+                    <p>60</p>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex" (click)="sendScore(41)">
+                    <p>41</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(4)">
+                    <p>4</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(5)">
+                    <p>5</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(6)">
+                    <p>6</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(85)">
+                    <p>85</p>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex" (click)="sendScore(45)">
+                    <p>45</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(7)">
+                    <p>7</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(8)">
+                    <p>8</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(9)">
+                    <p>9</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(100)">
+                    <p>100</p>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex" (click)="clearInput()">
+                    <p>CLEAR</p>
+                </div>
+                <div class="d-flex" (click)="sendScore(0)">
+                    <p>0</p>
+                </div>
+                <div class="d-flex" (click)="scoreAction()">
+                    <p>{{scoreActionButtonText}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
