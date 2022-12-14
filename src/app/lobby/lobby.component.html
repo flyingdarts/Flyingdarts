@@ -12,7 +12,9 @@
                 <tbody>
                     <tr *ngFor="let player of players">
                         <td>
-                            <span class="flag-icon flag-icon-{{player.country}} flag-icon-squared"></span>
+                            <span class="fi fi-{{player.country}}"></span> <span
+                                class="fi fi-{{player.country}} fis"></span>
+                            <span class="flag-icon flag-icon- flag-icon-squared"></span>
                         </td>
                         <td>{{player.id}}</td>
                         <td></td>
