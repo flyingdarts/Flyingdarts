@@ -11,7 +11,9 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let player of players">
-                        <td></td>
+                        <td>
+                            <span class="flag-icon flag-icon-{{player.country | lowercase }} flag-icon-squared"></span>
+                        </td>
                         <td>{{player.id}}</td>
                         <td></td>
                     </tr>
