@@ -1,9 +1,22 @@
-<div class="container mt-4">
+<div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="mx-5" *ngFor="let player of players">
-                <p>{{player.id}}</p>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>Name</th>
+                        <th>Avg</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let player of players">
+                        <td>{{player.id}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="row">
@@ -11,6 +24,7 @@
             <div class="mx-5">
                 <button type="button" class="btn btn-primary" (click)="joinLobby()">Join lobby</button>
                 <button type="button" class="btn btn-primary mx-1" (click)="createPlayerRoom()">Create room</button>
+                <button type="button" class="btn btn-primary mx-1" (click)="signOut()">Sign out</button>
             </div>
         </div>
     </div>

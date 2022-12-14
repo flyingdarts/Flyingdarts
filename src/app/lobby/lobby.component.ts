@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Auth } from 'aws-amplify';
 import { isNullOrUndefined } from '../app.component';
 import { WebsocketService } from '../services/websocket.service';
 
@@ -41,6 +42,10 @@ export class LobbyComponent implements OnInit {
   createPlayerRoom() {
     this.webSocketService.messages.next({ action: "rooms/create", message: localStorage.getItem("roomId")! })
     this.router.navigate(['x01', localStorage.getItem("roomId")])
+  }
+
+  public signOut(): void {
+    Auth.signOut({ global: true });
   }
 }
 
