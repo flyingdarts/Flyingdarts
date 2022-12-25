@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
+import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
 import { isNullOrUndefined } from '../app.component';
 import { WebsocketService } from '../services/websocket.service';
 
@@ -13,6 +14,12 @@ export class LobbyComponent implements OnInit {
   public players: IPlayer[] = []
   public player!: IPlayer
   public countryCode: string = ''
+
+  public lottieOptions: AnimationOptions = {
+    path: '/assets/animations/lottie-play-icon.json'
+  };
+
+
   constructor(private webSocketService: WebsocketService, private router: Router) {
     webSocketService.messages.subscribe(msg => {
       console.log("Response from websocket");
@@ -27,6 +34,9 @@ export class LobbyComponent implements OnInit {
       }
     })
   }
+  setGameMode(val: number) {
+    console.log(`Value clicked: ${val}`)
+  }
   ngOnInit(): void {
     var playerId = sessionStorage.getItem("playerId");
     if (!isNullOrUndefined(playerId)) {
@@ -34,6 +44,10 @@ export class LobbyComponent implements OnInit {
         id: playerId!, country: this.countryCode
       }
     }
+  }
+  // This is the component function that binds to the animationCreated event from the package  
+  onAnimate(animationItem: AnimationItem): void {
+    console.log(animationItem);
   }
 
   joinLobby() {

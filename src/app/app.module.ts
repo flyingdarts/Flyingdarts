@@ -9,6 +9,12 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { WebsocketService } from './services/websocket.service';
 import { X01Component } from './x01/x01.component';
+import { LottieModule } from 'ngx-lottie';
+
+// Export this function
+export function playerFactory(): any {
+  return import('lottie-web');
+}
 
 @NgModule({
   declarations: [
@@ -20,7 +26,8 @@ import { X01Component } from './x01/x01.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AmplifyAuthenticatorModule
+    AmplifyAuthenticatorModule,
+    LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [WebsocketService],
   bootstrap: [AppComponent]

@@ -1,3 +1,5 @@
+$flyingdarts-primary: #4C56C0;
+
 /* You can add global styles to this file, and also import other style files */
 body {
     height: 100vh;
@@ -24,7 +26,9 @@ h6 {
     font-family: "Poppins" !important;
     font-style: normal;
     font-weight: 400;
+    color: $flyingdarts-primary;
 }
+
 
 .body-content {
     height: 100%;
@@ -159,6 +163,7 @@ body>app-root>div>amplify-authenticator>div>div>div>amplify-tabs>amplify-tab-ite
 
 body {
     padding: 0 !important;
+    margin: 0 !important;
 }
 
 $input-bg: white;
@@ -421,3 +426,9 @@ amplify-slot[name='force-new-password-header'] .amplify-heading {
 
 /* Media Query for Large screens */
 @media (min-width: 1281px) {}
+
+ng-lottie {
+    height: 140px;
+    width: 140px;
+    margin: 0 auto;
+}

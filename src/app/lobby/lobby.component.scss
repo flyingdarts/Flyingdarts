@@ -1,0 +1,116 @@
+h1,
+h2,
+p,
+span {
+    padding: 0;
+    margin: 0;
+}
+
+h1 {}
+
+h2 {
+    color: black;
+}
+
+.row {
+    margin: 0;
+    padding: 0;
+}
+
+.lobby-card-inner:first {
+    margin-left: 20px;
+}
+
+.lobby-container {
+    height: 100%;
+    text-align: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+
+    .lobby-game-modes {
+        height: calc(100% - 160px);
+
+        div:hover {
+            cursor: pointer;
+        }
+
+        .lobby-card-inner {
+            height: 100%;
+            display: unset !important;
+        }
+
+        .lobby-card {
+            background-color: #4C56C0;
+            background-repeat: no-repeat;
+            background-size: 95%;
+            background-position-y: bottom;
+            background-position-x: center;
+            background-size: contain;
+            padding: 20px;
+
+            p {
+                font-size: 32px;
+                font-weight: 600;
+                color: white;
+            }
+
+            .subtitle {
+                font-size: 24px;
+                font-weight: 300;
+            }
+
+            .lobby-card-content {
+                height: 140px;
+                width: 100%;
+                text-align: center;
+
+                svg {
+                    height: 140px;
+                    width: 140px;
+                }
+            }
+        }
+    }
+}
+
+ng-lottie {
+    svg {
+        height: 140px;
+        width: 140px;
+    }
+}
+
+.card-friends {
+    background-image: url('/assets/friends.svg');
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.card-solo {
+    background-image: url('/assets/solo.svg');
+    background-position-x: right !important;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.card-question {
+    background-image: url('/assets/ideas.svg');
+    background-position-x: left !important;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.solo-beuter {
+    flex-direction: column;
+    text-align: left;
+
+    p {
+        font-weight: 200 !important;
+
+        strong {
+            font-weight: 700 !important;
+            color: #f9617d;
+        }
+    }
+}
