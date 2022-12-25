@@ -52,6 +52,12 @@ h6 {
 }
 
 @media (max-width: 550px) {
+    .body-content {
+        .card {
+            height: unset !important;
+        }
+    }
+
     .top-container {
         display: none;
     }

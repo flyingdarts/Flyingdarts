@@ -34,12 +34,11 @@
     </div>
 </div> -->
 
-<div class="lobby-container container-fluid px-0 d-flex">
-    <div>
-        <h2>Welcome back Mike. Good game and have fun.</h2>
-    </div>
+<div class="lobby-container container-fluid px-0">
+    <h2>Welcome back Mike. Good game and have fun.</h2>
+
     <div class="lobby-game-modes row">
-        <div class="col-3 px-0" (click)="setGameMode(0)">
+        <div class="col-lg-3 col-md-6 col-sm-12 px-0" (click)="setGameMode(0)">
             <div class="lobby-card-inner">
                 <div class="lobby-card card card-friends">
                     <p>Play with friends</p>
@@ -49,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3  px-0" (click)="setGameMode(1)">
+        <div class="col-lg-3 col-md-6 col-sm-12 px-0" (click)="setGameMode(1)">
             <div class="lobby-card-inner">
                 <div class="lobby-card card card-solo">
                     <div class="lobby-card-content">
@@ -67,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 px-0" (click)="setGameMode(9999)">
+        <div class="col-lg-6 col-md-12 col-sm-12 px-0" (click)="setGameMode(9999)">
             <div class="lobby-card-inner">
                 <div class="lobby-card card card-question">
                     <p>Let us know what you want next!</p>
