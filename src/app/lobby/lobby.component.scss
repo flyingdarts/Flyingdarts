@@ -129,7 +129,7 @@ ng-lottie {
             height: -webkit-fill-available;
 
             .lobby-card {
-                width: 370px;
+                width: calc(100% - 40px);
 
                 p {
                     font-size: 1.6em;
@@ -154,6 +154,7 @@ ng-lottie {
         margin: 0;
         margin: 0 auto;
         margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .card-question {
@@ -167,9 +168,18 @@ ng-lottie {
 
 /* Media Query for low resolution  Tablets, Ipads */
 @media (min-width: 481px) and (max-width: 767px) {
+    h2 {
+        font-size: 0.8em;
+    }
+
     .lobby-container {
         .lobby-game-modes {
+
+            height: -webkit-fill-available;
+
             .lobby-card {
+                width: calc(100% - 40px);
+
                 p {
                     font-size: 1.6em;
                     font-weight: 600;
@@ -183,6 +193,25 @@ ng-lottie {
                 }
             }
         }
+    }
+
+    .card-friends {
+        margin: 0 auto;
+    }
+
+    .card-solo {
+        margin: 0;
+        margin: 0 auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .card-question {
+        margin: 0;
+        margin: 0 auto;
+
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }
 
