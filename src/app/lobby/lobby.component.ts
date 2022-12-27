@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
-import { isNullOrUndefined } from '../app.component';
 import { WebsocketService } from '../services/websocket.service';
 
 @Component({
@@ -11,10 +10,7 @@ import { WebsocketService } from '../services/websocket.service';
   styleUrls: ['./lobby.component.scss']
 })
 export class LobbyComponent implements OnInit {
-  public players: IPlayer[] = []
-  public player!: IPlayer
-  public countryCode: string = ''
-
+  public playerId: string = "";
   public lottieOptions: AnimationOptions = {
     path: '/assets/animations/lottie-play-icon.json'
   };
@@ -24,26 +20,14 @@ export class LobbyComponent implements OnInit {
     webSocketService.messages.subscribe(msg => {
       console.log("Response from websocket");
       console.log(JSON.parse(msg.message));
-      this.countryCode = 'BE'.toLowerCase()
-      if (JSON.parse(msg.message).action == "room/joined") {
-        this.players.push({ id: JSON.parse(msg.message).message, country: this.countryCode })
-      }
-      if (JSON.parse(msg.message).action == "lobby/joined") {
-        var playerIds: string[] = JSON.parse(msg.message).message;
-        playerIds.forEach(x => this.players.push({ id: x, country: this.countryCode }))
-      }
     })
   }
   setGameMode(val: number) {
     console.log(`Value clicked: ${val}`)
   }
   ngOnInit(): void {
-    var playerId = sessionStorage.getItem("playerId");
-    if (!isNullOrUndefined(playerId)) {
-      this.player = {
-        id: playerId!, country: this.countryCode
-      }
-    }
+    this.playerId = sessionStorage.getItem("playerId")!;
+    console.log(`Player id: ${this.playerId}`);
   }
   // This is the component function that binds to the animationCreated event from the package  
   onAnimate(animationItem: AnimationItem): void {
@@ -51,8 +35,8 @@ export class LobbyComponent implements OnInit {
   }
 
   joinLobby() {
-    this.players.push(this.player)
-    this.webSocketService.messages.next({ action: "rooms/join", message: `lobby#${this.player.id}` })
+    this.playerId = sessionStorage.getItem("playerId")!;
+    console.log(`Player id: ${this.playerId}`);
   }
 
   createPlayerRoom() {
@@ -65,7 +49,20 @@ export class LobbyComponent implements OnInit {
   }
 }
 
-export interface IPlayer {
-  id: string
-  country: string
-}
+window.addEventListener("scroll", function () {
+
+  const maxHeight = document.body.scrollHeight - window.innerHeight;
+  const max = (window.pageYOffset * 100) / maxHeight;
+  var bar = this.document.getElementById('secretStatusBar')!;
+  if (max > 26) {
+    bar!.style.position = "fixed";
+    bar!.style.top = "0";
+    bar!.style.left = "0";
+    bar!.style.zIndex = "1";
+    bar!.style.backgroundColor = "white";
+    bar!.style.width = "100%";
+  } else if (max <= 26) {
+    bar!.style.position = "unset"
+  }
+
+});

@@ -54,7 +54,8 @@ h6 {
 @media (max-width: 550px) {
     .body-content {
         .card {
-            height: unset !important;
+            height: 100%;
+            border: none;
         }
     }
 
