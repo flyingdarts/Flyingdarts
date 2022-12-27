@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { WebsocketService } from '../services/websocket.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require('uuid');
   templateUrl: './x01.component.html',
   styleUrls: ['./x01.component.scss']
 })
-export class X01Component implements OnInit {
+export class X01Component implements OnInit, OnDestroy {
   public inviteLink: string = ''
   public scoreActionButtonText = 'NO SCORE'
   public content = '';
@@ -56,9 +56,12 @@ export class X01Component implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log();
-  }
 
+
+  }
+  ngOnDestroy(): void {
+    window.removeEventListener("scroll", () => { });
+  }
   sendScore(input?: number) {
     if (input! >= 0 && input! <= 9) {
       this.currentInput = Number(`${this.currentInput}${input!}`)

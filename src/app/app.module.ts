@@ -10,6 +10,10 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { WebsocketService } from './services/websocket.service';
 import { X01Component } from './x01/x01.component';
 import { LottieModule } from 'ngx-lottie';
+import { LoadingComponent } from './loading/loading.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingInterceptor } from './loading/loading.interceptor';
+import { LoadingService } from './loading/loading.service';
 
 // Export this function
 export function playerFactory(): any {
@@ -21,15 +25,19 @@ export function playerFactory(): any {
     AppComponent,
     CarouselComponent,
     LobbyComponent,
-    X01Component
+    X01Component,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AmplifyAuthenticatorModule,
-    LottieModule.forRoot({ player: playerFactory })
+    LottieModule.forRoot({ player: playerFactory }),
+    HttpClientModule
   ],
-  providers: [WebsocketService],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+  }, WebsocketService, LoadingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
