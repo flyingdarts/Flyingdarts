@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
-import { LocalStorageKeys } from '../services/player.local-storage.service';
-import { WebsocketService } from '../services/websocket.service';
+import { LocalStorageKeys } from './../../services/player.local-storage.service';
+import { WebsocketService } from './../../services/websocket.service';
 import { LobbyApiService } from './lobby-api.service';
 
 @Component({

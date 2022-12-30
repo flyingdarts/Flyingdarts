@@ -1,8 +1,9 @@
 import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { WebsocketService } from '../services/websocket.service';
+import { WebsocketService } from '../../services/websocket.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TweenMax } from 'gsap';
+import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
 const { v4: uuidv4 } = require('uuid');
 
 @Component({
@@ -14,17 +15,23 @@ export class X01Component implements OnInit, OnDestroy {
   public inviteLink: string = ''
   public scoreActionButtonText = 'NO SCORE'
   public content = '';
-  public player: Number[] = [];
-  public opponent: Number[] = [];
-  public player_score: Number = 501;
-  public opponent_score: Number = 501;
-  public player_avg: Number = 0;
-  public opponent_avg: Number = 0;
+  public input: string = ".";
   public currentInput: Number = 0;
+
+  public player: Number[] = [];
+  public player_name: string = "Player";
+  public player_score: Number = 501;
+  public player_avg: Number = 0;
+
+  public opponent: Number[] = [];
+  public opponent_name: string = "Opponent";
+  public opponent_score: Number = 501;
+  public opponent_avg: Number = 0;
+
   constructor(
     private webSocketService: WebsocketService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private playerLocalStorageService: PlayerLocalStorageService) {
     webSocketService.messages.subscribe(msg => {
       console.log("Response from websocket");
       console.log(JSON.parse(msg.message));
@@ -63,6 +70,7 @@ export class X01Component implements OnInit, OnDestroy {
     for (var i = 0; i < targets.length; i++) {
       targets[i].addEventListener("click", this.showScore);
     }
+    this.player_name = this.playerLocalStorageService.getUserName();
   }
 
   createPointArray() {

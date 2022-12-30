@@ -4,17 +4,17 @@ import { NgModule } from '@angular/core';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { CarouselComponent } from './carousel/carousel.component';
-import { LobbyComponent } from './lobby/lobby.component';
 import { WebsocketService } from './services/websocket.service';
-import { X01Component } from './x01/x01.component';
+import { X01Component } from './components/x01/x01.component';
 import { LottieModule } from 'ngx-lottie';
-import { LoadingComponent } from './loading/loading.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoadingInterceptor } from './loading/loading.interceptor';
-import { LoadingService } from './loading/loading.service';
 import { PlayerLocalStorageService } from './services/player.local-storage.service';
+import { AppComponent } from './components/app/app.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { LoadingInterceptor } from './components/loading/loading.interceptor';
+import { LoadingService } from './components/loading/loading.service';
+import { LobbyComponent } from './components/lobby/lobby.component';
 
 // Export this function
 export function playerFactory(): any {
