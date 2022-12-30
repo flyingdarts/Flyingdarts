@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthFormFields } from '@aws-amplify/ui';
 import { Auth } from 'aws-amplify';
+import { LocalStorageKeys, PlayerLocalStorageService } from './services/player.local-storage.service';
 const { v4: uuidv4 } = require('uuid');
 
 @Component({
@@ -14,11 +15,12 @@ export class AppComponent implements OnInit {
   private playerId?: string | null;
   private user: any
   public userName?: string | null;
-  constructor(private router: Router) {
+  constructor(private router: Router, private playerLocalStorageService: PlayerLocalStorageService) {
     this.getUser().then((user: any) => {
       this.user = user.attributes;
       console.log(this.user);
       this.userName = this.user.name;
+      playerLocalStorageService.setUserName(this.userName!)
     });
   }
   getUser(): Promise<any> {

@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
+import { LocalStorageKeys } from '../services/player.local-storage.service';
 import { WebsocketService } from '../services/websocket.service';
 import { LobbyApiService } from './lobby-api.service';
 
@@ -57,7 +58,8 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   createPlayerRoom() {
-    this.webSocketService.messages.next({ action: "rooms/create", message: localStorage.getItem("roomId")! })
+    var message = `${localStorage.getItem("roomId")!}#${sessionStorage.getItem(LocalStorageKeys.UserId)}#${localStorage.getItem(LocalStorageKeys.UserName)}`
+    this.webSocketService.messages.next({ action: "rooms/create", message: message })
     this.router.navigate(['x01', localStorage.getItem("roomId")])
   }
 

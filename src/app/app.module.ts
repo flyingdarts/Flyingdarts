@@ -14,6 +14,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './loading/loading.interceptor';
 import { LoadingService } from './loading/loading.service';
+import { PlayerLocalStorageService } from './services/player.local-storage.service';
 
 // Export this function
 export function playerFactory(): any {
@@ -37,7 +38,7 @@ export function playerFactory(): any {
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
-  }, WebsocketService, LoadingService],
+  }, WebsocketService, LoadingService, PlayerLocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
