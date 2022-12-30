@@ -38,7 +38,7 @@
         <div class="card">
           <div class="flyingdarts-navbar">
             <nav class="navbar navbar-expand-lg bg-light">
-              <div class="container-fluid justify-content-space-between">
+              <div class="container-fluid justify-content-space-between flyingdarts-nav">
                 <ng-lottie [options]="lottieOptions" (animationCreated)="onAnimate($event)"></ng-lottie>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -55,6 +55,9 @@
                       <a href="#" class="nav-link" aria-current="page" (click)="signOut()">Signout</a>
                     </li>
                   </ul>
+                  <div class="form-group">
+                    <button class="btn btn-link"><strong>{{userName}}</strong></button>
+                  </div>
                   <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                     <label class="form-check-label" for="flexSwitchCheckDefault">Ranked</label>
@@ -63,18 +66,23 @@
               </div>
             </nav>
           </div>
-          <div class="col-lg-5 col-md-12 col-12">
-            <h2 id="secretStatusBar" class="text-center">Welcome back <strong>{{userName}}</strong>. Good game and have
-              fun.</h2>
-          </div>
           <div class="card-body">
             <div class="container px-0">
               <router-outlet></router-outlet>
+            </div>
+          </div>
+          <div class="card-footer">
+            <p class="footer-copy">Copyright © Flyingdarts 2022 - 2023</p>
+            <div class="d-flex">
+              <a href="https://github.com/flyingdarts" class="github-link"><img clas="footer-github-icon"
+                  src="/assets/github.svg" class="d-block mx-auto" alt="https://github.com/flyingdarts"></a>
+
+              <a href="https://buymeacoffee.com/mikepattynE" class="github-link"><img clas="footer-github-icon"
+                  src="/assets/coffee.svg" class="d-block mx-auto" alt="https://buymeacoffee.com/mikepattynE"></a>
             </div>
           </div>
         </div>
       </div>
     </ng-template>
   </amplify-authenticator>
-  <app-loading></app-loading>
 </div>

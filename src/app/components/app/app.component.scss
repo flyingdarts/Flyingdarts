@@ -35,7 +35,53 @@ h2 {
     padding: 0;
 }
 
+.card-footer {
+    background: unset;
+    text-align: center;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+
+    .footer-copy {
+
+        height: fit-content;
+        align-self: center;
+
+
+    }
+
+    p {
+        margin: 0 !important;
+    }
+
+    ul {
+        display: inline;
+
+        li {
+            display: list-item;
+        }
+    }
+
+    img {
+        height: 30px;
+    }
+
+    a {
+        margin-bottom: 10px;
+    }
+
+    a:nth-of-type(2) {
+        margin-left: 20px;
+    }
+}
+
 $navbar-height: auto;
+
+.flyingdarts-nav {
+    margin: 0;
+    padding: 0;
+    padding-right: 10px;
+}
 
 .flyingdarts-navbar {
     width: 100%;

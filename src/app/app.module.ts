@@ -17,6 +17,7 @@ import { LoadingService } from './components/loading/loading.service';
 import { LobbyComponent } from './components/lobby/lobby.component';
 import { WebcamModule } from 'ngx-webcam';
 import { JitsiService } from './services/jitsi.service';
+import { ThankYouComponent } from './components/thank-you/thank-you.component';
 
 // Export this function
 export function playerFactory(): any {
@@ -29,7 +30,8 @@ export function playerFactory(): any {
     CarouselComponent,
     LobbyComponent,
     X01Component,
-    LoadingComponent
+    LoadingComponent,
+    ThankYouComponent
   ],
   imports: [
     BrowserModule,

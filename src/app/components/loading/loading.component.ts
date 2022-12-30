@@ -9,7 +9,7 @@ import { LoadingService } from './loading.service';
 })
 export class LoadingComponent {
   public lottieOptions: AnimationOptions = {
-    path: '/assets/animations/queue.json'
+    path: '/assets/animations/flyingdarts_header.json'
   };
 
 
