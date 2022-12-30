@@ -12,11 +12,21 @@ const { v4: uuidv4 } = require('uuid');
 export class AppComponent implements OnInit {
   private roomId?: string | null;
   private playerId?: string | null;
-
+  private user: any
+  public userName?: string | null;
   constructor(private router: Router) {
-
+    this.getUser().then((user: any) => {
+      this.user = user.attributes;
+      console.log(this.user);
+      this.userName = this.user.name;
+    });
   }
+  getUser(): Promise<any> {
+    return Auth.currentUserInfo();
+  }
+
   ngOnInit(): void {
+
     this.playerId = uuidv4();
     sessionStorage.setItem("playerId", this.playerId!)
 
@@ -44,7 +54,6 @@ export class AppComponent implements OnInit {
       } else {
         bar!.style.position = "unset"
       }
-
     });
   }
   title = 'flyingdarts';
