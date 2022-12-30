@@ -19,7 +19,8 @@ export class AppComponent implements OnInit {
   public userName?: string | null;
 
   public lottieOptions: AnimationOptions = {
-    path: '/assets/animations/flyingdarts_header.json'
+    path: '/assets/animations/flyingdarts_icon.json',
+    loop: false
   };
 
   constructor(private router: Router, private playerLocalStorageService: PlayerLocalStorageService) {
@@ -67,6 +68,8 @@ export class AppComponent implements OnInit {
         bar!.style.position = "unset"
       }
     });
+
+
   }
   title = 'flyingdarts';
   public signOut(): void {
