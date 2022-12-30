@@ -23,6 +23,7 @@
     "amazon-cognito-identity-js": "^6.0.1",
     "aws-amplify": "^5.0.5",
     "flag-icons": "^6.6.6",
+    "gsap": "^3.11.4",
     "lottie-web": "^5.10.0",
     "ngx-lottie": "^9.1.0",
     "rxjs": "~7.5.0",
