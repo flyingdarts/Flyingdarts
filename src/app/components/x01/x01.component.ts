@@ -83,7 +83,7 @@ export class X01Component implements OnInit, OnDestroy {
     var view = document.getElementById("webcamView");
     this.webcamHeight = view?.clientHeight!;
     this.webcamWidth = view?.clientWidth!;
-    this.jitsiService.namePrincipalRoom = `Flyingdarts ${this.player_name}`;
+    this.jitsiService.namePrincipalRoom = `Flyingdarts 481fbd4a-52af-4553-8de7-0705d4d50259`;
     this.jitsiService.moveRoom(this.jitsiService.namePrincipalRoom, true);
 
   }
