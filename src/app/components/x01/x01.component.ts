@@ -6,6 +6,7 @@ import { TweenMax } from 'gsap';
 import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
 import { Subject } from 'rxjs';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
+import { JitsiService } from 'src/app/services/jitsi.service';
 const { v4: uuidv4 } = require('uuid');
 @Component({
   selector: 'app-x01',
@@ -38,7 +39,8 @@ export class X01Component implements OnInit, OnDestroy {
   constructor(
     private webSocketService: WebsocketService,
     private route: ActivatedRoute,
-    private playerLocalStorageService: PlayerLocalStorageService) {
+    private playerLocalStorageService: PlayerLocalStorageService,
+    private jitsiService: JitsiService) {
     webSocketService.messages.subscribe(msg => {
       console.log("Response from websocket");
       console.log(JSON.parse(msg.message));
@@ -81,32 +83,22 @@ export class X01Component implements OnInit, OnDestroy {
     var view = document.getElementById("webcamView");
     this.webcamHeight = view?.clientHeight!;
     this.webcamWidth = view?.clientWidth!;
-  }
-  public handleImage(webcamImage: WebcamImage): void {
-    this.webcamImage = webcamImage;
+    this.jitsiService.namePrincipalRoom = `Flyingdarts ${this.player_name}`;
+    this.jitsiService.moveRoom(this.jitsiService.namePrincipalRoom, true);
+
   }
 
-  public cameraWasSwitched(deviceId: string): void {
-    console.log("active device: " + deviceId);
-    this.deviceId = deviceId;
-  }
+  executeCommand(data: any) {
+    console.log(
+      'this.jitsiService.getParticipants():',
+      this.jitsiService.getParticipants()
+    );
 
-  public get triggerObservable() {
-    console.log();
-    return this.trigger.asObservable();
-  }
-
-  public triggerSnapshot(): void {
-    this.trigger.next();
-  }
-
-  public handleInitError(error: WebcamInitError): void {
-    if (
-      error.mediaStreamError &&
-      error.mediaStreamError.name === "NotAllowedError"
-    ) {
-      console.warn("Camera access was not allowed by user!");
-    }
+    this.jitsiService.api.executeCommand(
+      'sendEndpointTextMessage',
+      this.jitsiService.getParticipants(),
+      'mover a principal'
+    );
   }
   createPointArray() {
     const angle = this.convertToRad(4.5);

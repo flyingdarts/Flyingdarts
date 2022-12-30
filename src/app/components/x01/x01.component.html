@@ -38,10 +38,6 @@
             <div id="wrapper">
             </div>
         </div>
-        <div id="webcamView" class="col-sm-12 col-md-12 col-lg-7">
-            <webcam [height]="webcamHeight" [width]="webcamWidth" class="box-shadow img-responsive"
-                [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
-                (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"></webcam>
-        </div>
+        <div class="col-sm-12 col-md-12 col-lg-5" id="jitsi-iframe"></div>
     </div>
 </div>

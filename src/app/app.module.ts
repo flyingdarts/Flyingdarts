@@ -16,6 +16,7 @@ import { LoadingInterceptor } from './components/loading/loading.interceptor';
 import { LoadingService } from './components/loading/loading.service';
 import { LobbyComponent } from './components/lobby/lobby.component';
 import { WebcamModule } from 'ngx-webcam';
+import { JitsiService } from './services/jitsi.service';
 
 // Export this function
 export function playerFactory(): any {
@@ -38,9 +39,15 @@ export function playerFactory(): any {
     HttpClientModule,
     WebcamModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
-  }, WebsocketService, LoadingService, PlayerLocalStorageService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+    },
+    WebsocketService,
+    LoadingService,
+    PlayerLocalStorageService,
+    JitsiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
