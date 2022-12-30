@@ -13,9 +13,8 @@
                   <amplify-authenticator>
                     <ng-template amplifySlot="sign-in" let-validationErrors="validationErrors">
                       <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
-                      <ng-lottie></ng-lottie>
                       <amplify-authenticator></amplify-authenticator>
-                      <div class="d-flex">
+                      <div class=" d-flex">
                         <amplify-checkbox class="my-amplify-checkbox checkbox-control"
                           [errorMessage]="validationErrors.acknowledgement"
                           [hasError]="!!validationErrors.acknowledgement" name="acknowledgement" value="yes">
@@ -39,8 +38,9 @@
         <div class="card">
           <div class="flyingdarts-navbar">
             <nav class="navbar navbar-expand-lg bg-light">
-              <div class="container-fluid">
-                <a class="navbar-brand" href="#">Flyingdarts</a>
+              <div class="container-fluid justify-content-space-between">
+                <ng-lottie [options]="lottieOptions" (animationCreated)="onAnimate($event)"></ng-lottie>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                   data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                   aria-label="Toggle navigation">

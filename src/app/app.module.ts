@@ -15,6 +15,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingInterceptor } from './components/loading/loading.interceptor';
 import { LoadingService } from './components/loading/loading.service';
 import { LobbyComponent } from './components/lobby/lobby.component';
+import { WebcamModule } from 'ngx-webcam';
 
 // Export this function
 export function playerFactory(): any {
@@ -34,7 +35,8 @@ export function playerFactory(): any {
     AppRoutingModule,
     AmplifyAuthenticatorModule,
     LottieModule.forRoot({ player: playerFactory }),
-    HttpClientModule
+    HttpClientModule,
+    WebcamModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true

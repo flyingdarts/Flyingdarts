@@ -440,6 +440,16 @@ ng-lottie {
     margin: 0 auto;
 }
 
+.navbar {
+    ng-lottie {
+        height: 140px;
+        width: 140px;
+        margin: unset !important;
+        margin-left: 40px !important;
+        margin-right: 40px !important;
+    }
+}
+
 #wrapper {
     width: 600px;
     height: 600px;

@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TweenMax } from 'gsap';
 import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
+import { Subject } from 'rxjs';
+import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 const { v4: uuidv4 } = require('uuid');
-
 @Component({
   selector: 'app-x01',
   templateUrl: './x01.component.html',
@@ -27,6 +28,12 @@ export class X01Component implements OnInit, OnDestroy {
   public opponent_name: string = "Opponent";
   public opponent_score: Number = 501;
   public opponent_avg: Number = 0;
+
+  private trigger: Subject<void> = new Subject<void>();
+  public webcamHeight = 300;
+  public webcamWidth = 300;
+  public webcamImage: any;
+  public deviceId: String = "";
 
   constructor(
     private webSocketService: WebsocketService,
@@ -63,7 +70,7 @@ export class X01Component implements OnInit, OnDestroy {
     })
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.createSVG();
     this.showDartBoard(this.boardElemArray());
     const targets = document.getElementsByClassName("target");
@@ -71,8 +78,36 @@ export class X01Component implements OnInit, OnDestroy {
       targets[i].addEventListener("click", this.showScore);
     }
     this.player_name = this.playerLocalStorageService.getUserName();
+    var view = document.getElementById("webcamView");
+    this.webcamHeight = view?.clientHeight!;
+    this.webcamWidth = view?.clientWidth!;
+  }
+  public handleImage(webcamImage: WebcamImage): void {
+    this.webcamImage = webcamImage;
   }
 
+  public cameraWasSwitched(deviceId: string): void {
+    console.log("active device: " + deviceId);
+    this.deviceId = deviceId;
+  }
+
+  public get triggerObservable() {
+    console.log();
+    return this.trigger.asObservable();
+  }
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public handleInitError(error: WebcamInitError): void {
+    if (
+      error.mediaStreamError &&
+      error.mediaStreamError.name === "NotAllowedError"
+    ) {
+      console.warn("Camera access was not allowed by user!");
+    }
+  }
   createPointArray() {
     const angle = this.convertToRad(4.5);
     let array = [];
@@ -284,6 +319,8 @@ export class X01Component implements OnInit, OnDestroy {
         ? (amount = 3 * amount)
         : (amount = amount);
     console.log(parseFloat(amount));
+
+    this.input = `${this.input}${parseFloat(amount)}`;
   }
 
   ngOnDestroy(): void {
@@ -291,13 +328,13 @@ export class X01Component implements OnInit, OnDestroy {
   }
   sendScore(input?: number) {
     if (input! >= 0 && input! <= 9) {
-      this.currentInput = Number(`${this.currentInput}${input!}`)
+      this.currentInput = Number(`${this.currentInput}${input!} `)
       this.scoreActionButtonText = 'OK';
       return
     }
     let body = {
       action: 'x01/score',
-      message: `${this.route.snapshot.params["roomId"]}#${sessionStorage.getItem('playerId')}#${this.player_score}#${input}`
+      message: `${this.route.snapshot.params["roomId"]} #${sessionStorage.getItem('playerId')} #${this.player_score} #${input} `
     }
     this.webSocketService.messages.next(body)
   }

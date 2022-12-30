@@ -1,40 +1,47 @@
 <div class="lobby-container container-fluid px-0">
-    <div class="col-sm-12 col-md-12 col-lg-5 p-0 flyingdarts-mobile-container">
-        <div class="calc-header">
-            <div class="row g-0">
-                <div class="col-6">
-                    <div class="row text-center">
-                        <p class="mb-0">{{ player_score }}</p>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-5 p-0 flyingdarts-mobile-container">
+            <div class="calc-header">
+                <div class="row g-0">
+                    <div class="col-6">
+                        <div class="row text-center">
+                            <p class="mb-0">{{ player_score }}</p>
+                        </div>
+                        <div class="row text-center">
+                            <p class="mb-4">{{ player_name }}</p>
+                        </div>
+                        <div class="row text-center">
+                            <h3 class="mb-0">AVG: {{ player_avg }}</h3>
+                        </div>
                     </div>
-                    <div class="row text-center">
-                        <p class="mb-4">{{ player_name }}</p>
-                    </div>
-                    <div class="row text-center">
-                        <h3 class="mb-0">AVG: {{ player_avg }}</h3>
+                    <div class="col-6">
+                        <div class="row text-center">
+                            <p class="mb-0">{{ opponent_score }}</p>
+                        </div>
+                        <div class="row text-center">
+                            <p class="mb-4">{{ opponent_name }}</p>
+                        </div>
+                        <div class="row text-center">
+                            <h3 class="mb-0">AVG: {{ opponent_avg }}</h3>
+                        </div>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="row text-center">
-                        <p class="mb-0">{{ opponent_score }}</p>
-                    </div>
-                    <div class="row text-center">
-                        <p class="mb-4">{{ opponent_name }}</p>
-                    </div>
-                    <div class="row text-center">
-                        <h3 class="mb-0">AVG: {{ opponent_avg }}</h3>
+                <div class="row g-0">
+                    <div class="col-12">
+                        <div class="row text-center">
+                            <p class="mb-0 mt-3">{{ input }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row g-0">
-                <div class="col-12">
-                    <div class="row text-center">
-                        <p class="mb-0 mt-3">{{ input }}</p>
-                    </div>
-                </div>
+            <!-- HTML for the dartboard -->
+            <div id="wrapper">
             </div>
         </div>
-        <!-- HTML for the dartboard -->
-        <div id="wrapper">
+        <div id="webcamView" class="col-sm-12 col-md-12 col-lg-7">
+            <webcam [height]="webcamHeight" [width]="webcamWidth" class="box-shadow img-responsive"
+                [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+                (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"></webcam>
         </div>
     </div>
 </div>

@@ -24,6 +24,19 @@ p {
     text-align: center;
 }
 
+.webcam-wrapper {
+    display: unset !important;
+    height: 100% !important;
+    width: 100% !important;
+
+
+}
+
+video {
+    height: 100% !important;
+    width: 100% !important;
+}
+
 h1,
 h2,
 p,

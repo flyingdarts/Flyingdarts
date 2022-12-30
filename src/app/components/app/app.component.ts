@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthFormFields } from '@aws-amplify/ui';
 import { Auth } from 'aws-amplify';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 import { LocalStorageKeys, PlayerLocalStorageService } from './../../services/player.local-storage.service';
 const { v4: uuidv4 } = require('uuid');
 
@@ -15,13 +17,20 @@ export class AppComponent implements OnInit {
   private playerId?: string | null;
   private user: any
   public userName?: string | null;
+
+  public lottieOptions: AnimationOptions = {
+    path: '/assets/animations/flyingdarts_header.json'
+  };
+
   constructor(private router: Router, private playerLocalStorageService: PlayerLocalStorageService) {
 
   }
   getUser(): Promise<any> {
     return Auth.currentUserInfo();
   }
-
+  onAnimate(animationItem: AnimationItem): void {
+    console.log(animationItem);
+  }
   ngOnInit(): void {
     this.getUser().then((user: any) => {
       this.user = user.attributes;
