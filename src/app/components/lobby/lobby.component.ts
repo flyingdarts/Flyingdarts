@@ -36,7 +36,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
         this.loadingService.setLoading(true);
         this.lobbyApiService.enqueueUser().subscribe((x: {}) => {
           this.loadingService.setLoading(false);
-          this.router.navigate(['loading'])
+          this.router.navigate(['x01'])
         });
         break;
     }
