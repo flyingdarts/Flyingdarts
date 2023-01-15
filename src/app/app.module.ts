@@ -18,6 +18,10 @@ import { LobbyComponent } from './components/lobby/lobby.component';
 import { WebcamModule } from 'ngx-webcam';
 import { JitsiService } from './services/jitsi.service';
 import { ThankYouComponent } from './components/thank-you/thank-you.component';
+import { AmplifyAuthService } from './services/amplify-auth.service';
+import { ApiService } from './services/api.service';
+import { StoreModule } from '@ngrx/store';
+import { reducers, x01Reducer } from './components/x01/state/x01.reducer';
 
 // Export this function
 export function playerFactory(): any {
@@ -39,15 +43,18 @@ export function playerFactory(): any {
     AmplifyAuthenticatorModule,
     LottieModule.forRoot({ player: playerFactory }),
     HttpClientModule,
-    WebcamModule
+    WebcamModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
     },
     WebsocketService,
+    ApiService,
     LoadingService,
     PlayerLocalStorageService,
+    AmplifyAuthService,
     JitsiService
   ],
   bootstrap: [AppComponent]

@@ -4,31 +4,34 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TweenMax } from 'gsap';
 import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { JitsiService } from 'src/app/services/jitsi.service';
+import { ApiService } from 'src/app/services/api.service';
+import { Store } from '@ngrx/store';
+import { scoreInput } from './state/x01.actions';
 const { v4: uuidv4 } = require('uuid');
 @Component({
   selector: 'app-x01',
   templateUrl: './x01.component.html',
   styleUrls: ['./x01.component.scss']
 })
-export class X01Component implements OnInit, OnDestroy {
+export class X01Component implements OnInit {
   public inviteLink: string = ''
   public scoreActionButtonText = 'NO SCORE'
   public content = '';
-  public input: string = ".";
-  public currentInput: Number = 0;
+  public input$: Observable<string>;
+  public currentInput: number = 0;
 
-  public player: Number[] = [];
+  public player: number[] = [];
   public player_name: string = "Player";
-  public player_score: Number = 501;
-  public player_avg: Number = 0;
+  public player_score: number = 501;
+  public player_avg: number = 0;
 
-  public opponent: Number[] = [];
+  public opponent: number[] = [];
   public opponent_name: string = "Opponent";
-  public opponent_score: Number = 501;
-  public opponent_avg: Number = 0;
+  public opponent_score: number = 501;
+  public opponent_avg: number = 0;
 
   private trigger: Subject<void> = new Subject<void>();
   public webcamHeight = 300;
@@ -36,40 +39,16 @@ export class X01Component implements OnInit, OnDestroy {
   public webcamImage: any;
   public deviceId: String = "";
 
+  private _store: Store<{ input: string }>;
   constructor(
     private webSocketService: WebsocketService,
+    private apiService: ApiService,
+    private store: Store<{ input: string }>,
     private route: ActivatedRoute,
     private playerLocalStorageService: PlayerLocalStorageService,
     private jitsiService: JitsiService) {
-    webSocketService.messages.subscribe(msg => {
-      console.log("Response from websocket");
-      console.log(JSON.parse(msg.message));
-      if (JSON.parse(msg.message).action == "x01/score-updated") {
-        if (sessionStorage.getItem("playerId") == JSON.parse(msg.message).message.split('#')[0]) {
-          this.player.push(JSON.parse(msg.message).message.split('#')[1]);
-          this.player_score = Number(this.player_score) - Number(JSON.parse(msg.message).message.split('#')[1]);
-          var sum: number = 0;
-          for (var i = 0; i < this.player.length; i++) {
-            sum = sum + Number(this.player[i])
-          }
-          console.log("Sum", sum);
-          console.log("Length", this.player.length);
-          this.player_avg = sum / this.player.length;
-
-        } else {
-          this.opponent.push(JSON.parse(msg.message).message.split('#')[1]);
-          this.opponent_score = Number(this.opponent_score) - Number(JSON.parse(msg.message).message.split('#')[1]);
-          var sum: number = 0;
-          for (var i = 0; i < this.opponent.length; i++) {
-            sum = sum + Number(this.opponent[i])
-          }
-
-          console.log("Sum", sum);
-          console.log("Length", this.opponent.length);
-          this.opponent_avg = sum / this.opponent.length;
-        }
-      }
-    })
+    this._store = store;
+    this.input$ = store.select('input')
   }
 
   async ngOnInit(): Promise<void> {
@@ -100,6 +79,7 @@ export class X01Component implements OnInit, OnDestroy {
       'mover a principal'
     );
   }
+
   createPointArray() {
     const angle = this.convertToRad(4.5);
     let array = [];
@@ -310,25 +290,23 @@ export class X01Component implements OnInit, OnDestroy {
       : e.target.classList.contains("triple")
         ? (amount = 3 * amount)
         : (amount = amount);
-    console.log(parseFloat(amount));
-
-    this.input = `${this.input}${parseFloat(amount)}`;
+    console.log("Score: %d", parseFloat(amount));
+    console.log(this.store)
+    this.store.dispatch(scoreInput());
   }
 
-  ngOnDestroy(): void {
-    window.removeEventListener("scroll", () => { });
-  }
   sendScore(input?: number) {
     if (input! >= 0 && input! <= 9) {
       this.currentInput = Number(`${this.currentInput}${input!} `)
       this.scoreActionButtonText = 'OK';
       return
     }
-    let body = {
-      action: 'x01/score',
-      message: `${this.route.snapshot.params["roomId"]} #${sessionStorage.getItem('playerId')} #${this.player_score} #${input} `
-    }
-    this.webSocketService.messages.next(body)
+    this.apiService.gamesOnScore(
+      this.route.snapshot.params["roomId"],
+      sessionStorage.getItem("playerId")!,
+      this.player_score,
+      input!
+    );
   }
 
   clearInput() {

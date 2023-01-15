@@ -13,7 +13,6 @@ export class LoadingComponent implements OnInit {
     path: '/assets/animations/flyingdarts_header.json'
   };
 
-
   constructor(public loader: LoadingService) {
   }
   ngOnInit(): void {
