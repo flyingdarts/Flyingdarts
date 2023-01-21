@@ -9,7 +9,7 @@ import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { JitsiService } from 'src/app/services/jitsi.service';
 import { ApiService } from 'src/app/services/api.service';
 import { Store } from '@ngrx/store';
-import { scoreInput } from './state/x01.actions';
+import { AppState, selectX01Away, selectX01Home, setScores, X01State } from './x01.state';
 const { v4: uuidv4 } = require('uuid');
 @Component({
   selector: 'app-x01',
@@ -20,17 +20,16 @@ export class X01Component implements OnInit {
   public inviteLink: string = ''
   public scoreActionButtonText = 'NO SCORE'
   public content = '';
-  public input$: Observable<string>;
-  public currentInput: number = 0;
+  public currentInput: string = "";
 
   public player: number[] = [];
   public player_name: string = "Player";
-  public player_score: number = 501;
+  public player_score$: Observable<number>;
   public player_avg: number = 0;
 
   public opponent: number[] = [];
   public opponent_name: string = "Opponent";
-  public opponent_score: number = 501;
+  public opponent_score$: Observable<number>;
   public opponent_avg: number = 0;
 
   private trigger: Subject<void> = new Subject<void>();
@@ -38,20 +37,21 @@ export class X01Component implements OnInit {
   public webcamWidth = 300;
   public webcamImage: any;
   public deviceId: String = "";
-
-  private _store: Store<{ input: string }>;
+  private _store: Store<{ X01: { home: number, away: number } }>;
   constructor(
     private webSocketService: WebsocketService,
     private apiService: ApiService,
-    private store: Store<{ input: string }>,
+    private store: Store<{ X01: { home: number, away: number } }>,
     private route: ActivatedRoute,
     private playerLocalStorageService: PlayerLocalStorageService,
     private jitsiService: JitsiService) {
     this._store = store;
-    this.input$ = store.select('input')
+    this.player_score$ = this._store.select('X01', 'home');
+    this.opponent_score$ = this._store.select('X01', 'away');
+    console.log(store.select(selectX01Home));
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
     this.createSVG();
     this.showDartBoard(this.boardElemArray());
     const targets = document.getElementsByClassName("target");
@@ -291,34 +291,38 @@ export class X01Component implements OnInit {
         ? (amount = 3 * amount)
         : (amount = amount);
     console.log("Score: %d", parseFloat(amount));
-    console.log(this.store)
-    this.store.dispatch(scoreInput());
+    this.currentInput += `${parseFloat(amount)}`;
+    console.log(this.currentInput);
   }
 
-  sendScore(input?: number) {
-    if (input! >= 0 && input! <= 9) {
-      this.currentInput = Number(`${this.currentInput}${input!} `)
-      this.scoreActionButtonText = 'OK';
-      return
-    }
-    this.apiService.gamesOnScore(
-      this.route.snapshot.params["roomId"],
-      sessionStorage.getItem("playerId")!,
-      this.player_score,
-      input!
-    );
+  dispatchTest() {
+    this.store.dispatch(setScores({ game: { home: 10, away: 15 } }));
   }
 
-  clearInput() {
-    this.currentInput = 0;
-    this.scoreActionButtonText = "NO SCORE";
-  }
+  // sendScore(input?: number) {
+  //   if (input! >= 0 && input! <= 9) {
+  //     this.currentInput = Number(`${this.currentInput}${input!} `)
+  //     this.scoreActionButtonText = 'OK';
+  //     return
+  //   }
+  //   this.apiService.gamesOnScore(
+  //     this.route.snapshot.params["roomId"],
+  //     sessionStorage.getItem("playerId")!,
+  //     this.player_score,
+  //     input!
+  //   );
+  // }
 
-  scoreAction() {
-    this.sendScore(Number(this.currentInput));
-    this.currentInput = 0;
-    this.scoreActionButtonText = "NO SCORE"
-  }
+  // clearInput() {
+  //   this.currentInput = 0;
+  //   this.scoreActionButtonText = "NO SCORE";
+  // }
+
+  // scoreAction() {
+  //   this.sendScore(Number(this.currentInput));
+  //   this.currentInput = 0;
+  //   this.scoreActionButtonText = "NO SCORE"
+  // }
 
 
 }

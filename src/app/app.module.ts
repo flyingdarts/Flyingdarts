@@ -21,7 +21,7 @@ import { ThankYouComponent } from './components/thank-you/thank-you.component';
 import { AmplifyAuthService } from './services/amplify-auth.service';
 import { ApiService } from './services/api.service';
 import { StoreModule } from '@ngrx/store';
-import { reducers, x01Reducer } from './components/x01/state/x01.reducer';
+import { x01Reducer } from './components/x01/x01.state';
 
 // Export this function
 export function playerFactory(): any {
@@ -44,7 +44,7 @@ export function playerFactory(): any {
     LottieModule.forRoot({ player: playerFactory }),
     HttpClientModule,
     WebcamModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot({ X01: x01Reducer })
   ],
   providers: [
     {
