@@ -10,7 +10,7 @@ const routes: Routes = [
     component: LobbyComponent
   },
   {
-    path: 'x01',
+    path: 'x01/:id',
     component: X01Component
   },
   {

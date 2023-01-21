@@ -5,7 +5,6 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { WebsocketService } from './services/websocket.service';
-import { X01Component } from './components/x01/x01.component';
 import { LottieModule } from 'ngx-lottie';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PlayerLocalStorageService } from './services/player.local-storage.service';
@@ -21,6 +20,8 @@ import { ThankYouComponent } from './components/thank-you/thank-you.component';
 import { AmplifyAuthService } from './services/amplify-auth.service';
 import { ApiService } from './services/api.service';
 import { StoreModule } from '@ngrx/store';
+import { DartboardComponent } from './components/x01/controls/dartboard/dartboard.component';
+import { X01Component } from './components/x01/x01.component';
 import { x01Reducer } from './components/x01/x01.state';
 
 // Export this function
@@ -35,7 +36,8 @@ export function playerFactory(): any {
     LobbyComponent,
     X01Component,
     LoadingComponent,
-    ThankYouComponent
+    ThankYouComponent,
+    DartboardComponent
   ],
   imports: [
     BrowserModule,

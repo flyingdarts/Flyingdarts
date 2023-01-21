@@ -29,15 +29,20 @@
                 <div class="row g-0">
                     <div class="col-12">
                         <div class="row text-center">
-                            <button class="btn btn-success" (click)="dispatchTest()">FFS</button>
-                            <p class="mb-0 mt-3">{{ currentInput }} </p>
+                            <div>
+                                <button class="btn btn-success btn-total"
+                                    (click)="dispatchTest()">{{lastThreeSum}}</button>
+                                <button class="btn btn-warning" (click)="resetInput()"><i
+                                        class="material-icons">restart_alt</i></button>
+                            </div>
+                            <!-- <p class="mb-0 mt-3">{{ currentInput }} </p> -->
+                            <p class="mb-0 mt-3">{{ lastThreeString }} </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- HTML for the dartboard -->
-            <div id="wrapper">
-            </div>
+            <app-dartboard (targetPressedEvent)="dartBoardInput($event)"></app-dartboard>
+
         </div>
         <div class="col-sm-12 col-md-12 col-lg-5" id="jitsi-iframe"></div>
     </div>
