@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
       this.user = user.attributes;
       console.log(this.user);
       this.userName = this.user.name;
-      this.playerLocalStorageService.setUserName(this.userName!)
+      this.playerLocalStorageService.setUserName(this.userName!);
+      this.playerLocalStorageService.setUserId(this.user.sub);
     });
   }
   title = 'flyingdarts';

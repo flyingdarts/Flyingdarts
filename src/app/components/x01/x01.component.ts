@@ -28,11 +28,13 @@ export class X01Component implements OnInit {
   public player_name: string = "Player";
   public player_score$: Observable<number>;
   public player_avg: number = 0;
+  public player_total: number = 0;
 
   public opponent: number[] = [];
   public opponent_name: string = "Opponent";
   public opponent_score$: Observable<number>;
   public opponent_avg: number = 0;
+  public opponent_total: number = 0;
 
   private trigger: Subject<void> = new Subject<void>();
   public webcamHeight = 300;
@@ -50,6 +52,12 @@ export class X01Component implements OnInit {
     this._store = store;
     this.player_score$ = this._store.select('X01', 'home');
     this.opponent_score$ = this._store.select('X01', 'away');
+    this.player_score$.subscribe(score => {
+      this.player_total = score;
+    })
+    this.opponent_score$.subscribe(score => {
+      this.opponent_total = score;
+    })
     console.log(store.select(selectX01Home));
   }
 
@@ -91,8 +99,9 @@ export class X01Component implements OnInit {
 
 
   dispatchTest() {
-    var inputString = "#"
-    this.store.dispatch(setScores({ game: { home: 10, away: 15 } }));
+    this.apiService.gamesOnScore(this.roomId, this.playerLocalStorageService.getUserId(), this.player_total, this.lastThreeSum);
+    var game = { game: { home: this.player_total - this.lastThreeSum, away: this.opponent_total } }
+    this.store.dispatch(setScores(game));
   }
 
   resetInput() {
