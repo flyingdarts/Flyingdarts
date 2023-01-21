@@ -6,7 +6,7 @@ import { LoadingService } from '../loading/loading.service';
 import { LocalStorageKeys } from './../../services/player.local-storage.service';
 import { WebsocketService } from './../../services/websocket.service';
 import { LobbyApiService } from './lobby-api.service';
-const { v4: uuidv4 } = require('uuid');
+var randomstring = require("randomstring");
 
 @Component({
   selector: 'app-lobby',
@@ -37,7 +37,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
         this.loadingService.setLoading(true);
         this.lobbyApiService.enqueueUser().subscribe((x: {}) => {
           this.loadingService.setLoading(false);
-          this.router.navigate(['x01', uuidv4()])
+          this.router.navigate(['x01', randomstring.generate(7)])
         });
         break;
     }
