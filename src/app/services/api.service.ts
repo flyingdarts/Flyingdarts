@@ -7,43 +7,44 @@ export class ApiService {
 
     }
 
-    gamesOnQueue() {
-
-    }
-
     gamesOnScore(roomId: string, playerId: string, score: number, input: number) {
-        var message = `${roomId}#${playerId}#${score}#${input}`;
+        var message: X01ScoreRequest = {
+            roomId,
+            playerId,
+            score,
+            input
+        };
         let body = {
             action: 'x01/score',
-            message: message
-        }
-        this.webSocketService.messages.next(body);
-    }
-
-    roomsOnCreate(roomId: string, playerId: string, playerName: string) {
-        var message = `${roomId}#${playerId}#${playerName}`;
-        let body = {
-            action: 'rooms/create',
-            message: message
+            message: JSON.stringify(message)
         }
         this.webSocketService.messages.next(body);
     }
 
     roomsOnJoin(roomId: string, playerId: string, playerName: string) {
-        var message = `${roomId}#${playerId}#${playerName}`;
+        var message: RoomJoinedRequest = {
+            roomId,
+            playerId,
+            playerName
+        };
         let body = {
             action: 'rooms/join',
-            message: message
+            message: JSON.stringify(message)
         }
         this.webSocketService.messages.next(body);
     }
-
-    roomsOnLeave() {
-
-    }
-    // Games X01 OnQueue
-    // Games X01 OnScore
-    // Rooms OnCreate
-    // Rooms OnJoin
-    // Rooms OnLeave
 }
+
+export interface X01ScoreRequest {
+    roomId: string;
+    playerId: string;
+    score: number;
+    input: number;
+}
+
+export interface RoomJoinedRequest {
+    roomId: string;
+    playerId: string;
+    playerName: string
+}
+

@@ -68,6 +68,9 @@ export class X01Component implements OnInit {
 
     this.apiService.roomsOnJoin(this.roomId, this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
 
+    this.webSocketService.messages.subscribe((message) => {
+      console.log(message);
+    })
     this.player_name = this.playerLocalStorageService.getUserName();
     var view = document.getElementById("webcamView");
     this.webcamHeight = view?.clientHeight!;
