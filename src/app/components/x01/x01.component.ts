@@ -6,7 +6,7 @@ import { PlayerLocalStorageService } from '../../services/player.local-storage.s
 import { Observable, Subject, Subscription } from 'rxjs';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { JitsiService } from 'src/app/services/jitsi.service';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService, X01ScoreRequest } from 'src/app/services/api.service';
 import { Store } from '@ngrx/store';
 import { AppState, selectX01Away, selectX01Home, setScores, X01State } from './x01.state';
 @Component({
@@ -68,7 +68,11 @@ export class X01Component implements OnInit {
     })
 
     this.webSocketService.messages.subscribe((message) => {
-      console.log(message);
+      var req = JSON.parse(message.message);
+      var game = { game: { home: this.player_total, away: req.score } }
+      this._store.dispatch(setScores(game));
+      this.opponent_name = req.playerName;
+      console.log(req);
     })
     this.player_name = this.playerLocalStorageService.getUserName();
     var view = document.getElementById("webcamView");

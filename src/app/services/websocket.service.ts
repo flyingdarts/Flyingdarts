@@ -14,12 +14,12 @@ export interface Message {
 @Injectable()
 export class WebsocketService {
   private subject!: AnonymousSubject<MessageEvent>;
-  public messages: Subject<IRequest>;
+  public messages: Subject<Message>;
 
   constructor() {
-    this.messages = <Subject<IRequest>>this.connect(environment.webSocketUrl).pipe(
+    this.messages = <Subject<Message>>this.connect(environment.webSocketUrl).pipe(
       map(
-        (response: MessageEvent): IRequest => {
+        (response: MessageEvent): Message => {
           console.log(response.data);
           return { action: "onreceive", message: response.data };
         }
