@@ -16,7 +16,7 @@ export class ApiService {
         };
         let body = {
             action: 'x01/score',
-            message: JSON.stringify(message)
+            message: message
         }
         this.webSocketService.messages.next(body);
     }
@@ -29,20 +29,22 @@ export class ApiService {
         };
         let body = {
             action: 'rooms/join',
-            message: JSON.stringify(message)
+            message: message
         }
         this.webSocketService.messages.next(body);
     }
 }
+export interface IRequest {
 
-export interface X01ScoreRequest {
+}
+export interface X01ScoreRequest extends IRequest {
     roomId: string;
     playerId: string;
     score: number;
     input: number;
 }
 
-export interface RoomJoinedRequest {
+export interface RoomJoinedRequest extends IRequest {
     roomId: string;
     playerId: string;
     playerName: string

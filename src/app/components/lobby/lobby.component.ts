@@ -26,10 +26,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private router: Router,
   ) {
-    webSocketService.messages.subscribe(msg => {
-      console.log("Response from websocket");
-      console.log(JSON.parse(msg.message));
-    })
+
   }
   setGameMode(val: number) {
     switch (val) {

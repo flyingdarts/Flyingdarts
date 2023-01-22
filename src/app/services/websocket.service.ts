@@ -4,6 +4,7 @@ import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from "src/environments/environment";
+import { IRequest } from "./api.service";
 
 export interface Message {
   action: string;
@@ -13,12 +14,12 @@ export interface Message {
 @Injectable()
 export class WebsocketService {
   private subject!: AnonymousSubject<MessageEvent>;
-  public messages: Subject<Message>;
+  public messages: Subject<IRequest>;
 
   constructor() {
-    this.messages = <Subject<Message>>this.connect(environment.webSocketUrl).pipe(
+    this.messages = <Subject<IRequest>>this.connect(environment.webSocketUrl).pipe(
       map(
-        (response: MessageEvent): Message => {
+        (response: MessageEvent): IRequest => {
           console.log(response.data);
           return { action: "onreceive", message: response.data };
         }
