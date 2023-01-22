@@ -64,6 +64,7 @@ export class X01Component implements OnInit {
   ngOnInit() {
     this.roomSubscription = this.route.params.subscribe(params => {
       this.roomId = params['id']
+      this.apiService.roomsOnJoin(this.roomId, this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
     })
     this.player_name = this.playerLocalStorageService.getUserName();
     var view = document.getElementById("webcamView");

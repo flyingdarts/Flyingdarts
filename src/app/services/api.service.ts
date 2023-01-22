@@ -20,12 +20,22 @@ export class ApiService {
         this.webSocketService.messages.next(body);
     }
 
-    roomsOnCreate() {
-
+    roomsOnCreate(roomId: string, playerId: string, playerName: string) {
+        var message = `${roomId}#${playerId}#${playerName}`;
+        let body = {
+            action: 'rooms/create',
+            message: message
+        }
+        this.webSocketService.messages.next(body);
     }
 
-    roomsOnJoin() {
-
+    roomsOnJoin(roomId: string, playerId: string, playerName: string) {
+        var message = `${roomId}#${playerId}#${playerName}`;
+        let body = {
+            action: 'rooms/join',
+            message: message
+        }
+        this.webSocketService.messages.next(body);
     }
 
     roomsOnLeave() {
