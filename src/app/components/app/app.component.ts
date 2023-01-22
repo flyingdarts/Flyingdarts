@@ -36,10 +36,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.amplifyAuthService.getUser().then((user: any) => {
       this.user = user.attributes;
-      console.log(this.user);
       this.userName = this.user.name;
-      this.playerLocalStorageService.setUserName(this.userName!);
       this.playerLocalStorageService.setUserId(this.user.sub);
+      this.playerLocalStorageService.setUserName(this.user.name);
     });
   }
   title = 'flyingdarts';
