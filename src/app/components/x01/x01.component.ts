@@ -58,6 +58,7 @@ export class X01Component implements OnInit {
     this.opponent_score$.subscribe(score => {
       this.opponent_total = score;
     })
+    this.apiService.roomsOnJoin(this.route.snapshot.params["id"], this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
     console.log(store.select(selectX01Home));
   }
 
@@ -65,8 +66,6 @@ export class X01Component implements OnInit {
     this.roomSubscription = this.route.params.subscribe(params => {
       this.roomId = params['id']
     })
-
-    this.apiService.roomsOnJoin(this.roomId, this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
 
     this.webSocketService.messages.subscribe((message) => {
       console.log(message);
@@ -105,7 +104,7 @@ export class X01Component implements OnInit {
 
 
   dispatchTest() {
-    this.apiService.gamesOnScore(this.roomId, this.playerLocalStorageService.getUserId(), this.player_total, this.lastThreeSum);
+    this.apiService.gamesOnScore(this.roomId, this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName(), this.player_total - this.lastThreeSum, this.lastThreeSum);
     var game = { game: { home: this.player_total - this.lastThreeSum, away: this.opponent_total } }
     this.store.dispatch(setScores(game));
   }

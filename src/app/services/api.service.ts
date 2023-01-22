@@ -7,10 +7,11 @@ export class ApiService {
 
     }
 
-    gamesOnScore(roomId: string, playerId: string, score: number, input: number) {
+    gamesOnScore(roomId: string, playerId: string, playerName: string, score: number, input: number) {
         var message: X01ScoreRequest = {
             roomId,
             playerId,
+            playerName,
             score,
             input
         };
@@ -40,6 +41,7 @@ export interface IRequest {
 export interface X01ScoreRequest extends IRequest {
     roomId: string;
     playerId: string;
+    playerName: string;
     score: number;
     input: number;
 }
