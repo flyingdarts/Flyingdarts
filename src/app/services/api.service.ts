@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { WebsocketService } from "./websocket.service";
+import { Message, WebsocketService } from "./websocket.service";
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -15,7 +15,7 @@ export class ApiService {
             score,
             input
         };
-        let body = {
+        let body: Message = {
             action: 'x01/score',
             message: message
         }
@@ -28,7 +28,7 @@ export class ApiService {
             playerId,
             playerName
         };
-        let body = {
+        let body: Message = {
             action: 'rooms/join',
             message: message
         }

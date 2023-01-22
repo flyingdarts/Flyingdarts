@@ -8,7 +8,7 @@ import { IRequest } from "./api.service";
 
 export interface Message {
   action: string;
-  message: string;
+  message: any;
 }
 
 @Injectable()
