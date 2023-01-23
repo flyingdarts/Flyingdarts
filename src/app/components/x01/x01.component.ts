@@ -58,7 +58,6 @@ export class X01Component implements OnInit {
     this.opponent_score$.subscribe(score => {
       this.opponent_total = score;
     })
-    this.apiService.roomsOnJoin(this.route.snapshot.params["id"], this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
     console.log(store.select(selectX01Home));
   }
 
@@ -69,19 +68,25 @@ export class X01Component implements OnInit {
 
     this.webSocketService.messages.subscribe((message) => {
       var req = JSON.parse(message.message);
+      this.opponent_name = req.message.playerName;
       if (req.message.playerId != this.playerLocalStorageService.getUserId()) {
-        this.opponent_name = req.message.playerName;
         var game = { game: { home: this.player_total, away: req.message.score } }
         this._store.dispatch(setScores(game));
       }
       console.log(req);
     })
+
     this.player_name = this.playerLocalStorageService.getUserName();
     var view = document.getElementById("webcamView");
     this.webcamHeight = view?.clientHeight!;
     this.webcamWidth = view?.clientWidth!;
+
     this.jitsiService.namePrincipalRoom = `Flyingdarts ${this.roomId}`;
-    this.jitsiService.moveRoom(this.jitsiService.namePrincipalRoom, true);
+    this.jitsiService.moveRoom(this.jitsiService.namePrincipalRoom, false);
+    this.jitsiService.user.setName(this.playerLocalStorageService.getUserName());
+
+    this.apiService.roomsOnJoin(this.route.snapshot.params["id"], this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
+
   }
 
   dartBoardInput(input: number) {
