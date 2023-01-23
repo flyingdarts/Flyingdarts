@@ -69,9 +69,9 @@ export class X01Component implements OnInit {
 
     this.webSocketService.messages.subscribe((message) => {
       var req = JSON.parse(message.message);
-      var game = { game: { home: this.player_total, away: req.score } }
+      var game = { game: { home: this.player_total, away: req.message.score } }
       this._store.dispatch(setScores(game));
-      this.opponent_name = req.playerName;
+      this.opponent_name = req.message.playerName;
       console.log(req);
     })
     this.player_name = this.playerLocalStorageService.getUserName();
