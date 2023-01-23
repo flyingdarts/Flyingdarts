@@ -69,7 +69,7 @@ export class X01Component implements OnInit {
 
     this.webSocketService.messages.subscribe((message) => {
       var req = JSON.parse(message.message);
-      if (req.message.id != this.playerLocalStorageService.getUserId()) {
+      if (req.message.playerId != this.playerLocalStorageService.getUserId()) {
         this.opponent_name = req.message.playerName;
         var game = { game: { home: this.player_total, away: req.message.score } }
         this._store.dispatch(setScores(game));
