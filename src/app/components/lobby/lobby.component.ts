@@ -5,7 +5,6 @@ import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { ApiService } from 'src/app/services/api.service';
 import { PlayerLocalStorageService } from 'src/app/services/player.local-storage.service';
-import { WebsocketService } from './../../services/websocket.service';
 
 var randomstring = require("randomstring");
 

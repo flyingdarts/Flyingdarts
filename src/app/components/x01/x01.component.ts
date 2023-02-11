@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { WebsocketService } from '../../services/websocket.service';
+import { WebSocketService } from '../../services/websocket.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
@@ -42,7 +42,7 @@ export class X01Component implements OnInit {
   public webcamImage: any;
   public deviceId: String = "";
   constructor(
-    private webSocketService: WebsocketService,
+    private webSocketService: WebSocketService,
     private apiService: ApiService,
     private store: Store<{ X01: X01State }>,
     private route: ActivatedRoute,
@@ -60,7 +60,7 @@ export class X01Component implements OnInit {
       this.roomId = params['id']
     })
 
-    this.webSocketService.messages.subscribe((message) => {
+    this.webSocketService.getMessages().subscribe((message: any) => {
       var game: any = {}
       if (message.action === "room/on-join") {
         if (message.message["PlayerId"] == this.playerLocalStorageService.getUserId()) {
@@ -80,7 +80,7 @@ export class X01Component implements OnInit {
         }
       }
     })
-    
+
     var view = document.getElementById("webcamView");
     this.webcamHeight = view?.clientHeight!;
     this.webcamWidth = view?.clientWidth!;

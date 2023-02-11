@@ -1,57 +1,49 @@
-import { Injectable } from "@angular/core";
-import { Observable, Observer } from 'rxjs';
-import { AnonymousSubject } from 'rxjs/internal/Subject';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from "src/environments/environment";
-import { IRequest } from "./api.service";
+import { Subject, Observable } from 'rxjs';
 
-export interface Message {
-  action: string;
-  message: any;
+export interface WebSocketMessage<T = any> {
+  type: string;
+  payload?: T;
 }
 
-@Injectable()
-export class WebsocketService {
-  private subject!: AnonymousSubject<MessageEvent>;
-  public messages: Subject<Message>;
+export class WebSocketService<T = any> {
+  private socket: WebSocket;
+  private connected = false;
+  private messages = new Subject<WebSocketMessage<T>>();
 
   constructor() {
-    this.messages = <Subject<Message>>this.connect(environment.webSocketUrl).pipe(
-      map(
-        (response: MessageEvent): Message => {
-          console.log(response.data);
-          return { action: "onreceive", message: response.data };
-        }
-      )
-    )
+    this.socket = new WebSocket('ws://localhost:8080');
+    this.connect();
   }
 
-  public connect(url: string): AnonymousSubject<MessageEvent> {
-    if (!this.subject) {
-      this.subject = this.create(url);
-      console.log(`Successfully connected: ${url}`)
-    }
-    return this.subject;
-  }
-  public create(url: string): AnonymousSubject<MessageEvent> {
-    let webSocket = new WebSocket(url);
-    let observable = new Observable((obs: Observer<MessageEvent>) => {
-      webSocket.onmessage = obs.next.bind(obs);
-      webSocket.onerror = obs.error.bind(obs);
-      webSocket.onclose = obs.complete.bind(obs);
-      return webSocket.close.bind(webSocket);
-    });
-    let observer = {
-      error: () => { },
-      complete: () => { },
-      next: (data: Object) => {
-        console.log(`Message sent to websocket:`, data);
-        if (webSocket.readyState === WebSocket.OPEN) {
-          webSocket.send(JSON.stringify(data));
-        }
-      }
+  private connect(): void {
+
+    this.socket.onopen = (event) => {
+      this.connected = true;
+      this.messages.next({ type: 'OnConnect', payload: event as T });
     };
-    return new AnonymousSubject<MessageEvent>(observer, observable);
+
+    this.socket.onclose = (event) => {
+      this.connected = false;
+      this.messages.next({ type: 'OnDisconnect', payload: event as T });
+      setTimeout(() => this.connect(), 1000);
+    };
+
+    this.socket.onerror = (event) => {
+      this.messages.next({ type: 'OnDefault', payload: event as T });
+    };
+
+    this.socket.onmessage = (event) => {
+      this.messages.next({ type: 'OnDefault', payload: JSON.parse(event.data) as T });
+    };
+  }
+
+  public postMessage(payload: T): void {
+    if (this.connected) {
+      this.socket.send(JSON.stringify({ payload }));
+    }
+  }
+
+  public getMessages(): Observable<WebSocketMessage<T>> {
+    return this.messages.asObservable();
   }
 }

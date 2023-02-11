@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Message, WebsocketService } from "./websocket.service";
+import { Message } from "./Message";
+import { WebSocketService } from "./websocket.service";
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-    constructor(private webSocketService: WebsocketService) {
+    constructor(private webSocketService: WebSocketService) {
 
     }
 
@@ -17,8 +18,8 @@ export class ApiService {
         let body: Message = {
             action: 'x01/score',
             message: message
-        }
-        this.webSocketService.messages.next(body);
+        };
+        this.webSocketService.postMessage(body);
     }
 
     roomsOnJoin(roomId: string, playerId: string, playerName: string) {
@@ -30,11 +31,10 @@ export class ApiService {
         let body: Message = {
             action: 'rooms/join',
             message: message
-        }
-        this.webSocketService.messages.next(body);
+        };
+        this.webSocketService.postMessage(body);
     }
 
-    
     roomsOnCreate(roomId: string) {
         var message: RoomCreatedRequest = {
             RoomId: roomId
@@ -42,8 +42,8 @@ export class ApiService {
         let body: Message = {
             action: 'rooms/create',
             message: message
-        }
-        this.webSocketService.messages.next(body);
+        };
+        this.webSocketService.postMessage(body);
     }
 }
 export interface IRequest {
