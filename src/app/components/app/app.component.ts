@@ -1,13 +1,6 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthFormFields } from '@aws-amplify/ui';
-import { Auth } from 'aws-amplify';
+import { Component, OnInit } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
-import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { LocalStorageKeys, PlayerLocalStorageService } from './../../services/player.local-storage.service';
-const { v4: uuidv4 } = require('uuid');
-
 
 @Component({
   selector: 'app-root',
@@ -15,31 +8,19 @@ const { v4: uuidv4 } = require('uuid');
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  private roomId?: string | null;
-  private playerId?: string | null;
-  private user: any
-  public userName?: string | null;
-
   public lottieOptions: AnimationOptions = {
     path: '/assets/animations/flyingdarts_icon.json',
     loop: false
   };
 
-  constructor(
-    private playerLocalStorageService: PlayerLocalStorageService,
-    private amplifyAuthService: AmplifyAuthService) {
+  constructor() {
   }
 
   onAnimate(animationItem: AnimationItem): void {
     console.log(animationItem);
   }
   ngOnInit(): void {
-    this.amplifyAuthService.getUser().then((user: any) => {
-      this.user = user.attributes;
-      this.userName = this.user.name;
-      this.playerLocalStorageService.setUserId(this.user.sub);
-      this.playerLocalStorageService.setUserName(this.user.name);
-    });
+
   }
   title = 'flyingdarts';
 

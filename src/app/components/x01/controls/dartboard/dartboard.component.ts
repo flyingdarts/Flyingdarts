@@ -23,7 +23,6 @@ export class DartboardComponent implements OnInit {
           : e.target.classList.contains("triple")
             ? (amount = 3 * amount)
             : (amount = amount);
-        console.log("Score: %d", parseFloat(amount));
         this.targetPressedEvent.emit(parseFloat(amount))
       });
     }
@@ -233,7 +232,4 @@ export class DartboardComponent implements OnInit {
     return item;
   }
 
-  showScore(e: any) {
-
-  }
 }

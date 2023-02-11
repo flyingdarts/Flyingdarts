@@ -7,13 +7,12 @@ export class ApiService {
 
     }
 
-    gamesOnScore(roomId: string, playerId: string, playerName: string, score: number, input: number) {
+    gamesOnScore(roomId: string, playerId: string, score: number, input: number) {
         var message: X01ScoreRequest = {
-            roomId,
-            playerId,
-            playerName,
-            score,
-            input
+            RoomId: roomId,
+            PlayerId: playerId,
+            Score: score,
+            Input: input
         };
         let body: Message = {
             action: 'x01/score',
@@ -24,12 +23,24 @@ export class ApiService {
 
     roomsOnJoin(roomId: string, playerId: string, playerName: string) {
         var message: RoomJoinedRequest = {
-            roomId,
-            playerId,
-            playerName
+            RoomId: roomId,
+            PlayerId: playerId,
+            PlayerName: playerName
         };
         let body: Message = {
             action: 'rooms/join',
+            message: message
+        }
+        this.webSocketService.messages.next(body);
+    }
+
+    
+    roomsOnCreate(roomId: string) {
+        var message: RoomCreatedRequest = {
+            RoomId: roomId
+        };
+        let body: Message = {
+            action: 'rooms/create',
             message: message
         }
         this.webSocketService.messages.next(body);
@@ -39,16 +50,19 @@ export interface IRequest {
 
 }
 export interface X01ScoreRequest extends IRequest {
-    roomId: string;
-    playerId: string;
-    playerName: string;
-    score: number;
-    input: number;
+    RoomId: string;
+    PlayerId: string;
+    Score: number;
+    Input: number;
 }
 
 export interface RoomJoinedRequest extends IRequest {
-    roomId: string;
-    playerId: string;
-    playerName: string
+    RoomId: string;
+    PlayerId: string;
+    PlayerName: string
+}
+
+export interface RoomCreatedRequest extends IRequest {
+    RoomId: string;
 }
 

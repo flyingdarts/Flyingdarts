@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
-import { LoadingService } from '../loading/loading.service';
-import { LocalStorageKeys } from './../../services/player.local-storage.service';
+import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
+import { ApiService } from 'src/app/services/api.service';
+import { PlayerLocalStorageService } from 'src/app/services/player.local-storage.service';
 import { WebsocketService } from './../../services/websocket.service';
-import { LobbyApiService } from './lobby-api.service';
+
 var randomstring = require("randomstring");
 
 @Component({
@@ -13,55 +14,37 @@ var randomstring = require("randomstring");
   templateUrl: './lobby.component.html',
   styleUrls: ['./lobby.component.scss']
 })
-export class LobbyComponent implements OnInit, OnDestroy {
+export class LobbyComponent implements OnInit {
   public playerId: string = "";
   public lottieOptions: AnimationOptions = {
     path: '/assets/animations/play.json'
   };
 
-
   constructor(
-    private webSocketService: WebsocketService,
-    private lobbyApiService: LobbyApiService,
-    private loadingService: LoadingService,
+    private playerLocalStorageService: PlayerLocalStorageService,
+    private amplifyAuthService: AmplifyAuthService,
+    private apiService: ApiService,
     private router: Router,
   ) {
 
   }
-  setGameMode(val: number) {
-    switch (val) {
-      case 1:
-        this.loadingService.setLoading(true);
-        this.lobbyApiService.enqueueUser().subscribe((x: {}) => {
-          this.loadingService.setLoading(false);
-          this.router.navigate(['x01', randomstring.generate(7)])
-        });
-        break;
-    }
-    console.log(`Value clicked: ${val}`)
-  }
+  
   ngOnInit(): void {
-    this.playerId = sessionStorage.getItem("playerId")!;
-    console.log(`Player id: ${this.playerId}`);
+    this.amplifyAuthService.getUser().then((user: any) => {
+      this.playerLocalStorageService.setUserId(user.attributes.sub);
+      this.playerLocalStorageService.setUserName(user.attributes.name);
+    });
+  }
 
-  }
-  ngOnDestroy(): void {
-    window.removeEventListener("scroll", () => { });
-  }
   // This is the component function that binds to the animationCreated event from the package  
   onAnimate(animationItem: AnimationItem): void {
     console.log(animationItem);
   }
 
-  joinLobby() {
-    this.playerId = sessionStorage.getItem("playerId")!;
-    console.log(`Player id: ${this.playerId}`);
-  }
-
-  createPlayerRoom() {
-    var message = `${localStorage.getItem("roomId")!}#${sessionStorage.getItem(LocalStorageKeys.UserId)}#${localStorage.getItem(LocalStorageKeys.UserName)}`
-    this.webSocketService.messages.next({ action: "rooms/create", message: message })
-    this.router.navigate(['loading'])
+  createRoom() {
+    var roomId = randomstring.generate(7)
+    this.apiService.roomsOnCreate(roomId)
+    this.router.navigate(['x01', roomId]);
   }
 
   public signOut(): void {

@@ -8,7 +8,7 @@ import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { JitsiService } from 'src/app/services/jitsi.service';
 import { ApiService, X01ScoreRequest } from 'src/app/services/api.service';
 import { Store } from '@ngrx/store';
-import { AppState, selectX01Away, selectX01Home, setScores, X01State } from './x01.state';
+import { AppState, selectX01Away, selectX01Home, setOpponentName, setOpponentScore, setPlayerName, setPlayerScore, X01State } from './x01.state';
 @Component({
   selector: 'app-x01',
   templateUrl: './x01.component.html',
@@ -25,14 +25,14 @@ export class X01Component implements OnInit {
   public lastThreeString: string = "0 0 0";
   public lastThreeSum: number = 0;
   public player: number[] = [];
-  public player_name: string = "Player";
-  public player_score$: Observable<number>;
+  public player_name$: Observable<string | undefined>;
+  public player_score$: Observable<number | undefined>;
   public player_avg: number = 0;
   public player_total: number = 0;
 
   public opponent: number[] = [];
-  public opponent_name: string = "Opponent";
-  public opponent_score$: Observable<number>;
+  public opponent_name$: Observable<string | undefined>;
+  public opponent_score$: Observable<number | undefined>;
   public opponent_avg: number = 0;
   public opponent_total: number = 0;
 
@@ -41,23 +41,17 @@ export class X01Component implements OnInit {
   public webcamWidth = 300;
   public webcamImage: any;
   public deviceId: String = "";
-  private _store: Store<{ X01: { home: number, away: number } }>;
   constructor(
     private webSocketService: WebsocketService,
     private apiService: ApiService,
-    private store: Store<{ X01: { home: number, away: number } }>,
+    private store: Store<{ X01: X01State }>,
     private route: ActivatedRoute,
     private playerLocalStorageService: PlayerLocalStorageService,
     private jitsiService: JitsiService) {
-    this._store = store;
-    this.player_score$ = this._store.select('X01', 'home');
-    this.opponent_score$ = this._store.select('X01', 'away');
-    this.player_score$.subscribe(score => {
-      this.player_total = score;
-    })
-    this.opponent_score$.subscribe(score => {
-      this.opponent_total = score;
-    })
+    this.player_score$ = this.store.select('X01', 'home');
+    this.opponent_score$ = this.store.select('X01', 'away');
+    this.player_name$ = this.store.select('X01', 'playerName');
+    this.opponent_name$ = this.store.select('X01', 'opponentName');
     console.log(store.select(selectX01Home));
   }
 
@@ -67,16 +61,26 @@ export class X01Component implements OnInit {
     })
 
     this.webSocketService.messages.subscribe((message) => {
-      var req = JSON.parse(message.message);
-      this.opponent_name = req.message.playerName;
-      if (req.message.playerId != this.playerLocalStorageService.getUserId()) {
-        var game = { game: { home: this.player_total, away: req.message.score } }
-        this._store.dispatch(setScores(game));
+      var game: any = {}
+      if (message.action === "room/on-join") {
+        if (message.message["PlayerId"] == this.playerLocalStorageService.getUserId()) {
+          game = { game: { playerName: message.message["PlayerName"] }}
+          this.store.dispatch(setPlayerName(game));
+        } else {
+          game = { game: { oppnentName: message.message["PlayerName"] }}
+          this.store.dispatch(setOpponentName(game));
+        }
+      } else if (message.action === "x01/on-score") {
+        if (message.message["PlayerId"] == this.playerLocalStorageService.getUserId()) {
+          game = { game: { playerScore: message.message["Score"] }}
+          this.store.dispatch(setPlayerScore(game));
+        } else {
+          game = { game: { opponentScore: message.message["Score"] }}
+          this.store.dispatch(setOpponentScore(game));
+        }
       }
-      console.log(req);
     })
-
-    this.player_name = this.playerLocalStorageService.getUserName();
+    
     var view = document.getElementById("webcamView");
     this.webcamHeight = view?.clientHeight!;
     this.webcamWidth = view?.clientWidth!;
@@ -100,6 +104,7 @@ export class X01Component implements OnInit {
     })
     this.currentInput = input;
   }
+
   executeCommand(data: any) {
     console.log(
       'this.jitsiService.getParticipants():',
@@ -113,11 +118,9 @@ export class X01Component implements OnInit {
     );
   }
 
-
-  dispatchTest() {
-    this.apiService.gamesOnScore(this.roomId, this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName(), this.player_total - this.lastThreeSum, this.lastThreeSum);
-    var game = { game: { home: this.player_total - this.lastThreeSum, away: this.opponent_total } }
-    this.store.dispatch(setScores(game));
+  sendScore() {
+    this.apiService.gamesOnScore(this.roomId, this.playerLocalStorageService.getUserId(), this.player_total - this.lastThreeSum, this.lastThreeSum);
+    this.resetInput()
   }
 
   resetInput() {
