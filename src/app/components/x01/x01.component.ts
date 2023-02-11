@@ -1,14 +1,12 @@
-import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WebSocketService } from '../../services/websocket.service';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { JitsiService } from 'src/app/services/jitsi.service';
-import { ApiService, X01ScoreRequest } from 'src/app/services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 import { Store } from '@ngrx/store';
-import { AppState, selectX01Away, selectX01Home, setOpponentName, setOpponentScore, setPlayerName, setPlayerScore, X01State } from './x01.state';
+import { selectX01Home, setOpponentName, setOpponentScore, setPlayerName, setPlayerScore, X01State } from './x01.state';
 @Component({
   selector: 'app-x01',
   templateUrl: './x01.component.html',
@@ -36,7 +34,6 @@ export class X01Component implements OnInit {
   public opponent_avg: number = 0;
   public opponent_total: number = 0;
 
-  private trigger: Subject<void> = new Subject<void>();
   public webcamHeight = 300;
   public webcamWidth = 300;
   public webcamImage: any;

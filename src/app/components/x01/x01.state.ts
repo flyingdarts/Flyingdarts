@@ -30,7 +30,7 @@ export const initialState: X01State = {
 
 export const x01Reducer = createReducer(
     initialState,
-    on(setPlayerScore, (state, { game }) => ({ home: game.home })),
+    on(setPlayerScore, (state, { game }) => ({ home: game.home! })),
     on(setOpponentScore, (state, { game }) => ({ away: game.away! })),
     on(setPlayerName, (state, { game }) => ({ playerName: game.playerName! })),
     on(setOpponentName, (state, { game }) => ({ opponentName: game.opponentName! }))
