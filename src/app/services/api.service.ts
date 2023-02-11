@@ -1,6 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Message } from "./Message";
+import { RoomCreatedRequest } from "../requests/roomCreated";
+import { RoomJoinedRequest } from "../requests/roomJoined";
+import { X01ScoreRequest } from "../requests/x01Score";
+import { Message } from "./message";
 import { WebSocketService } from "./websocket.service";
+
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -45,24 +49,5 @@ export class ApiService {
         };
         this.webSocketService.postMessage(body);
     }
-}
-export interface IRequest {
-
-}
-export interface X01ScoreRequest extends IRequest {
-    RoomId: string;
-    PlayerId: string;
-    Score: number;
-    Input: number;
-}
-
-export interface RoomJoinedRequest extends IRequest {
-    RoomId: string;
-    PlayerId: string;
-    PlayerName: string
-}
-
-export interface RoomCreatedRequest extends IRequest {
-    RoomId: string;
 }
 

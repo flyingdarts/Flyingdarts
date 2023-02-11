@@ -1,11 +1,11 @@
 import { Subject, Observable } from 'rxjs';
 
-export interface WebSocketMessage<T = unknown> {
+export interface WebSocketMessage<T = any> {
   type: string;
-  payload?: unknown;
+  payload?: any;
 }
 
-export class WebSocketService<T = unknown> {
+export class WebSocketService<T = any> {
   private socket: WebSocket;
   private connected = false;
   private messages = new Subject<WebSocketMessage<T>>();
@@ -19,21 +19,21 @@ export class WebSocketService<T = unknown> {
 
     this.socket.onopen = (event) => {
       this.connected = true;
-      this.messages.next({ type: 'OnConnect', payload: event as unknown });
+      this.messages.next({ type: 'OnConnect', payload: event as any });
     };
 
     this.socket.onclose = (event) => {
       this.connected = false;
-      this.messages.next({ type: 'OnDisconnect', payload: event as unknown });
+      this.messages.next({ type: 'OnDisconnect', payload: event as any });
       setTimeout(() => this.connect(), 1000);
     };
 
     this.socket.onerror = (event) => {
-      this.messages.next({ type: 'OnDefault', payload: event as unknown });
+      this.messages.next({ type: 'OnDefault', payload: event as any });
     };
 
     this.socket.onmessage = (event) => {
-      this.messages.next({ type: 'OnDefault', payload: JSON.parse(event.data) as unknown });
+      this.messages.next({ type: 'OnDefault', payload: JSON.parse(event.data) as any });
     };
   }
 
