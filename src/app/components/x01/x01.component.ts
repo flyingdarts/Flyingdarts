@@ -49,7 +49,9 @@ export class X01Component implements OnInit {
     this.opponent_score$ = this.store.select('X01', 'away');
     this.player_name$ = this.store.select('X01', 'playerName');
     this.opponent_name$ = this.store.select('X01', 'opponentName');
-    console.log(store.select(selectX01Home));
+
+    console.log("construct snapshot", this.route.snapshot);
+
   }
 
   ngOnInit() {
@@ -87,6 +89,7 @@ export class X01Component implements OnInit {
     this.jitsiService.moveRoom(this.jitsiService.namePrincipalRoom, false);
     this.jitsiService.user.setName(this.playerLocalStorageService.getUserName());
 
+    console.log("on init snapshot", this.route.snapshot);
     this.apiService.roomsOnJoin(this.route.snapshot.params["id"], this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
 
   }
