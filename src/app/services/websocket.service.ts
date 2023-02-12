@@ -30,11 +30,11 @@ export class WebSocketService<T = any> {
     };
 
     this.socket.onerror = (event) => {
-      this.messages.next({ action: 'default', message: event as any });
+      this.messages.next({ action: 'default$', message: event as any });
     };
 
     this.socket.onmessage = (event) => {
-      this.messages.next({ action: 'default', message: JSON.parse(event.data) as any });
+      this.messages.next({ action: 'default$', message: JSON.parse(event.data) as any });
     };
   }
 
