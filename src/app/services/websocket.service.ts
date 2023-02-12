@@ -38,9 +38,9 @@ export class WebSocketService<T = any> {
     };
   }
 
-  public postMessage(payload: T): void {
+  public postMessage(payload: string): void {
     if (this.connected) {
-      this.socket.send(JSON.stringify({ payload }));
+      this.socket.send(payload);
     }
   }
 

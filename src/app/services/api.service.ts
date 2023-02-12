@@ -23,7 +23,8 @@ export class ApiService {
             action: 'x01/score',
             message: message
         };
-        this.webSocketService.postMessage(body);
+        console.log(body);
+        this.webSocketService.postMessage(JSON.stringify(body));
     }
 
     roomsOnJoin(roomId: string, playerId: string, playerName: string) {
@@ -36,7 +37,8 @@ export class ApiService {
             action: 'rooms/join',
             message: message
         };
-        this.webSocketService.postMessage(body);
+        console.log(body);
+        this.webSocketService.postMessage(JSON.stringify(body));
     }
 
     roomsOnCreate(roomId: string) {
@@ -47,7 +49,8 @@ export class ApiService {
             action: 'rooms/create',
             message: message
         };
-        this.webSocketService.postMessage(body);
+        console.log(body);
+        this.webSocketService.postMessage(JSON.stringify(body));
     }
 }
 
