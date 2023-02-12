@@ -1,4 +1,5 @@
 import { Subject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface WebSocketMessage<T = any> {
   action: string;
@@ -11,7 +12,7 @@ export class WebSocketService<T = any> {
   private messages = new Subject<WebSocketMessage<T>>();
 
   constructor() {
-    this.socket = new WebSocket('ws://localhost:8080');
+    this.socket = new WebSocket(environment.webSocketUrl);
     this.connect();
   }
 
