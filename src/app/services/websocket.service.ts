@@ -1,8 +1,8 @@
 import { Subject, Observable } from 'rxjs';
 
 export interface WebSocketMessage<T = any> {
-  type: string;
-  payload?: any;
+  action: string;
+  message?: Request;
 }
 
 export class WebSocketService<T = any> {
@@ -19,21 +19,21 @@ export class WebSocketService<T = any> {
 
     this.socket.onopen = (event) => {
       this.connected = true;
-      this.messages.next({ type: 'OnConnect', payload: event as any });
+      this.messages.next({ action: 'connect$', message: event as any });
     };
 
     this.socket.onclose = (event) => {
       this.connected = false;
-      this.messages.next({ type: 'OnDisconnect', payload: event as any });
+      this.messages.next({ action: 'disconnect$', message: event as any });
       setTimeout(() => this.connect(), 1000);
     };
 
     this.socket.onerror = (event) => {
-      this.messages.next({ type: 'OnDefault', payload: event as any });
+      this.messages.next({ action: 'default', message: event as any });
     };
 
     this.socket.onmessage = (event) => {
-      this.messages.next({ type: 'OnDefault', payload: JSON.parse(event.data) as any });
+      this.messages.next({ action: 'default', message: JSON.parse(event.data) as any });
     };
   }
 
