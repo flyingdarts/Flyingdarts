@@ -39,7 +39,7 @@ export class LobbyComponent implements OnInit {
     });
 
     this.webSocketService.getMessages()
-      .pipe(filter(a=>a.action === WebSocketActions.RoomsOnCreated))
+      .pipe(filter(a=>a.action === WebSocketActions.RoomsOnCreate))
       .subscribe((x) => {
         this.router.navigate(['x01', (x.message as CreateRoomRequest).RoomId ])
     })

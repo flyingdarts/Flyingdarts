@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { WebSocketService } from '../../services/websocket/websocket.service';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { filter, Observable, Subject, Subscription } from 'rxjs';
 import { JitsiService } from 'src/app/services/jitsi.service';
 import { ApiService } from 'src/app/services/api.service';
 import { Store } from '@ngrx/store';
 import { selectX01Home, setOpponentName, setOpponentScore, setPlayerName, setPlayerScore, X01State } from './x01.state';
+import { WebSocketActions } from 'src/app/services/websocket/WebSocketActions';
+import { JoinRoomRequest } from 'src/app/services/websocket/requests/JoinRoomRequest';
+import { WebSocketMessage } from 'src/app/services/websocket/WebSocketMessage';
 @Component({
   selector: 'app-x01',
   templateUrl: './x01.component.html',
@@ -58,28 +61,19 @@ export class X01Component implements OnInit {
     this.roomSubscription = this.route.params.subscribe(params => {
       this.roomId = params['id']
     })
-
-    this.webSocketService.getMessages().subscribe((message: any) => {
-      var game: any = {}
-      console.log(`Message received: ${message.action}`, message)
-      if (message.action === "room/on-join") {
-        if (message.message["PlayerId"] == this.playerLocalStorageService.getUserId()) {
-          game = { game: { playerName: message.message["PlayerName"] }}
+    var game: any = {};
+    this.webSocketService.getMessages()
+      .pipe(filter(x=>x.action === WebSocketActions.RoomsOnJoin))
+      .subscribe(x=> {
+        let message: JoinRoomRequest = x.message as JoinRoomRequest
+        if (message.PlayerId == this.playerLocalStorageService.getUserId()) {
+          game = { game: { playerName: message.PlayerName }}
           this.store.dispatch(setPlayerName(game));
         } else {
-          game = { game: { oppnentName: message.message["PlayerName"] }}
+          game = { game: { opponentName: message.PlayerName }}
           this.store.dispatch(setOpponentName(game));
         }
-      } else if (message.action === "x01/on-score") {
-        if (message.message["PlayerId"] == this.playerLocalStorageService.getUserId()) {
-          game = { game: { playerScore: message.message["Score"] }}
-          this.store.dispatch(setPlayerScore(game));
-        } else {
-          game = { game: { opponentScore: message.message["Score"] }}
-          this.store.dispatch(setOpponentScore(game));
-        }
-      }
-    })
+      })
 
     var view = document.getElementById("webcamView");
     this.webcamHeight = view?.clientHeight!;
