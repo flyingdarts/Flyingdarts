@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WebSocketService } from '../../services/websocket.service';
+import { WebSocketService } from '../../services/websocket/websocket.service';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
 import { Observable, Subject, Subscription } from 'rxjs';

@@ -38,6 +38,7 @@ export class JitsiService {
 
             configOverwrite: {
                 prejoinPageEnabled: this.user.name != '' ? false : true,
+                apiLogLevels: ['error']
             },
             interfaceConfigOverwrite: {
                 startAudioMuted: true,
@@ -66,7 +67,7 @@ export class JitsiService {
     }
 
     changeRouterLink(value: any) {
-        console.log(value);
+        // console.log(value);
         this.namePrincipalRoom = value;
 
         const myNode = document.getElementById('jitsi-iframe');
@@ -79,6 +80,7 @@ export class JitsiService {
             configOverwrite: {
                 prejoinPageEnabled: false,
                 openBridgeChannel: 'datachannel',
+                apiLogLevels: ['error']
             },
             interfaceConfigOverwrite: {
                 // overwrite interface properties

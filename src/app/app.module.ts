@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
-import { WebSocketService } from './services/websocket.service';
+import { WebSocketService } from './services/websocket/websocket.service';
 import { LottieModule } from 'ngx-lottie';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PlayerLocalStorageService } from './services/player.local-storage.service';

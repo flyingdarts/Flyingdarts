@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { RoomCreatedRequest } from "../requests/roomCreated";
-import { RoomJoinedRequest } from "../requests/roomJoined";
-import { X01ScoreRequest } from "../requests/x01Score";
-import { Message } from "./message";
-import { WebSocketService } from "./websocket.service";
+import { CreateRoomRequest } from "./websocket/requests/CreateRoomRequest";
+import { CreateX01ScoreRequest } from "./websocket/requests/CreateX01ScoreRequest";
+import { JoinRoomRequest } from "./websocket/requests/JoinRoomRequest";
+import { WebSocketService } from "./websocket/websocket.service";
+import { WebSocketActions } from "./websocket/WebSocketActions";
+import { WebSocketMessage } from "./websocket/WebSocketMessage";
 
 
 @Injectable({ providedIn: 'root' })
@@ -13,14 +14,14 @@ export class ApiService {
     }
 
     gamesOnScore(roomId: string, playerId: string, score: number, input: number) {
-        var message: X01ScoreRequest = {
+        var message: CreateX01ScoreRequest = {
             RoomId: roomId,
             PlayerId: playerId,
             Score: score,
             Input: input
         };
-        let body: Message = {
-            action: 'x01/score',
+        let body: WebSocketMessage<CreateX01ScoreRequest> = {
+            action: WebSocketActions.X01OnScore,
             message: message
         };
         console.log(body);
@@ -28,13 +29,13 @@ export class ApiService {
     }
 
     roomsOnJoin(roomId: string, playerId: string, playerName: string) {
-        var message: RoomJoinedRequest = {
+        var message: JoinRoomRequest = {
             RoomId: roomId,
             PlayerId: playerId,
             PlayerName: playerName
         };
-        let body: Message = {
-            action: 'rooms/join',
+        let body: WebSocketMessage<JoinRoomRequest> = {
+            action: WebSocketActions.RoomsOnJoin,
             message: message
         };
         console.log(body);
@@ -42,11 +43,11 @@ export class ApiService {
     }
 
     roomsOnCreate(roomId: string) {
-        var message: RoomCreatedRequest = {
+        var message: CreateRoomRequest = {
             RoomId: roomId
         };
-        let body: Message = {
-            action: 'rooms/create',
+        let body: WebSocketMessage<CreateRoomRequest> = {
+            action: WebSocketActions.RoomsOnCreate,
             message: message
         };
         console.log(body);
