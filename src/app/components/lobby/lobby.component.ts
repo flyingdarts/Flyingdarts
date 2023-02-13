@@ -7,9 +7,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { CreateRoomRequest } from 'src/app/services/websocket/requests/CreateRoomRequest';
 import { PlayerLocalStorageService } from 'src/app/services/player.local-storage.service';
 import { WebSocketService } from 'src/app/services/websocket/websocket.service';
-import { WebSocketMessage } from 'src/app/services/websocket/WebSocketMessage';
 import { WebSocketActions } from 'src/app/services/websocket/WebSocketActions';
-
+import { filter } from "rxjs"
 var randomstring = require("randomstring");
 
 @Component({
@@ -39,10 +38,10 @@ export class LobbyComponent implements OnInit {
       this.playerLocalStorageService.setUserName(user.attributes.name);
     });
 
-    this.webSocketService.getMessages().subscribe((x) => {
-      if (x.action == WebSocketActions.RoomsOnCreated) {
+    this.webSocketService.getMessages()
+      .pipe(filter(a=>a.action === WebSocketActions.RoomsOnCreated))
+      .subscribe((x) => {
         this.router.navigate(['x01', (x.message as CreateRoomRequest).RoomId ])
-      }
     })
   }
 
