@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { User } from './../services/user';
 declare var JitsiMeetExternalAPI: any;
 import { Router } from '@angular/router'; // import router from angular router
+import { PlayerLocalStorageService } from './player.local-storage.service';
 
 @Injectable({
     providedIn: 'root',
@@ -17,8 +18,9 @@ export class JitsiService {
     isAudioMuted = true;
     isVideoMuted = true;
 
-    constructor(private route: Router) {
+    constructor(private route: Router, private playerLocalStorageService: PlayerLocalStorageService) {
         this.user = new User();
+        this.user.setName(playerLocalStorageService.getUserName())
         this.namePrincipalRoom = 'PrincipalRoom';
     }
 
@@ -26,8 +28,8 @@ export class JitsiService {
         const myNode = document.getElementById('jitsi-iframe');
         myNode!.innerHTML = '';
 
-        console.log('nameRoom' + nameRoom);
-        console.log('prejoinPageEnabled:' + (this.user.name != '' ? true : false));
+        // console.log('nameRoom' + nameRoom);
+        // console.log('prejoinPageEnabled:' + (this.user.name != '' ? true : false));
 
         this.options = {
             roomName: nameRoom,
@@ -95,41 +97,41 @@ export class JitsiService {
     };
 
     endpointTextMessageReceived = async (event: any) => {
-        console.log('mensaje recibido');
-        console.log(event);
-        console.log(event.data.eventData.text);
+        // console.log('mensaje recibido');
+        // console.log(event);
+        // console.log(event.data.eventData.text);
         if ((event.data.eventData.text = 'mover a principal')) {
             this.moveRoom('grupo 1', true);
         }
     };
 
     passwordRequired = async () => {
-        console.log('passwordRequired'); // { id: "2baa184e" }
+        // console.log('passwordRequired'); // { id: "2baa184e" }
         this.api.executeCommand('password', 'The Password');
     };
 
     handleParticipantLeft = async (participant: any) => {
-        console.log('handleParticipantLeft', participant); // { id: "2baa184e" }
+        // console.log('handleParticipantLeft', participant); // { id: "2baa184e" }
         const data = await this.getParticipants();
     };
 
     participantRoleChanged = async (participant: any) => {
-        console.log('participantRoleChanged', participant);
+        // console.log('participantRoleChanged', participant);
         //if (participant.role === "moderator")
         {
-            console.log('participantRoleChanged:', participant.role);
+           //  console.log('participantRoleChanged:', participant.role);
             this.api.executeCommand('password', 'The Password');
         }
     };
 
     handleParticipantJoined = async (participant: any) => {
-        console.log('OJOJOJOJ  handleParticipantJoined', participant); // { id: "2baa184e", displayName: "Shanu Verma", formattedDisplayName: "Shanu Verma" }
+        // console.log('OJOJOJOJ  handleParticipantJoined', participant); // { id: "2baa184e", displayName: "Shanu Verma", formattedDisplayName: "Shanu Verma" }
 
         const data = await this.getParticipants();
     };
 
     handleVideoConferenceJoined = async (participant: any) => {
-        console.log('handleVideoConferenceJoined', participant); // { roomName: "bwb-bfqi-vmh", id: "8c35a951", displayName: "Akash Verma", formattedDisplayName: "Akash Verma (me)"}
+        // console.log('handleVideoConferenceJoined', participant); // { roomName: "bwb-bfqi-vmh", id: "8c35a951", displayName: "Akash Verma", formattedDisplayName: "Akash Verma (me)"}
         /*
         displayName: "userNameTest"
     formattedDisplayName: "userNameTest (me)"
@@ -144,16 +146,16 @@ export class JitsiService {
     };
 
     handleVideoConferenceLeft = () => {
-        console.log('handleVideoConferenceLeft');
+        // console.log('handleVideoConferenceLeft');
         this.route.navigate(['/thank-you']);
     };
 
     handleMuteStatus = (audio: any) => {
-        console.log('handleMuteStatus', audio); // { muted: true }
+        // console.log('handleMuteStatus', audio); // { muted: true }
     };
 
     handleVideoStatus = (video: any) => {
-        console.log('handleVideoStatus', video); // { muted: true }
+        // console.log('handleVideoStatus', video); // { muted: true }
     };
 
     getParticipants() {

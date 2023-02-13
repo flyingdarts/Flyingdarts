@@ -61,7 +61,7 @@ export class X01Component implements OnInit {
 
     this.webSocketService.getMessages().subscribe((message: any) => {
       var game: any = {}
-      console.log("message received", message)
+      console.log(`Message received: ${message.action}`, message)
       if (message.action === "room/on-join") {
         if (message.message["PlayerId"] == this.playerLocalStorageService.getUserId()) {
           game = { game: { playerName: message.message["PlayerName"] }}
