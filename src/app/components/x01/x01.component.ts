@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { WebSocketService } from '../../services/websocket/websocket.service';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerLocalStorageService } from '../../services/player.local-storage.service';
-import { filter, Observable, Subject, Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { JitsiService } from 'src/app/services/jitsi.service';
 import { ApiService } from 'src/app/services/api.service';
 import { Store } from '@ngrx/store';
-import { selectX01Home, setOpponentName, setOpponentScore, setPlayerName, setPlayerScore, X01State } from './x01.state';
 import { WebSocketActions } from 'src/app/services/websocket/WebSocketActions';
 import { JoinRoomRequest } from 'src/app/services/websocket/requests/JoinRoomRequest';
-import { WebSocketMessage } from 'src/app/services/websocket/WebSocketMessage';
+import { CreateX01ScoreRequest } from 'src/app/services/websocket/requests/CreateX01ScoreRequest';
+export interface ScoreRecord {
+  score: number;
+  input: number;
+}
 @Component({
   selector: 'app-x01',
   templateUrl: './x01.component.html',
@@ -26,14 +29,15 @@ export class X01Component implements OnInit {
   public lastThreeString: string = "0 0 0";
   public lastThreeSum: number = 0;
   public player: number[] = [];
-  public player_name$: Observable<string | undefined>;
-  public player_score$: Observable<number | undefined>;
+  public player_name: string = "Pajeet";
+  public player_score: number = 0;
   public player_avg: number = 0;
   public player_total: number = 0;
+  public playerScores: ScoreRecord[] = [];
 
   public opponent: number[] = [];
-  public opponent_name$: Observable<string | undefined>;
-  public opponent_score$: Observable<number | undefined>;
+  public opponent_name: string = "Punjabi";
+  public opponent_score: number = 0;
   public opponent_avg: number = 0;
   public opponent_total: number = 0;
 
@@ -41,18 +45,17 @@ export class X01Component implements OnInit {
   public webcamWidth = 300;
   public webcamImage: any;
   public deviceId: String = "";
+
+  // public players$: Observable<Player[]>
   constructor(
     private webSocketService: WebSocketService,
     private apiService: ApiService,
-    private store: Store<{ X01: X01State }>,
     private route: ActivatedRoute,
     private playerLocalStorageService: PlayerLocalStorageService,
-    private jitsiService: JitsiService) {
-    this.player_score$ = this.store.select('X01', 'home');
-    this.opponent_score$ = this.store.select('X01', 'away');
-    this.player_name$ = this.store.select('X01', 'playerName');
-    this.opponent_name$ = this.store.select('X01', 'opponentName');
+    private jitsiService: JitsiService,
+    private store: Store) {
 
+    // this.players$ = this.store.pipe(select(X01Players))
     console.log("construct snapshot", this.route.snapshot);
 
   }
@@ -61,6 +64,10 @@ export class X01Component implements OnInit {
     this.roomSubscription = this.route.params.subscribe(params => {
       this.roomId = params['id']
     })
+    this.player_score = 501
+    this.opponent_score = 501
+    this.player_total = 501
+    this.opponent_total = 501
     var game = {
       currentState: {
         home: 501,
@@ -76,12 +83,22 @@ export class X01Component implements OnInit {
         console.log("Received join room request", message);
         if (message.PlayerId == this.playerLocalStorageService.getUserId()) {
           game.currentState.playerName = message.PlayerName;
-          this.store.dispatch(setPlayerName(game));
-          this.store.dispatch(setPlayerScore(game))
+          console.log("game", game)
         } else {
           game.currentState.opponentName = message.PlayerName;
-          this.store.dispatch(setOpponentName(game));
-          this.store.dispatch(setOpponentScore(game))
+          console.log("game", game)
+        }
+      });
+    this.webSocketService.getMessages()
+      .pipe(filter(x => x.action === WebSocketActions.X01OnScore))
+      .subscribe(x => {
+        let message: CreateX01ScoreRequest = x.message as CreateX01ScoreRequest;
+        console.log("Received x01 score request", message);
+        if (message.PlayerId == this.playerLocalStorageService.getUserId()) {
+          this.playerScores.push({ score: this.player_score, input: message.Input });
+          this.player_score = message.Score;
+        } else {
+          this.opponent_score = message.Score;
         }
       })
 
@@ -94,8 +111,13 @@ export class X01Component implements OnInit {
     this.jitsiService.user.setName(this.playerLocalStorageService.getUserName());
 
     console.log("on init snapshot", this.route.snapshot);
+
     this.apiService.roomsOnJoin(this.route.snapshot.params["id"], this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
 
+    // this.player_score$ = this.store.select('X01', 'home');
+    // this.opponent_score$ = this.store.select('X01', 'away');
+    // this.player_name$ = this.store.select('X01', 'playerName');
+    // this.opponent_name$ = this.store.select('X01', 'opponentName');
   }
 
   dartBoardInput(input: number) {
@@ -124,7 +146,7 @@ export class X01Component implements OnInit {
   }
 
   sendScore() {
-    this.apiService.gamesOnScore(this.roomId, this.playerLocalStorageService.getUserId(), this.player_total - this.lastThreeSum, this.lastThreeSum);
+    this.apiService.gamesOnScore(this.roomId, this.playerLocalStorageService.getUserId(), this.player_score - this.lastThreeSum, this.lastThreeSum);
     this.resetInput()
   }
 

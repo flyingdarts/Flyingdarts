@@ -5,10 +5,10 @@
                 <div class="row g-0">
                     <div class="col-6">
                         <div class="row text-center">
-                            <p class="mb-0">{{ player_score$ | async }}</p>
+                            <p class="mb-0">{{ player_score }}</p>
                         </div>
                         <div class="row text-center">
-                            <p class="mb-4">{{ player_name$ | async }}</p>
+                            <p class="mb-4">{{ player_name }}</p>
                         </div>
                         <div class="row text-center">
                             <h3 class="mb-0">AVG: {{ player_avg }}</h3>
@@ -16,10 +16,10 @@
                     </div>
                     <div class="col-6">
                         <div class="row text-center">
-                            <p class="mb-0">{{ opponent_score$ | async }}</p>
+                            <p class="mb-0">{{ opponent_score }}</p>
                         </div>
                         <div class="row text-center">
-                            <p class="mb-4">{{ opponent_name$ | async }}</p>
+                            <p class="mb-4">{{ opponent_name }}</p>
                         </div>
                         <div class="row text-center">
                             <h3 class="mb-0">AVG: {{ opponent_avg }}</h3>
@@ -41,7 +41,19 @@
                     </div>
                 </div>
             </div>
-            <app-dartboard (targetPressedEvent)="dartBoardInput($event)"></app-dartboard>
+            <div row>
+                <div class="col-1">
+                    <div *ngFor="let item of playerScores">
+                        <span>{{item.score}} | {{item.input }}</span>
+                    </div>
+                </div>
+                <div class="col-10">
+                    <app-dartboard (targetPressedEvent)="dartBoardInput($event)"></app-dartboard>
+                </div>
+                <div class="col-1">
+
+                </div>
+            </div>
 
         </div>
         <div class="col-sm-12 col-md-12 col-lg-5" id="jitsi-iframe"></div>
