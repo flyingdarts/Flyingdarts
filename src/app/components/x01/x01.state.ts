@@ -1,9 +1,9 @@
 import { createAction, createReducer, createSelector, on, props } from "@ngrx/store";
 
-export const setPlayerName = createAction('[Scoreboard Page] setPlayerName', props<{game: X01State}>());
-export const setOpponentName = createAction('[Scoreboard Page] setOpponentName', props<{game: X01State}>());
-export const setPlayerScore = createAction('[Scoreboard Page] setPlayerScore', props<{game: X01State}>());
-export const setOpponentScore = createAction('[Scoreboard Page] setOpponentScore', props<{game: X01State}>());
+export const setPlayerName = createAction('[Scoreboard Page] setPlayerName', props<{ currentState: X01State }>());
+export const setOpponentName = createAction('[Scoreboard Page] setOpponentName', props<{ currentState: X01State }>());
+export const setPlayerScore = createAction('[Scoreboard Page] setPlayerScore', props<{ currentState: X01State }>());
+export const setOpponentScore = createAction('[Scoreboard Page] setOpponentScore', props<{ currentState: X01State }>());
 
 export interface AppState {
     X01: X01State
@@ -30,8 +30,8 @@ export const initialState: X01State = {
 
 export const x01Reducer = createReducer(
     initialState,
-    on(setPlayerScore, (state, { game }) => ({ home: game.home! })),
-    on(setOpponentScore, (state, { game }) => ({ away: game.away! })),
-    on(setPlayerName, (state, { game }) => ({ playerName: game.playerName! })),
-    on(setOpponentName, (state, { game }) => ({ opponentName: game.opponentName! }))
+    on(setPlayerScore, (state, { currentState }) => ({ home: currentState.home! })),
+    on(setOpponentScore, (state, { currentState }) => ({ away: currentState.away! })),
+    on(setPlayerName, (state, { currentState }) => ({ playerName: currentState.playerName! })),
+    on(setOpponentName, (state, { currentState }) => ({ opponentName: currentState.opponentName! }))
 );

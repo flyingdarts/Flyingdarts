@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   };
 
   constructor(private amplifyAuthService: AmplifyAuthService) {
-
   }
 
   onAnimate(animationItem: AnimationItem): void {

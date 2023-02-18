@@ -61,17 +61,27 @@ export class X01Component implements OnInit {
     this.roomSubscription = this.route.params.subscribe(params => {
       this.roomId = params['id']
     })
-    var game: any = {};
+    var game = {
+      currentState: {
+        home: 501,
+        away: 501,
+        playerName: "Player",
+        opponentName: "Opponent"
+      }
+    };
     this.webSocketService.getMessages()
-      .pipe(filter(x=>x.action === WebSocketActions.RoomsOnJoin))
-      .subscribe(x=> {
-        let message: JoinRoomRequest = x.message as JoinRoomRequest
+      .pipe(filter(x => x.action === WebSocketActions.RoomsOnJoin))
+      .subscribe(x => {
+        let message: JoinRoomRequest = x.message as JoinRoomRequest;
+        console.log("Received join room request", message);
         if (message.PlayerId == this.playerLocalStorageService.getUserId()) {
-          game = { game: { playerName: message.PlayerName }}
+          game.currentState.playerName = message.PlayerName;
           this.store.dispatch(setPlayerName(game));
+          this.store.dispatch(setPlayerScore(game))
         } else {
-          game = { game: { opponentName: message.PlayerName }}
+          game.currentState.opponentName = message.PlayerName;
           this.store.dispatch(setOpponentName(game));
+          this.store.dispatch(setOpponentScore(game))
         }
       })
 

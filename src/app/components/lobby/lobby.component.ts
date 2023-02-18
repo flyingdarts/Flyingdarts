@@ -21,6 +21,7 @@ export class LobbyComponent implements OnInit {
   public lottieOptions: AnimationOptions = {
     path: '/assets/animations/play.json'
   };
+  public shouldHideLoader: boolean = true;
 
   constructor(
     private playerLocalStorageService: PlayerLocalStorageService,
@@ -31,7 +32,7 @@ export class LobbyComponent implements OnInit {
   ) {
 
   }
-  
+
   ngOnInit(): void {
     this.amplifyAuthService.getUser().then((user: any) => {
       this.playerLocalStorageService.setUserId(user.attributes.sub);
@@ -39,10 +40,11 @@ export class LobbyComponent implements OnInit {
     });
 
     this.webSocketService.getMessages()
-      .pipe(filter(a=>a.action === WebSocketActions.RoomsOnCreate))
+      .pipe(filter(a => a.action === WebSocketActions.RoomsOnCreate))
       .subscribe((x) => {
-        this.router.navigate(['x01', (x.message as CreateRoomRequest).RoomId ])
-    })
+        this.shouldHideLoader = !this.shouldHideLoader;
+        this.router.navigate(['x01', (x.message as CreateRoomRequest).RoomId])
+      })
   }
 
   // This is the component function that binds to the animationCreated event from the package  
@@ -51,6 +53,7 @@ export class LobbyComponent implements OnInit {
   }
 
   createRoom() {
+    this.shouldHideLoader = !this.shouldHideLoader;
     var roomId = randomstring.generate(7)
     this.apiService.roomsOnCreate(roomId)
   }
