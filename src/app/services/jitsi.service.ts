@@ -33,8 +33,8 @@ export class JitsiService {
 
         this.options = {
             roomName: nameRoom,
-            width: 900,
-            height: 720,
+            width: 1016,
+            height: 783,
 
             configOverwrite: {
                 prejoinPageEnabled: this.user.name != '' ? false : true,
@@ -75,8 +75,8 @@ export class JitsiService {
 
         this.options = {
             roomName: this.namePrincipalRoom,
-            width: 900,
-            height: 720,
+            width: 1016,
+            height: 783,
             configOverwrite: {
                 prejoinPageEnabled: false,
                 openBridgeChannel: 'datachannel',

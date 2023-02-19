@@ -28,6 +28,7 @@ export class X01Component implements OnInit {
   public lastThreeInputs: number[] = [0, 0, 0];
   public lastThreeString: string = "0 0 0";
   public lastThreeSum: number = 0;
+
   public player: number[] = [];
   public player_name: string = "Pajeet";
   public player_score: number = 0;
@@ -40,6 +41,7 @@ export class X01Component implements OnInit {
   public opponent_score: number = 0;
   public opponent_avg: number = 0;
   public opponent_total: number = 0;
+  public opponentScores: ScoreRecord[] = [];
 
   public webcamHeight = 300;
   public webcamWidth = 300;
@@ -67,25 +69,16 @@ export class X01Component implements OnInit {
     this.opponent_score = 501
     this.player_total = 501
     this.opponent_total = 501
-    var game = {
-      currentState: {
-        home: 501,
-        away: 501,
-        playerName: "Player",
-        opponentName: "Opponent"
-      }
-    };
+
     this.webSocketService.getMessages()
       .pipe(filter(x => x.action === WebSocketActions.RoomsOnJoin))
       .subscribe(x => {
         let message: JoinRoomRequest = x.message as JoinRoomRequest;
         console.log("Received join room request", message);
         if (message.PlayerId == this.playerLocalStorageService.getUserId()) {
-          game.currentState.playerName = message.PlayerName;
-          console.log("game", game)
+          this.player_name = message.PlayerName;
         } else {
-          game.currentState.opponentName = message.PlayerName;
-          console.log("game", game)
+          this.opponent_name = message.PlayerName;
         }
       });
     this.webSocketService.getMessages()
@@ -97,6 +90,7 @@ export class X01Component implements OnInit {
           this.playerScores.push({ score: this.player_score, input: message.Input });
           this.player_score = message.Score;
         } else {
+          this.opponentScores.push({ score: this.opponent_score, input: message.Input });
           this.opponent_score = message.Score;
         }
       })
