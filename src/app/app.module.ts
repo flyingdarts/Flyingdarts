@@ -23,6 +23,7 @@ import { StoreModule } from '@ngrx/store';
 import { DartboardComponent } from './components/x01/controls/dartboard/dartboard.component';
 import { X01Component } from './components/x01/x01.component';
 import { environment } from '../environments/environment';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Export this function
 export function playerFactory(): any {
@@ -46,6 +47,7 @@ export function playerFactory(): any {
     LottieModule.forRoot({ player: playerFactory }),
     HttpClientModule,
     WebcamModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

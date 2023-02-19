@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { WebSocketActions } from 'src/app/services/websocket/WebSocketActions';
 import { JoinRoomRequest } from 'src/app/services/websocket/requests/JoinRoomRequest';
 import { CreateX01ScoreRequest } from 'src/app/services/websocket/requests/CreateX01ScoreRequest';
+import { isNullOrUndefined } from '../app/app.component';
 export interface ScoreRecord {
   score: number;
   input: number;
@@ -56,9 +57,13 @@ export class X01Component implements OnInit {
     private playerLocalStorageService: PlayerLocalStorageService,
     private jitsiService: JitsiService) {
 
-    // this.players$ = this.store.pipe(select(X01Players))
-    console.log("construct snapshot", this.route.snapshot);
-
+    let roomId = this.route.snapshot.params["id"];
+    let userId = this.playerLocalStorageService.getUserId();
+    let userName = this.playerLocalStorageService.getUserName();
+    if (!isNullOrUndefined(roomId) && !isNullOrUndefined(userId) && !isNullOrUndefined(userName)) {
+      console.log("ngOnInit with params for room join", roomId, userId, userName);
+      this.apiService.roomsOnJoin(roomId, userId, userName);
+    }
   }
 
   ngOnInit() {
@@ -104,13 +109,6 @@ export class X01Component implements OnInit {
     this.jitsiService.user.setName(this.playerLocalStorageService.getUserName());
 
     console.log("on init snapshot", this.route.snapshot);
-
-    this.apiService.roomsOnJoin(this.route.snapshot.params["id"], this.playerLocalStorageService.getUserId(), this.playerLocalStorageService.getUserName());
-
-    // this.player_score$ = this.store.select('X01', 'home');
-    // this.opponent_score$ = this.store.select('X01', 'away');
-    // this.player_name$ = this.store.select('X01', 'playerName');
-    // this.opponent_name$ = this.store.select('X01', 'opponentName');
   }
 
   dartBoardInput(input: number) {

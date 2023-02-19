@@ -72,6 +72,8 @@
             <div class="lobby-card-inner">
                 <div class="lobby-card card card-question">
                     <p>Let us know what you want next!</p>
+                    <span><input type="text" [formControl]="privateRoomId" /><button
+                            (click)="joinRoom()">Go!</button></span>
                 </div>
             </div>
         </div>

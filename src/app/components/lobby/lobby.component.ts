@@ -9,6 +9,7 @@ import { PlayerLocalStorageService } from 'src/app/services/player.local-storage
 import { WebSocketService } from 'src/app/services/websocket/websocket.service';
 import { WebSocketActions } from 'src/app/services/websocket/WebSocketActions';
 import { filter } from "rxjs"
+import { FormControl } from '@angular/forms';
 var randomstring = require("randomstring");
 
 @Component({
@@ -17,6 +18,7 @@ var randomstring = require("randomstring");
   styleUrls: ['./lobby.component.scss']
 })
 export class LobbyComponent implements OnInit {
+  public privateRoomId: FormControl;
   public playerId: string = "";
   public lottieOptions: AnimationOptions = {
     path: '/assets/animations/play.json'
@@ -30,7 +32,7 @@ export class LobbyComponent implements OnInit {
     private router: Router,
     private webSocketService: WebSocketService
   ) {
-
+    this.privateRoomId = new FormControl("");
   }
 
   ngOnInit(): void {
@@ -56,6 +58,12 @@ export class LobbyComponent implements OnInit {
     this.shouldHideLoader = !this.shouldHideLoader;
     var roomId = randomstring.generate(7)
     this.apiService.roomsOnCreate(roomId)
+  }
+
+  joinRoom() {
+
+    console.log("join room clicked", this.privateRoomId.value);
+    this.router.navigate(['x01', this.privateRoomId.value]);
   }
 
   public signOut(): void {
