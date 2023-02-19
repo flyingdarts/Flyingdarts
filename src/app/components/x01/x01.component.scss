@@ -33,8 +33,6 @@ p {
     display: unset !important;
     height: 100% !important;
     width: 100% !important;
-
-
 }
 
 video {
@@ -158,6 +156,14 @@ ng-lottie {
             font-weight: 700 !important;
             color: #f9617d;
         }
+    }
+}
+
+table {
+    width: 120px;
+
+    td {
+        width: 50%;
     }
 }
 

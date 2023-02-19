@@ -41,20 +41,25 @@
                     </div>
                 </div>
             </div>
-            <div row>
-                <div class="col-1">
+            <div class="row g-0">
+                <div class="col-2 g-0">
                     <div *ngFor="let item of playerScores">
-                        <span>{{item.score}} | {{item.input }}</span>
+                        <span>
+                            {{item.score}} - {{item.input}}
+                        </span>
                     </div>
                 </div>
-                <div class="col-10">
+                <div class="col-8 g-0">
                     <app-dartboard (targetPressedEvent)="dartBoardInput($event)"></app-dartboard>
                 </div>
-                <div class="col-1">
-
+                <div class="col-2 g-0">
+                    <div *ngFor="let item of playerScores">
+                        <span>
+                            {{item.score}} - {{item.input}}
+                        </span>
+                    </div>
                 </div>
             </div>
-
         </div>
         <div class="col-sm-12 col-md-12 col-lg-5" id="jitsi-iframe"></div>
     </div>

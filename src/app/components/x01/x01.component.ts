@@ -52,8 +52,7 @@ export class X01Component implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private playerLocalStorageService: PlayerLocalStorageService,
-    private jitsiService: JitsiService,
-    private store: Store) {
+    private jitsiService: JitsiService) {
 
     // this.players$ = this.store.pipe(select(X01Players))
     console.log("construct snapshot", this.route.snapshot);

@@ -12,7 +12,7 @@ export class DartboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.createSVG();
+    this.createSVG(450, 450);
     this.showDartBoard(this.boardElemArray());
     const targets = document.getElementsByClassName("target");
     for (var i = 0; i < targets.length; i++) {
@@ -58,11 +58,12 @@ export class DartboardComponent implements OnInit {
     }
   }
 
-  createSVG() {
+  createSVG(width: number, height: number) {
     const points = this.createPointArray();
     const svg = this.addAttributes("svg", [
       ["viewBox", "0 0 1400 1400"],
-      ["width", "600"],
+      ["width", width],
+      ["height", height],
       ["id", "dartboard"]
     ]);
     const zero = this.addAttributes("circle", [
