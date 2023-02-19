@@ -34,7 +34,7 @@ export class JitsiService {
         this.options = {
             roomName: nameRoom,
             width: 900,
-            height: 500,
+            height: 720,
 
             configOverwrite: {
                 prejoinPageEnabled: this.user.name != '' ? false : true,
@@ -76,7 +76,7 @@ export class JitsiService {
         this.options = {
             roomName: this.namePrincipalRoom,
             width: 900,
-            height: 500,
+            height: 720,
             configOverwrite: {
                 prejoinPageEnabled: false,
                 openBridgeChannel: 'datachannel',
@@ -121,7 +121,7 @@ export class JitsiService {
         // console.log('participantRoleChanged', participant);
         //if (participant.role === "moderator")
         {
-           //  console.log('participantRoleChanged:', participant.role);
+            //  console.log('participantRoleChanged:', participant.role);
             this.api.executeCommand('password', 'The Password');
         }
     };
