@@ -92,8 +92,12 @@ export class X01Component implements OnInit {
         let message: CreateX01ScoreRequest = x.message as CreateX01ScoreRequest;
         console.log("Received x01 score request", message);
         if (message.PlayerId == this.playerLocalStorageService.getUserId()) {
-          this.playerScores.push({ score: this.player_score, input: message.Input });
-          this.player_score = message.Score;
+          if (this.playerScores.filter(x => x.score == message.Input + message.Score).length == 1) {
+
+          } else {
+            this.playerScores.push({ score: this.player_score, input: message.Input });
+            this.player_score = message.Score;
+          }
         } else {
           this.opponentScores.push({ score: this.opponent_score, input: message.Input });
           this.opponent_score = message.Score;
