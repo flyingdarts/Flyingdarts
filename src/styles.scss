@@ -1,5 +1,4 @@
-$flyingdarts-primary: #4C56C0;
-$flyingdarts-secundary: #f9617d;
+@import './colors.scss';
 
 .btn-secundary-color {
     background: $flyingdarts-secundary;
