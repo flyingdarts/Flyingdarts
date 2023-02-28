@@ -1,3 +1,5 @@
+@import './../../../styles.scss';
+
 /* Carousel */
 .carousel-caption h5 {
     font-size: 1.8em;
@@ -82,7 +84,7 @@
             }
 
             .active {
-                background-color: #f9617d !important;
+                background-color: $flyingdarts-secundary !important;
             }
         }
     }

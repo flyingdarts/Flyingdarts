@@ -71,9 +71,14 @@
         <div class="col-lg-6 col-md-12 col-sm-12 px-0">
             <div class="lobby-card-inner">
                 <div class="lobby-card card card-question">
-                    <p>Let us know what you want next!</p>
-                    <span><input type="text" [formControl]="privateRoomId" /><button
-                            (click)="joinRoom()">Go!</button></span>
+                    <label for="privateRoom" class="form-label my-room-form-label">Create a room for you and your
+                        opponent !</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text my-room-form-label-tiny" id="basic-addon3">Room name</span>
+                        <input class="form-control" type="text" id="privateRoom" [formControl]="privateRoomId"
+                            aria-describedby="basic-addon3" />
+                        <button class="btn btn-primary btn-secundary-color" (click)="joinRoom()">Go!</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,15 @@
 $flyingdarts-primary: #4C56C0;
+$flyingdarts-secundary: #f9617d;
+
+.btn-secundary-color {
+    background: $flyingdarts-secundary;
+    border: 1px solid $flyingdarts-secundary
+}
+
+.btn-secundary-color:hover {
+    background: $flyingdarts-secundary;
+    border: 1px solid $flyingdarts-secundary
+}
 
 /* You can add global styles to this file, and also import other style files */
 body {

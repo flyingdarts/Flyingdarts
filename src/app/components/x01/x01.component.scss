@@ -1,3 +1,5 @@
+@import './../../../styles.scss';
+
 .btn-total {
     font-size: 20px;
     font-weight: 500;
@@ -154,7 +156,7 @@ ng-lottie {
 
         strong {
             font-weight: 700 !important;
-            color: #f9617d;
+            color: $flyingdarts-secundary;
         }
     }
 }

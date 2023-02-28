@@ -1,3 +1,5 @@
+@import './../../../styles.scss';
+
 h1,
 h2,
 p,
@@ -65,12 +67,28 @@ h2 {
             background-size: contain;
             padding: 20px;
             border-radius: 20px !important;
+            justify-content: end;
 
             p {
                 font-size: 2em;
                 font-weight: 600;
                 color: white;
                 font-size-adjust: 0.5;
+            }
+
+            .my-room-form-label {
+                font-size: 1.6em;
+                font-weight: 600;
+                color: white;
+                font-size-adjust: 0.5;
+            }
+
+            .my-room-form-label-tiny {
+                font-size: 1em;
+                font-weight: 200;
+                color: #4C56C0;
+                font-size-adjust: 0.5;
+                padding: 0 10px;
             }
 
             .subtitle {
@@ -129,7 +147,7 @@ ng-lottie {
 
         strong {
             font-weight: 700 !important;
-            color: #f9617d;
+            color: $flyingdarts-secundary;
         }
     }
 }
