@@ -1,5 +1,6 @@
 import { Subject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PlayerLocalStorageService } from '../player.local-storage.service';
 import { WebSocketActions } from './WebSocketActions';
 import { WebSocketMessage } from './WebSocketMessage';
 import { WebSocketRequest } from './WebSocketRequest';
@@ -9,7 +10,7 @@ export class WebSocketService<T = WebSocketRequest> {
   private connected = false;
   private messages = new Subject<WebSocketMessage<T>>();
 
-  constructor() {
+  constructor(private localStorageService: PlayerLocalStorageService) {
     this.socket = new WebSocket(environment.webSocketUrl);
     this.connect();
   }
@@ -18,6 +19,9 @@ export class WebSocketService<T = WebSocketRequest> {
 
     this.socket.onopen = (event) => {
       this.connected = true;
+      var message: any = {};
+      message = event;
+      message.UserId = this.localStorageService.getUserId();
       this.messages.next({ action: WebSocketActions.Connect, message: event as any });
     };
 
