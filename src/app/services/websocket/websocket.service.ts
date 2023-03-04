@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PlayerLocalStorageService } from '../player.local-storage.service';
@@ -5,6 +6,7 @@ import { WebSocketActions } from './WebSocketActions';
 import { WebSocketMessage } from './WebSocketMessage';
 import { WebSocketRequest } from './WebSocketRequest';
 
+@Injectable()
 export class WebSocketService<T = WebSocketRequest> {
   private socket: WebSocket;
   private connected = false;
@@ -22,7 +24,7 @@ export class WebSocketService<T = WebSocketRequest> {
       var message: any = {};
       message = event;
       message.UserId = this.localStorageService.getUserId();
-      this.messages.next({ action: WebSocketActions.Connect, message: event as any });
+      this.messages.next({ action: WebSocketActions.Connect, message: message as any });
     };
 
     this.socket.onclose = (event) => {
@@ -36,9 +38,8 @@ export class WebSocketService<T = WebSocketRequest> {
     };
 
     this.socket.onmessage = (event) => {
-      console.log("onmessage", event);
       let message = JSON.parse(event.data);
-      this.messages.next({ action: message.action, message: message.message, metadata: message.metadata });
+      this.messages.next({action: message.action, message: message.message});
     };
   }
 
