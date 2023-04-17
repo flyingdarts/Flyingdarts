@@ -18,7 +18,7 @@
     "@angular/platform-browser": "^14.1.10",
     "@angular/platform-browser-dynamic": "^14.1.10",
     "@angular/router": "^14.1.10",
-    "@aws-amplify/cli": "^11.0.5",
+    "@aws-amplify/cli": "^10.5.2",
     "@ng-bootstrap/ng-bootstrap": "^14.1.0",
     "@popperjs/core": "^2.11.7",
     "bootstrap": "^5.2.3",
