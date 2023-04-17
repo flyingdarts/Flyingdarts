@@ -1,0 +1,48 @@
+<div class="h-100">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col my-chat-frame">
+        <div class="row">
+          <div class="col">
+            <div class="form-control form-control-sm chatbox">
+              <div class="chatbox-status">
+                <div [ngSwitch]="webSocketStatus">
+                  <span class="badge" [ngClass]="{
+                      'bg-warning': webSocketStatus === 'WebSocket status unknown',
+                      'bg-success': webSocketStatus === 'Connected.',
+                      'bg-danger': webSocketStatus === 'Lost connection to server.'
+                    }">{{webSocketStatus}}</span>
+                </div>
+              </div>
+              <div *ngFor="let item of messages">
+                <div class="d-flex" [ngClass]="{'justify-content-start': item.owner === clientId, 'justify-content-end': item.owner !== clientId}">
+                  <div class="form-control form-control-sm chatbox-item">
+                    <div>
+                      <p>{{item.date | date: 'HH:mm'}}: {{item.message}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <form [formGroup]="messageForm" (ngSubmit)="send()">
+              <input id="message" formControlName="message" class="form-control form-control-sm" placeholder="Type something here..."
+              type="email">
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button class="btn btn-sm btn-outline-primary chatbox-send-message" (click)="send()">
+              <i class="bi bi-send" style="margin-right: 5px"></i>
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
