@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  webSocketUrl: 'wss://YOUR_ENDPOINT_HERE/Production'
+  webSocketUrl: 'wss://ewwi6tm25a.execute-api.eu-west-1.amazonaws.com/Development'
 };
