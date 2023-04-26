@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { WebSocketStatus } from './websocket/WebSocketStatus';
 import { v4 as uuidv4 } from 'uuid';
 import { WebSocketService } from './websocket/websocket.service';
-import { filter } from 'rxjs';
-import { WebSocketActions } from './websocket/WebSocketActions';
-import { MessageRequest } from './websocket/WebSocketRequest';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MessageRequest, WebSocketStatus, WebSocketActions } from './websocket/WebSocketMessage';
 
 @Component({
   selector: 'app-root',
