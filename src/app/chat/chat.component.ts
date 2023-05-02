@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { WebSocketStatus } from './websocket/WebSocketStatus';
-import { v4 as uuidv4 } from 'uuid';
-import { WebSocketService } from './websocket/websocket.service';
-import { filter } from 'rxjs';
-import { WebSocketActions } from './websocket/WebSocketActions';
-import { MessageRequest } from './websocket/WebSocketRequest';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Auth } from 'aws-amplify';
+import { WebSocketActions } from '../websocket/WebSocketActions';
+import { MessageRequest } from '../websocket/WebSocketRequest';
+import { WebSocketStatus } from '../websocket/WebSocketStatus';
+import { WebSocketService } from '../websocket/websocket.service';
+var uuidv4 = require('uuid');
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class ChatComponent implements OnInit {
   public messages: MessageRequest[] = [];
   public webSocketStatus: WebSocketStatus = WebSocketStatus.Unknown
   public clientId: string = ""

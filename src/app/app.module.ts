@@ -4,14 +4,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { WebSocketService } from './websocket/websocket.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChatComponent } from './chat/chat.component';
+import { AuthComponent } from './auth/auth.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChatComponent,
+    AuthComponent,
+    PrivacyPolicyComponent,
+    TermsOfServiceComponent
   ],
   imports: [
+    AppRoutingModule,
     ReactiveFormsModule,
     BrowserModule,
+    AmplifyAuthenticatorModule
   ],
   providers: [
     WebSocketService,
