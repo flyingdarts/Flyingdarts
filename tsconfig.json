@@ -18,7 +18,6 @@
     "importHelpers": true,
     "target": "ES2020",
     "module": "ES2020",
-    "useDefineForClassFields": false,
     "lib": [
       "ES2020",
       "dom"

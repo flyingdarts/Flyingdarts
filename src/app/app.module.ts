@@ -14,20 +14,32 @@ import { JitsiService } from './services/jitsi.service';
 import { PlayerLocalStorageService } from './services/player.local-storage.service';
 import { LoadingService } from './services/loading/loading.service';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { ChatComponent } from './pages/private/chat/chat.component';
+import { PrivacyPolicyComponent } from './pages/public/privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from './pages/public/terms-of-service/terms-of-service.component';
+import { AuthComponent } from './pages/public/auth/auth.component';
+import { CarouselComponent } from './pages/public/auth/carousel/carousel.component';
 export function playerFactory(): any {
   return import('lottie-web');
 }
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChatComponent,
+    PrivacyPolicyComponent,
+    TermsOfServiceComponent,
+    AuthComponent,
+    CarouselComponent
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
+    AppRoutingModule,
+    AmplifyAuthenticatorModule,
     LottieModule.forRoot({ player: playerFactory }),
     HttpClientModule,
-    WebcamModule
+    WebcamModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
