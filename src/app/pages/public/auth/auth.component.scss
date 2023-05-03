@@ -28,5 +28,20 @@
     display: flex;
     font-size: 10px;
     line-height: 16px;
+}
+.body-content {
+    margin: 0;
     padding: 0;
+}
+
+.card {
+    border: none;
+}
+
+
+.card-body {
+    margin: 0;
+    padding: 0;
+    border: none;
+    margin-bottom: 15px;
 }
