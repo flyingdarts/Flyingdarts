@@ -1,4 +1,4 @@
-
+@import './../colors.scss';
 
 $navbar-height: auto;
 
@@ -106,12 +106,11 @@ $navbar-height: auto;
 
         height: fit-content;
         align-self: center;
-
-
     }
 
     p {
         margin: 0 !important;
+        color: $flyingdarts-primary;
     }
 
     ul {
