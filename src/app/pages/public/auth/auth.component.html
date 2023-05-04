@@ -8,7 +8,19 @@
               <app-carousel></app-carousel>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-4 p-0 flyingdarts-mobile-container">
-              <amplify-authenticator>
+              <div class="registration-steps invisible">
+                <div class="carousel-footer">
+                  <div>
+                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="0"
+                          aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="1"
+                          aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="2"
+                          aria-label="Slide 3"></button>
+                  </div>
+              </div>
+              </div>
+              <amplify-authenticator initialState="signIn">
                 <ng-template amplifySlot="sign-in" let-validationErrors="validationErrors">
                   <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
                   <amplify-authenticator></amplify-authenticator>
@@ -22,7 +34,32 @@
                     </span>
                   </div>
                 </ng-template>
+                <ng-template amplifySlot="sign-up" let-validationErrors="validationErrors">
+                  <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
+                  <amplify-authenticator></amplify-authenticator>
+                  <div class=" d-flex">
+                    <amplify-checkbox class="my-amplify-checkbox checkbox-control" [errorMessage]="validationErrors.acknowledgement"
+                      [hasError]="!!validationErrors.acknowledgement" name="acknowledgement" value="yes">
+                    </amplify-checkbox>
+                    <span>
+                      By clicking Confirm, you agree to our <a href="#">Terms of Service</a>
+                      and <a href="#">Privacy policy</a>
+                    </span>
+                  </div>
+                </ng-template>
               </amplify-authenticator>
+              <div class="registration-steps">
+                <div class="carousel-footer">
+                  <div>
+                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="0"
+                          aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="1"
+                          aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="2"
+                          aria-label="Slide 3"></button>
+                  </div>
+              </div>
+              </div>
             </div>
           </div>
         </div>

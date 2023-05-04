@@ -15,39 +15,43 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#" routerLink="/">Home</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  About flyingdarts
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" aria-current="page" href="#" routerLink="/privacy-policy">Privacy policy</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="dropdown-item" aria-current="page" href="#" routerLink="/terms-of-service">Terms of service</a>
-                  </li>
-                </ul>
-              </li>
               <li *ngIf="isLoggedIn" class="nav-item">
                 <a href="#" routerLink="/chat" class="nav-link" aria-current="page">Chat</a>
               </li>
-              <li *ngIf="isLoggedIn" class="nav-item">
-                <a href="#" class="nav-link" aria-current="page" (click)="signOut()">Signout</a>
+            </ul>
+            <ul *ngIf="!isLoggedIn" class="nav-item">
+              <li class="list-inline-item">
+                <a href="#" class="nav-link" aria-current="page" routerLink="/auth">Login</a>
               </li>
             </ul>
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <button class="btn btn-link btn-profile"><strong>{{userName$}}</strong></button>
+            <ul *ngIf="isLoggedIn" class="list-inline">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  {{userName$ | async}}
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="#" routerLink="/profile">Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="dropdown-item" aria-current="page" href="#" routerLink="/settings">Settings</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li class="nav-item">
+                    <a class="dropdown-item" aria-current="page" href="#" (click)="signOut()">Logout</a>
+                  </li>
+                </ul>
               </li>
-              <li class="list-inline-item">
+              <!-- <li class="list-inline-item">
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                   <label class="form-check-label" for="flexSwitchCheckDefault">Ranked</label>
                 </div>
-              </li>
+              </li> -->
             </ul>
-            
           </div>
         </div>
       </nav>
@@ -58,7 +62,13 @@
       </div>
     </div>
     <div class="card-footer">
-      <p class="footer-copy">Copyright © Flyingdarts 2022 - 2023</p>
+      <div class="d-flex">
+        <p class="footer-copy pe-1">© Flyingdarts {{currentYear}}</p>
+        <p class="footer-copy">-</p>
+        <p class="footer-copy footer-pp-and-tos ps-1 pe-1" aria-current="page" href="#" routerLink="/privacy-policy">Privacy policy</p>
+        <p class="footer-copy">-</p>
+        <p class="footer-copy footer-pp-and-tos ps-1" aria-current="page" href="#" routerLink="/terms-of-service">Terms of service</p>
+      </div>
       <div class="d-flex">
         <a href="https://github.com/flyingdarts" class="github-link"><img clas="footer-github-icon"
             src="/assets/github.svg" class="d-block mx-auto" alt="https://github.com/flyingdarts"></a>

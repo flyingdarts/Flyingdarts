@@ -87,7 +87,9 @@ $navbar-height: auto;
 
 /* Media Query for Large screens */
 @media (min-width: 1281px) {}
-
+.footer-pp-and-tos {
+    cursor: pointer;
+}
 .body-content {
     height: 100%;
     .card {
@@ -103,7 +105,7 @@ $navbar-height: auto;
     justify-content: space-between;
 
     .footer-copy {
-
+        
         height: fit-content;
         align-self: center;
     }

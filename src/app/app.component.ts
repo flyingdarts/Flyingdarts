@@ -12,7 +12,8 @@ import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 })
 export class AppComponent implements OnInit {
   public isLoggedIn: boolean = false;
-  public userName$: Observable<string | null> | undefined;
+  public userName$: Observable<string | null> = of("John Doe")
+  public currentYear: number = new Date().getFullYear();
   public lottieOptions: AnimationOptions = {
     path: '/assets/animations/flyingdarts_icon.json',
     loop: false
