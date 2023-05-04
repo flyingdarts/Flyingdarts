@@ -33,10 +33,6 @@
                           and <a href="#">Privacy policy</a>
                         </label>
                       </div>
-                      <!-- Only render this if there's an authenticated user -->
-                      <ng-container *ngIf="!!authenticator.user">
-                        <h2>Welcome, {{ authenticator.user.username }}!</h2>
-                      </ng-container>
                     </ng-template>
                   </amplify-authenticator>
                   <div class="registration-steps">

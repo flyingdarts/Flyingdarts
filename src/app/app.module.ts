@@ -23,6 +23,7 @@ import { WebcamService } from './services/webcam.service';
 import { LoginComponent } from './pages/public/onboarding/login/login.component';
 import { ProfileComponent } from './pages/public/onboarding/profile/profile.component';
 import { CameraComponent } from './pages/public/onboarding/camera/camera.component';
+import { OnboardingStateService } from './services/onboarding-state.service';
 export function playerFactory(): any {
   return import('lottie-web');
 }
@@ -58,7 +59,8 @@ export function playerFactory(): any {
     PlayerLocalStorageService,
     AmplifyAuthService,
     JitsiService,
-    WebcamService
+    WebcamService,
+    OnboardingStateService
   ],
   bootstrap: [AppComponent]
 })
