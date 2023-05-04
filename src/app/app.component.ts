@@ -4,6 +4,8 @@ import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import { Observable, of } from 'rxjs';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
+import { FacebookService } from './services/facebook.service';
+declare const FB: any; // Declare the FB object
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit {
     loop: false
   };
 
-  constructor(private amplifyAuthService: AmplifyAuthService) {
+  constructor(private amplifyAuthService: AmplifyAuthService, private facebookService: FacebookService) {
   }
 
   onAnimate(animationItem: AnimationItem): void {
@@ -33,6 +35,8 @@ export class AppComponent implements OnInit {
     });
 
     this.isLoggedIn = await this.getLoginStatus();
+
+    console.log(await this.facebookService.getGroupMembers(`2223891964409081`))
   }
   title = 'flyingdarts';
 

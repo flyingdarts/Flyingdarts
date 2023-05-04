@@ -19,7 +19,7 @@ export class AmplifyAuthService implements IAmplifyAuthService {
         Auth.signOut({ global: true });
     }
 
-    async checkAuthStatus() {
+    async checkAuthStatus(): Promise<boolean> {
         try {
           await Auth.currentAuthenticatedUser();
           return true;

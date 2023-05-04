@@ -24,6 +24,7 @@ import { LoginComponent } from './pages/public/onboarding/login/login.component'
 import { ProfileComponent } from './pages/public/onboarding/profile/profile.component';
 import { CameraComponent } from './pages/public/onboarding/camera/camera.component';
 import { OnboardingStateService } from './services/onboarding-state.service';
+import { FacebookService } from './services/facebook.service';
 export function playerFactory(): any {
   return import('lottie-web');
 }
@@ -60,7 +61,8 @@ export function playerFactory(): any {
     AmplifyAuthService,
     JitsiService,
     WebcamService,
-    OnboardingStateService
+    OnboardingStateService,
+    FacebookService
   ],
   bootstrap: [AppComponent]
 })
