@@ -228,31 +228,6 @@ amplify-slot[name='force-new-password-header'] .amplify-heading {
     margin-top: 20px;
 }
 
-:root {
-    --amplify-components-checkbox-button-before-border-color: #f9617d;
-    --amplify-components-checkbox-button-after-border-color: #f9617d;
-    --amplify-components-checkbox-button-before-border-width: 1px;
-    --amplify-components-checkbox-button-after-border-width: 1px;
-    --amplify-components-checkbox-button-after-border-style: solid;
-}
-
-.my-amplify-checkbox {
-    .amplify-checkbox__button {
-        .amplify-checkbox__icon {
-            color: #f9617d;
-            background-color: #4c56c0;
-            border: 1px solid;
-        }
-
-        border-color: white;
-    }
-
-    .amplify-checkbox__label {
-        color: white !important
-    }
-}
-
-
 
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {}

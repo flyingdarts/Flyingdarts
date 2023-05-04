@@ -1,8 +1,8 @@
 <div class="container-auth h-100">
-  <div class="container body-content h-100">
+  <div class="container-fluid body-content h-100">
     <div class="card h-100">
       <div class="card-body">
-        <div class="container px-0 h-100">
+        <div class="container-fluid px-0 h-100">
           <div class="flyingdarts-login-container d-flex">
             <div class="col-sm-0 col-md-12 col-lg-8 top-container">
               <app-carousel></app-carousel>
@@ -11,54 +11,43 @@
               <div class="registration-steps invisible">
                 <div class="carousel-footer">
                   <div>
-                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="0"
-                          aria-label="Slide 1"></button>
-                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="1"
-                          aria-label="Slide 2"></button>
-                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="2"
-                          aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="0"
+                      aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
                   </div>
-              </div>
+                </div>
               </div>
               <amplify-authenticator initialState="signIn">
                 <ng-template amplifySlot="sign-in" let-validationErrors="validationErrors">
                   <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
                   <amplify-authenticator></amplify-authenticator>
-                  <div class=" d-flex">
-                    <amplify-checkbox class="my-amplify-checkbox checkbox-control" [errorMessage]="validationErrors.acknowledgement"
-                      [hasError]="!!validationErrors.acknowledgement" name="acknowledgement" value="yes">
-                    </amplify-checkbox>
-                    <span>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
                       By clicking Confirm, you agree to our <a href="#">Terms of Service</a>
                       and <a href="#">Privacy policy</a>
-                    </span>
+                    </label>
                   </div>
-                </ng-template>
-                <ng-template amplifySlot="sign-up" let-validationErrors="validationErrors">
-                  <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
-                  <amplify-authenticator></amplify-authenticator>
-                  <div class=" d-flex">
-                    <amplify-checkbox class="my-amplify-checkbox checkbox-control" [errorMessage]="validationErrors.acknowledgement"
-                      [hasError]="!!validationErrors.acknowledgement" name="acknowledgement" value="yes">
-                    </amplify-checkbox>
-                    <span>
-                      By clicking Confirm, you agree to our <a href="#">Terms of Service</a>
-                      and <a href="#">Privacy policy</a>
-                    </span>
-                  </div>
+                  <!-- Only render this if there's an authenticated user -->
+                  <ng-container *ngIf="!!authenticator.user">
+                    <h2>Welcome, {{ authenticator.user.username }}!</h2>
+                  </ng-container>
                 </ng-template>
               </amplify-authenticator>
               <div class="registration-steps">
                 <div class="carousel-footer">
                   <div>
-                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="0"
-                          aria-label="Slide 1"></button>
-                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="1"
-                          aria-label="Slide 2"></button>
-                      <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="2"
-                          aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="0"
+                      aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
                   </div>
-              </div>
+                </div>
               </div>
             </div>
           </div>
@@ -67,4 +56,3 @@
     </div>
   </div>
 </div>
-

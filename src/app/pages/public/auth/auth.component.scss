@@ -24,16 +24,6 @@
     width: 100%;
 }
 
-
-
-.checkbox-control {
-    background-color: #4c56c0;
-    border: none;
-    color: white;
-    display: flex;
-    font-size: 10px;
-    line-height: 16px;
-}
 .body-content {
     margin: 0;
     padding: 0;
@@ -81,4 +71,14 @@
             background-color: $flyingdarts-secundary !important;
         }
     }
+}
+
+.form-check-input:checked, .form-check-input:focus {
+    background-color: $flyingdarts-secundary;
+    border-color: $flyingdarts-secundary;
+    box-shadow: none;
+}
+
+a {
+    color: $flyingdarts-secundary;
 }
