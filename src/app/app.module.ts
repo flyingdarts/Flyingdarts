@@ -19,6 +19,7 @@ import { PrivacyPolicyComponent } from './pages/public/privacy-policy/privacy-po
 import { TermsOfServiceComponent } from './pages/public/terms-of-service/terms-of-service.component';
 import { AuthComponent } from './pages/public/auth/auth.component';
 import { CarouselComponent } from './pages/public/auth/carousel/carousel.component';
+import { LeaderboardComponent } from './pages/public/leaderboard/leaderboard.component';
 export function playerFactory(): any {
   return import('lottie-web');
 }
@@ -30,7 +31,8 @@ export function playerFactory(): any {
     PrivacyPolicyComponent,
     TermsOfServiceComponent,
     AuthComponent,
-    CarouselComponent
+    CarouselComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,

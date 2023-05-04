@@ -15,7 +15,7 @@ export class AuthorizationGuard implements CanActivate {
       await Auth.currentAuthenticatedUser();
       return true;
     } catch(error) {
-      this.router.navigate(['/'])
+      this.router.navigate(['/auth'])
       return false;
     }
   }

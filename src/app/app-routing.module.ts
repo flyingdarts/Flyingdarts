@@ -4,18 +4,23 @@ import { AuthorizationGuard } from './guards/authorization.guard';
 import { ChatComponent } from './pages/private/chat/chat.component';
 import { TermsOfServiceComponent } from './pages/public/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './pages/public/privacy-policy/privacy-policy.component';
+import { LeaderboardComponent } from './pages/public/leaderboard/leaderboard.component';
 import { AuthComponent } from './pages/public/auth/auth.component';
 
 const routes: Routes = [
   // Private module routes
   {
     path: '',
-    component: AuthComponent
+    component: LeaderboardComponent
   },
   {
     path: 'chat',
     canActivate: [AuthorizationGuard],
-    component: ChatComponent,
+    component: ChatComponent
+  },
+  {
+    path: 'leaderboard',
+    component: LeaderboardComponent
   },
   {
     path: 'terms-of-service',
@@ -24,6 +29,10 @@ const routes: Routes = [
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent
+  },
+  {
+    path: 'auth',
+    component: AuthComponent
   }
 ];
 
@@ -31,7 +40,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
-
-
-// 

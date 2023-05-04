@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
   constructor(
     private webSocketService: WebSocketService) {
   }
-
+  
   messageForm = new FormGroup({
     message: new FormControl(''),
   });
