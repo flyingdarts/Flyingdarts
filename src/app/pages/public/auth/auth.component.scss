@@ -86,3 +86,58 @@
 a {
     color: $flyingdarts-secundary;
 }
+
+.registration-step-create-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.registration-step-create-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.registration-step-camera-permissions {
+    h1 {
+        padding-bottom: 20px;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    .camera-header {
+        text-align: center;
+        padding: 20px 0;
+    }
+    .camera-footer {
+        width: 100%;
+        button.flyingdarts-primary-button {
+            margin-bottom: 12px;
+        }
+        .registration-steps {
+            .carousel-footer {
+                margin: 0 auto;
+            }
+        }
+    }
+    .camera-video {
+        width: 100%;
+        video {
+            width: 100%;
+        }
+    }
+}
+
+.profile-form-description {
+    text-align: center;
+    font-size: 12px;
+}

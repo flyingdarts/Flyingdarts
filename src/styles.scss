@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import './../../../node_modules/@aws-amplify/ui-angular/theme.css'; */
 @import '~@aws-amplify/ui-angular/theme.css';
-
+@import './colors.scss';
 body {
     height: 100vh !important;
     padding: 20px !important;
@@ -280,4 +280,14 @@ path,
 
 .target:hover {
     fill: blue;
+}
+
+.flyingdarts-primary-button {
+    background-color: $flyingdarts-secundary;
+    width: 100%;
+    color: white;
+}
+
+.flyingdarts-primary-button:hover {
+    background-color: darken($flyingdarts-secundary, 4%);
 }
