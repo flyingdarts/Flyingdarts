@@ -1,48 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
-import { RegistrationSteps } from './RegistrationSteps';
+import { WebcamService } from 'src/app/services/webcam.service';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  selector: 'app-camera',
+  templateUrl: './camera.component.html',
+  styleUrls: ['./camera.component.scss']
 })
-export class AuthComponent implements OnInit {
-  public activeStep: number = RegistrationSteps.CreateAccount;
-  constructor(public authenticator: AuthenticatorService, private router: Router) {
+export class CameraComponent implements OnInit {
+
+  constructor(public authenticator: AuthenticatorService, private webcamService: WebcamService) {
 
   }
-
   ngOnInit(): void {
-    if (!!this.authenticator.user) {
-      if (this.activeStep == RegistrationSteps.CreateAccount) {
-        this.activeStep = RegistrationSteps.CreateProfile;
-      }
-      if (this.activeStep == RegistrationSteps.CreateProfile) {
-        this.activeStep = RegistrationSteps.GiveCameraPermission;
-      }
-      if (this.activeStep == RegistrationSteps.GiveCameraPermission) {
-        // todo: store the registration details
-        this.router.navigate(['/']);
-      }
-    } else {
-      this.router.navigate(['/auth']);
-    }
   }
-
+  
   async accessCamera() {
     const videoPlayer = document.querySelector('video') as HTMLVideoElement;
-    await this.requestCameraPermissions().then(stream => {
+    await this.webcamService.requestCameraPermissions().then(stream => {
       videoPlayer.srcObject = stream;
-      this.activeStep == RegistrationSteps.Completed;
       this.populateCameraSelectList();
     }).catch(error => {
       console.error('Failed to attach stream to video element', error);
     });
   }
   populateCameraSelectList() {
-    if (!this.checkCameraPermission()) {
+    if (!this.webcamService.checkCameraPermission()) {
       return;
     }
     // Get the select element and video element from the DOM
@@ -58,26 +42,7 @@ export class AuthComponent implements OnInit {
       });
     });
   }
-  async checkCameraPermission(): Promise<boolean> {
-    if (!navigator.permissions || !navigator.permissions.query) {
-      // Permissions API not supported, assume permission was granted
-      return true;
-    }
-    const permissionStatus = await navigator.permissions.query({ name: 'camera' as PermissionName });
-    return permissionStatus.state === 'granted';
-  }
-
-
-  async requestCameraPermissions(): Promise<MediaStream> {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      console.log('Camera access granted');
-      return stream;
-    } catch (error) {
-      console.error('Camera access denied', error);
-      throw error;
-    }
-  }
+  
   // Get the available webcams and populate a select element with their names and IDs
   async populateWebcamSelectList(selectElement: HTMLSelectElement): Promise<MediaDeviceInfo[]> {
     // Get the list of available media devices
@@ -121,7 +86,4 @@ export class AuthComponent implements OnInit {
     // Set the new video stream as the source of the video element
     videoElement.srcObject = newStream;
   }
-
 }
-
-

@@ -5,7 +5,9 @@ import { ChatComponent } from './pages/private/chat/chat.component';
 import { TermsOfServiceComponent } from './pages/public/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './pages/public/privacy-policy/privacy-policy.component';
 import { LeaderboardComponent } from './pages/public/leaderboard/leaderboard.component';
-import { AuthComponent } from './pages/public/auth/auth.component';
+import { LoginComponent } from './pages/public/onboarding/login/login.component';
+import { ProfileComponent } from './pages/public/onboarding/profile/profile.component';
+import { CameraComponent } from './pages/public/onboarding/camera/camera.component';
 
 const routes: Routes = [
   // Private module routes
@@ -31,8 +33,16 @@ const routes: Routes = [
     component: PrivacyPolicyComponent
   },
   {
-    path: 'auth',
-    component: AuthComponent
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  },
+  {
+    path: 'camera',
+    component: CameraComponent
   }
 ];
 

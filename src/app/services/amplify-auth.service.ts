@@ -18,4 +18,13 @@ export class AmplifyAuthService implements IAmplifyAuthService {
     public signOut(): void {
         Auth.signOut({ global: true });
     }
+
+    async checkAuthStatus() {
+        try {
+          await Auth.currentAuthenticatedUser();
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
 }

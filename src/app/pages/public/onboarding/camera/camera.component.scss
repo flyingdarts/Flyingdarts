@@ -1,4 +1,4 @@
-@import '../../../../colors.scss';
+@import '../../../../../colors.scss';
 
 .flyingdarts-mobile-container {
     color: white;
@@ -87,23 +87,6 @@ a {
     color: $flyingdarts-secundary;
 }
 
-.registration-step-create-account {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-}
-
-.registration-step-create-profile {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
 .registration-step-camera-permissions {
     h1 {
         padding-bottom: 20px;
@@ -135,9 +118,4 @@ a {
             width: 100%;
         }
     }
-}
-
-.profile-form-description {
-    text-align: center;
-    font-size: 12px;
 }
