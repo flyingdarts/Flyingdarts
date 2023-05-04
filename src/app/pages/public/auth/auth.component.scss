@@ -67,6 +67,10 @@
             margin: 0 10px;
         }
 
+        button:nth-of-type(3) {
+            margin-right: 10px;
+        }
+
         .active {
             background-color: $flyingdarts-secundary !important;
         }
