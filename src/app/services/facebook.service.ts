@@ -35,12 +35,13 @@ export class FacebookService {
   }
 
   async getGroupMembers(groupId: string): Promise<any[]> {
+    console.log('Initialize the Facebook SDK');
     // Wait for the Facebook SDK to be initialized
     await this.sdkInitialized;
-
+    console.log('Querying the Facebook API for group members')
     // Make a request to the Facebook Graph API to retrieve the members of the group with the given ID
     const response = await FB.api(`/${groupId}/members`, { fields: 'id,name' } as any) as any;
-
+    console.log('Response of query: ', response);
     // Return an array of the members' data
     return response.data;
   }
