@@ -13,12 +13,14 @@ export class FacebookService {
     this.sdkInitialized = new Promise(resolve => {
       // Initialize the Facebook SDK with your app ID and API version
       window.fbAsyncInit = () => {
+        console.log("Initializing Facebook SDK")
         FB.init({
           appId: this.appId,
           cookie: true,
           xfbml: true,
           version: this.apiVersion
         });
+        console.log("Initialized the Facebook SDK");
         resolve();
       };
 
@@ -35,7 +37,6 @@ export class FacebookService {
   }
 
   async getGroupMembers(groupId: string): Promise<any[]> {
-    console.log('Initialize the Facebook SDK');
     // Wait for the Facebook SDK to be initialized
     await this.sdkInitialized;
     console.log('Querying the Facebook API for group members')
