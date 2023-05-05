@@ -25,6 +25,10 @@ import { ProfileComponent } from './pages/public/onboarding/profile/profile.comp
 import { CameraComponent } from './pages/public/onboarding/camera/camera.component';
 import { OnboardingStateService } from './services/onboarding-state.service';
 import { FacebookService } from './services/facebook.service';
+import { DartboardComponent } from './pages/private/games/x01/dartboard/dartboard.component';
+import { X01Component } from './pages/private/games/x01/x01.component';
+import { LobbyComponent } from './pages/private/lobby/lobby.component';
+import { LoadingComponent } from './components/loading/loading.component';
 export function playerFactory(): any {
   return import('lottie-web');
 }
@@ -39,7 +43,11 @@ export function playerFactory(): any {
     LeaderboardComponent,
     LoginComponent,
     ProfileComponent,
-    CameraComponent
+    CameraComponent,
+    X01Component,
+    DartboardComponent,
+    LobbyComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

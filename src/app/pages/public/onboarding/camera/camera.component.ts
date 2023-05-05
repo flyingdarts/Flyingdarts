@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
+import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
 import { WebcamService } from 'src/app/services/webcam.service';
 
 @Component({
@@ -10,12 +11,20 @@ import { WebcamService } from 'src/app/services/webcam.service';
 })
 export class CameraComponent implements OnInit {
 
-  constructor(public authenticator: AuthenticatorService, private webcamService: WebcamService) {
-
+  constructor(
+    public authenticator: AuthenticatorService, 
+    private webcamService: WebcamService, 
+    private router: Router,
+    private stateService: OnboardingStateService) {
+    
   }
   ngOnInit(): void {
+    this.accessCamera();
   }
-  
+  saveCamera() {
+    this.stateService.currentOnboardingState.cameraPermissionsGranted = true;
+    this.router.navigate(['/lobby'])
+  }
   async accessCamera() {
     const videoPlayer = document.querySelector('video') as HTMLVideoElement;
     await this.webcamService.requestCameraPermissions().then(stream => {

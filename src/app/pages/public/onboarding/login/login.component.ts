@@ -17,8 +17,12 @@ export class LoginComponent implements OnInit {
 
   async ngOnInit() {
     if (await this.amplifyAuthService.checkAuthStatus()) {
-      this.stateService.currentOnboardingState = {cameraPermissionsGranted: false, profileCompleted: false}
-      this.router.navigate(['/profile'])
+      if (!this.stateService.currentOnboardingState.profileCompleted)
+        this.router.navigate(['/profile'])
+      else if (!this.stateService.currentOnboardingState.cameraPermissionsGranted)
+        this.router.navigate(['/camera'])
+      else 
+        this.router.navigate(['/lobby'])
     }
   }
 }

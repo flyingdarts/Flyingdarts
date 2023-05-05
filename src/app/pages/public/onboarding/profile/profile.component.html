@@ -23,18 +23,19 @@
                       </div>
                     </div>
                     <div class="w-100">
-                      <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
+                      <form [formGroup]="profileForm">
+                        <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
                       <div class="row">
                         <div class="col-6">
                           <div class="mb-3">
                             <label for="profileFormNickname" class="form-label">Nickname</label>
-                            <input type="text" class="form-control" id="profileFormNickname" placeholder="johnnyboy" />
+                            <input formControlName="userName" type="text" class="form-control" id="profileFormNickname" placeholder="johnnyboy" />
                           </div>
                         </div>
                         <div class="col-6">
                           <div class="mb-3">
                             <label for="profileFormCountry" class="form-label">Country</label>
-                            <select id="profileFormCountry" class="form-select" aria-label="Default select example">
+                            <select formControlName="country" id="profileFormCountry" class="form-select" aria-label="Default select example">
                               <option selected>Select your country</option>
                               <option value="AT">Austria</option>
                               <option value="BE">Belgium</option>
@@ -69,15 +70,16 @@
                       </div>
                       <div class="mb-3">
                         <label for="profileFormEmailAddress" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="profileFormEmailAddress"
+                        <input formControlName="email" type="email" class="form-control" id="profileFormEmailAddress"
                           placeholder="johnnyboy@example.com" />
                       </div>
                       <div class="mb-3">
                         <p class="profile-form-description">Lorem ipsum dolor sit amet blablabla</p>
                       </div>
                       <div class="mb-3">
-                        <button type="submit" class="btn flyingdarts-primary-button mb-3">Next</button>
+                        <button type="submit" class="btn flyingdarts-primary-button mb-3" (click)="submitForm()">Next</button>
                       </div>
+                      </form>
                     </div>
                     <div class="registration-steps">
                       <div class="carousel-footer">

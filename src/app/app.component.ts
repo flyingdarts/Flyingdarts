@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
 
     try {
       console.log("Calling facebookService.getGroupMembers")
-      console.log(await this.facebookService.getGroupMembers(`2223891964409081`))      
+      console.log(await this.facebookService.getGroupMembers(`1027135354942478`))      
     } catch (error) {
       console.log('Error while calling facebookService.getGroupMembers', error);
     }

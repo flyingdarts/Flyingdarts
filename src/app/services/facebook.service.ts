@@ -15,6 +15,7 @@ export class FacebookService {
       window.fbAsyncInit = () => {
         console.log("Initializing Facebook SDK")
         FB.init({
+          access_token: 'EABHu6ycgZBDoBAKjMVRygCZB7fjZAxid4NkQXR31Xfusrq28JI4jLj2Brr4keSvDGDfltt26aD3Yba2sfR774jEeKMmMTPQxks1MY00UOBHz8akzHhOhN4sm1QAB2bTjf0eW37FPLyFU4FL7u6fgMKJST4kjNo8agf9d8KFfZCn6stVIz6lOwHMyOEBfZAGkiHQbnHkPzLQZDZD',
           appId: this.appId,
           cookie: true,
           xfbml: true,
@@ -41,7 +42,7 @@ export class FacebookService {
     await this.sdkInitialized;
     console.log('Querying the Facebook API for group members')
     // Make a request to the Facebook Graph API to retrieve the members of the group with the given ID
-    const response = await FB.api(`/${groupId}/members`, { fields: 'id,name' } as any) as any;
+    const response = await window.FB.api(`/${groupId}/members`, { fields: 'id,name' } as any) as any;
     console.log('Response of query: ', response);
     // Return an array of the members' data
     return response.data;

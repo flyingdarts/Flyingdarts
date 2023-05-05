@@ -8,6 +8,8 @@ import { LeaderboardComponent } from './pages/public/leaderboard/leaderboard.com
 import { LoginComponent } from './pages/public/onboarding/login/login.component';
 import { ProfileComponent } from './pages/public/onboarding/profile/profile.component';
 import { CameraComponent } from './pages/public/onboarding/camera/camera.component';
+import { X01Component } from './pages/private/games/x01/x01.component';
+import { LobbyComponent } from './pages/private/lobby/lobby.component';
 
 const routes: Routes = [
   // Private module routes
@@ -43,6 +45,16 @@ const routes: Routes = [
   {
     path: 'camera',
     component: CameraComponent
+  },
+  {
+    path: 'x01:id',
+    component: X01Component,
+    canActivate: [AuthorizationGuard]
+  },
+  {
+    path: 'lobby',
+    component: LobbyComponent,
+    canActivate: [AuthorizationGuard]
   }
 ];
 
