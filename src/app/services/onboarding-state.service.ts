@@ -25,4 +25,11 @@ export class OnboardingStateService {
 export interface CurrentOnboardingState {
     profileCompleted: boolean;
     cameraPermissionsGranted: boolean;
+    currentOnboardingProfile: CurrentOnboardingProfile;
+}
+
+export interface CurrentOnboardingProfile {
+  nickname: string;
+  email: string;
+  country: string;
 }
