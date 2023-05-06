@@ -36,12 +36,12 @@ export class AppComponent implements OnInit {
 
     this.isLoggedIn = await this.getLoginStatus();
 
-    try {
-      console.log("Calling facebookService.getGroupMembers")
-      console.log(await this.facebookService.getGroupMembers(`1027135354942478`))      
-    } catch (error) {
-      console.log('Error while calling facebookService.getGroupMembers', error);
-    }
+    // try {
+    //   console.log("Calling facebookService.getGroupMembers")
+    //   console.log(await this.facebookService.getGroupMembers(`1027135354942478`))      
+    // } catch (error) {
+    //   console.log('Error while calling facebookService.getGroupMembers', error);
+    // }
   }
   title = 'flyingdarts';
 

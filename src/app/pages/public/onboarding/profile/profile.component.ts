@@ -23,12 +23,13 @@ export class ProfileComponent implements OnInit {
   submitForm() {
     console.log(this.profileForm.value);
     if (this.profileForm.valid) {
-      this.stateService.currentOnboardingState.profileCompleted = true;
-      this.stateService.currentOnboardingState.currentOnboardingProfile = {
+      console.log("Form is valid: ", this.profileForm.valid);
+      this.stateService.currentOnboardingState = { profileCompleted: true, cameraPermissionsGranted: false,
+      currentOnboardingProfile: {
         nickname: this.profileForm.value.userName,
         email: this.profileForm.value.email,
         country: this.profileForm.value.country
-      }
+      }}
       this.router.navigate(['/camera'])
     }
       

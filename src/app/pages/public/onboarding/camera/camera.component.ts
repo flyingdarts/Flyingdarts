@@ -22,7 +22,9 @@ export class CameraComponent implements OnInit {
     this.accessCamera();
   }
   saveCamera() {
-    this.stateService.currentOnboardingState.cameraPermissionsGranted = true;
+    var currentState = this.stateService.currentOnboardingState;
+    currentState.cameraPermissionsGranted = true;
+    this.stateService.currentOnboardingState = currentState;
     this.router.navigate(['/lobby'])
   }
   async accessCamera() {
