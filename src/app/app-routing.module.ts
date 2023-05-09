@@ -23,10 +23,6 @@ const routes: Routes = [
     component: ChatComponent
   },
   {
-    path: 'leaderboard',
-    component: LeaderboardComponent
-  },
-  {
     path: 'terms-of-service',
     component: TermsOfServiceComponent
   },
@@ -34,17 +30,9 @@ const routes: Routes = [
     path: 'privacy-policy',
     component: PrivacyPolicyComponent
   },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent
-  },
-  {
-    path: 'camera',
-    component: CameraComponent
+  { 
+    path: 'onboarding',
+    loadChildren: () => import('./pages/public/onboarding/onboarding.module').then(mod => mod.OnboardingModule)
   },
   {
     path: 'x01:id',
@@ -55,6 +43,10 @@ const routes: Routes = [
     path: 'lobby',
     component: LobbyComponent,
     canActivate: [AuthorizationGuard]
+  },
+  {
+    path: 'leaderboard',
+    component: LeaderboardComponent
   }
 ];
 

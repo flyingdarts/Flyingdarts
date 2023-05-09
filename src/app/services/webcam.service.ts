@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebcamService {
+export class WebcamService implements OnDestroy {
+  private cameraStream: MediaStream | null = null;
   constructor() { 
 
+  }
+  ngOnDestroy(): void {
+    this.disposeWebcamStream()
   }
 
   async checkCameraPermission(): Promise<boolean> {
@@ -20,11 +24,20 @@ export class WebcamService {
   async requestCameraPermissions(): Promise<MediaStream> {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      console.log('Camera access granted');
+      this.cameraStream = stream;
       return stream;
     } catch (error) {
       console.error('Camera access denied', error);
       throw error;
+    }
+  }
+
+  disposeWebcamStream(): void {
+    if (this.cameraStream) {
+      const tracks = this.cameraStream.getTracks();
+      tracks.forEach(track => track.stop()); // Stop all tracks in the stream
+      this.cameraStream = null; // Clear the stored stream
+      console.log('Camera stream disposed');
     }
   }
 }

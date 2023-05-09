@@ -1,20 +1,22 @@
 import { Injectable } from "@angular/core";
 import { Auth } from "aws-amplify";
+import { CognitoUser } from "./CognitoUser";
 
 export interface IAmplifyAuthService {
-    getUser(): Promise<string | null>;
+    getUser(): Promise<CognitoUser | null>;
     signOut(): void;
 }
 @Injectable()
 export class AmplifyAuthService implements IAmplifyAuthService {
-    public async getUser(): Promise<string | null> {
-        const userInfo = await Auth.currentUserInfo();
+    public async getUser(): Promise<CognitoUser | null> {
+        const userInfo: CognitoUser = await Auth.currentUserInfo();
         if (userInfo == null) {
             return null;
         }
-        const parsedUserInfo = JSON.parse(JSON.stringify(userInfo));
-        return parsedUserInfo.attributes.name;
+        console.log(userInfo);
+        return userInfo;
     }
+
     public signOut(): void {
         Auth.signOut({ global: true });
     }
@@ -28,3 +30,4 @@ export class AmplifyAuthService implements IAmplifyAuthService {
         }
       }
 }
+

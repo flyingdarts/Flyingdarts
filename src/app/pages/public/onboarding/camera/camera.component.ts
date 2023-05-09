@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
@@ -9,7 +9,7 @@ import { WebcamService } from 'src/app/services/webcam.service';
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss']
 })
-export class CameraComponent implements OnInit {
+export class CameraComponent implements OnInit, OnDestroy {
 
   constructor(
     public authenticator: AuthenticatorService, 
@@ -17,6 +17,8 @@ export class CameraComponent implements OnInit {
     private router: Router,
     private stateService: OnboardingStateService) {
     
+  }
+  ngOnDestroy(): void {
   }
   ngOnInit(): void {
     this.accessCamera();

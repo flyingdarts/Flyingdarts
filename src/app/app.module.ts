@@ -17,18 +17,16 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { ChatComponent } from './pages/private/chat/chat.component';
 import { PrivacyPolicyComponent } from './pages/public/privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './pages/public/terms-of-service/terms-of-service.component';
-import { CarouselComponent } from './pages/public/onboarding/carousel/carousel.component';
 import { LeaderboardComponent } from './pages/public/leaderboard/leaderboard.component';
 import { WebcamService } from './services/webcam.service';
-import { LoginComponent } from './pages/public/onboarding/login/login.component';
-import { ProfileComponent } from './pages/public/onboarding/profile/profile.component';
-import { CameraComponent } from './pages/public/onboarding/camera/camera.component';
 import { OnboardingStateService } from './services/onboarding-state.service';
 import { FacebookService } from './services/facebook.service';
 import { DartboardComponent } from './pages/private/games/x01/dartboard/dartboard.component';
 import { X01Component } from './pages/private/games/x01/x01.component';
 import { LobbyComponent } from './pages/private/lobby/lobby.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { OnboardingApiService } from './services/onboarding-api.service';
+import { UserProfileService } from './services/user-profile.service';
 export function playerFactory(): any {
   return import('lottie-web');
 }
@@ -39,15 +37,11 @@ export function playerFactory(): any {
     ChatComponent,
     PrivacyPolicyComponent,
     TermsOfServiceComponent,
-    CarouselComponent,
     LeaderboardComponent,
-    LoginComponent,
-    ProfileComponent,
-    CameraComponent,
     X01Component,
     DartboardComponent,
     LobbyComponent,
-    LoadingComponent
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +64,9 @@ export function playerFactory(): any {
     JitsiService,
     WebcamService,
     OnboardingStateService,
-    FacebookService
+    OnboardingApiService,
+    FacebookService,
+    UserProfileService
   ],
   bootstrap: [AppComponent]
 })

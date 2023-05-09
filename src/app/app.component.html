@@ -1,3 +1,9 @@
+<div class="container d-none">
+  <button class="btn btn-primary" (click)="navigateTo(1)">Test 1</button>
+  <button class="btn btn-primary" (click)="navigateTo(2)">Test 1</button>
+  <button class="btn btn-primary" (click)="navigateTo(3)">Test 1</button>
+</div>
+
 <div class="container-fluid body-content px-0">
   <div class="card">
     <div class="flyingdarts-navbar">
@@ -18,10 +24,13 @@
               <li *ngIf="isLoggedIn" class="nav-item">
                 <a href="#" routerLink="/chat" class="nav-link" aria-current="page">Chat</a>
               </li>
+              <li *ngIf="isLoggedIn" class="nav-item">
+                <a href="#" routerLink="/lobby" class="nav-link" aria-current="page">Lobby</a>
+              </li>
             </ul>
             <ul *ngIf="!isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a href="#" class="nav-link" aria-current="page" routerLink="/login">Login / Register</a>
+                <a href="#" class="nav-link" aria-current="page" (click)="openLoginOrRegister()">Login / Register</a>
               </li>
             </ul>
             <ul *ngIf="isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">

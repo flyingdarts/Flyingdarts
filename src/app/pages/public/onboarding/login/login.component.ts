@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
@@ -11,7 +11,11 @@ import { OnboardingStateService } from 'src/app/services/onboarding-state.servic
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private amplifyAuthService: AmplifyAuthService, private router: Router, private stateService: OnboardingStateService) {
+  constructor(
+    private amplifyAuthService: AmplifyAuthService, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private stateService: OnboardingStateService) {
 
   }
 
@@ -19,9 +23,9 @@ export class LoginComponent implements OnInit {
     this.initOnboardingState();
     if (await this.amplifyAuthService.checkAuthStatus()) {
       if (!this.stateService.currentOnboardingState.profileCompleted)
-        this.router.navigate(['/profile'])
+        this.router.navigate(['../', {outlets: { 'onboarding-outlet': ['profile']}}], { relativeTo: this.route})
       else if (!this.stateService.currentOnboardingState.cameraPermissionsGranted)
-        this.router.navigate(['/camera'])
+        this.router.navigate(['/', 'onboarding', 'welcome', 'new-users', {outlets: { 'onboarding-outlet': ['camera']}}])
       else 
         this.router.navigate(['/lobby'])
     }

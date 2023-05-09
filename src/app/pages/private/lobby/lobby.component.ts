@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
-import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
+import { AnimationOptions } from 'ngx-lottie/lib/symbols';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { ApiService } from 'src/app/services/api.service';
 import { PlayerLocalStorageService } from 'src/app/services/player.local-storage.service';
@@ -47,11 +47,6 @@ export class LobbyComponent implements OnInit {
         this.shouldHideLoader = !this.shouldHideLoader;
         this.router.navigate(['x01', (x.message as CreateRoomRequest).RoomId])
       })
-  }
-
-  // This is the component function that binds to the animationCreated event from the package  
-  onAnimate(animationItem: AnimationItem): void {
-    console.log(animationItem);
   }
 
   createRoom() {
