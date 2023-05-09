@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimationItem } from 'lottie-web';
-import { AnimationOptions } from 'ngx-lottie';
-import { Observable, of } from 'rxjs';
-import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { OnboardingApiService } from './services/onboarding-api.service';
-import { WebSocketService } from './services/websocket.service';
-import { WebSocketActions } from './infrastructure/websocket/websocket.actions.enum';
-import { UserProfileService } from './services/user-profile.service';
 import { Router } from '@angular/router';
-import { UserProfileDetails } from './shared/models/user-profile-details.model';
-declare const FB: any; // Declare the FB object
+import { AnimationItem } from 'lottie-web';
+import { Observable, of } from 'rxjs';
+import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
+import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
+import { OnboardingApiService } from 'src/app/services/onboarding-api.service';
+import { UserProfileService } from 'src/app/services/user-profile.service';
+import { WebSocketService } from 'src/app/services/websocket.service';
+import { UserProfileDetails } from '../models/user-profile-details.model';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-navigation-bar',
+  templateUrl: './navigation-bar.component.html',
+  styleUrls: ['./navigation-bar.component.scss']
 })
-export class AppComponent implements OnInit {
+export class NavigationBarComponent implements OnInit {
   public isLoggedIn: boolean = false;
   public isRegistered: boolean = false;
   public userName$: Observable<string | null> = of("")
@@ -27,7 +26,7 @@ export class AppComponent implements OnInit {
   };
 
   constructor(
-    private router: Router,
+    public router: Router,
     private amplifyAuthService: AmplifyAuthService, 
     private onboardingApiService: OnboardingApiService, 
     private webSocketService: WebSocketService,
@@ -64,31 +63,10 @@ export class AppComponent implements OnInit {
     }
       
   }
+  
   title = 'flyingdarts';
 
   public signOut(): void {
     this.amplifyAuthService.signOut();
   }
-
-  openLoginOrRegister(): void {
-    this.router.navigate(['/', 'onboarding', 'welcome', 'new-users'])
-  }
-
-  navigateTo(wher: number): void {
-    switch(wher){
-      case 1:
-        this.router.navigate(['/', 'onboarding', 'welcome', 'new-users'])
-        break;
-      case 2:
-        this.router.navigate(['/', 'onboarding', 'welcome', 'new-users', { outlets: { 'onboarding-outlet': ['profile']}}])
-        break;
-      case 3:
-        this.router.navigate(['/', 'onboarding', 'welcome', 'new-users', { outlets: { 'onboarding-outlet': ['camera']}}])
-        break;
-    }
-
-  }
-}
-export function isNullOrUndefined(value: any): boolean {
-  return value == null || value == undefined
 }

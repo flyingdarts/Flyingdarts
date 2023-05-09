@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
+import { CognitoUser } from "@aws-amplify/auth";
 import { Auth } from "aws-amplify";
-import { CognitoUser } from "./CognitoUser";
 
 export interface IAmplifyAuthService {
     getUser(): Promise<CognitoUser | null>;

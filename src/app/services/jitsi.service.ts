@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { User } from './../services/user';
+import { JitsiUser } from '../infrastructure/jitsi/user';
 declare var JitsiMeetExternalAPI: any;
 import { Router } from '@angular/router'; // import router from angular router
 import { PlayerLocalStorageService } from './player.local-storage.service';
@@ -9,7 +9,7 @@ import { PlayerLocalStorageService } from './player.local-storage.service';
 })
 export class JitsiService {
     api: any;
-    user: User;
+    user: JitsiUser;
     namePrincipalRoom: String;
     options: any;
     domain: string = 'meet.jit.si';
@@ -19,7 +19,7 @@ export class JitsiService {
     isVideoMuted = true;
 
     constructor(private route: Router, private playerLocalStorageService: PlayerLocalStorageService) {
-        this.user = new User();
+        this.user = new JitsiUser();
         this.user.setName(playerLocalStorageService.getUserName())
         this.namePrincipalRoom = 'PrincipalRoom';
     }

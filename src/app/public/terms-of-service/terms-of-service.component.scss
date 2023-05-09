@@ -1,0 +1,11 @@
+@import './../../../colors.scss';
+.tos-container {
+    height: calc(100vh - 160px);
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $flyingdarts-primary;
+}

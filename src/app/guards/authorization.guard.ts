@@ -6,16 +6,13 @@ import { Auth } from 'aws-amplify';
   providedIn: 'root'
 })
 export class AuthorizationGuard implements CanActivate {
-  constructor(private router: Router) {
-
-  }
-
+  constructor(private router: Router) { }
   async canActivate(): Promise<boolean> {
     try {
       await Auth.currentAuthenticatedUser();
       return true;
-    } catch(error) {
-      this.router.navigate(['/auth'])
+    } catch (error) {
+      this.router.navigate(['/', 'onboarding', 'welcome', 'new-users'])
       return false;
     }
   }

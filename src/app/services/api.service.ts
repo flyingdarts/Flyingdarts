@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { CreateRoomRequest } from "../websocket/requests/rooms/rooms.create.request";
 import { JoinRoomRequest } from "../websocket/requests/rooms/rooms.join.request";
 import { CreateX01ScoreRequest } from "../websocket/requests/x01/x01.score.request";
-import { WebSocketActions } from "../websocket/websocket.actions";
-import { WebSocketMessage } from "../websocket/websocket.message";
+import { WebSocketActions } from "../infrastructure/websocket/websocket.actions.enum";
 import { WebSocketService } from "./websocket.service";
+import { WebSocketMessage } from "../infrastructure/websocket/websocket.message.model";
 
 
 @Injectable({ providedIn: 'root' })

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserProfileDetails } from '../websocket/requests/users/user.profile.details';
+import { UserProfileDetails } from '../shared/models/user-profile-details.model';
 
 @Injectable({
   providedIn: 'root'
