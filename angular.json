@@ -60,6 +60,7 @@
               "src/styles.scss"
             ],
             "scripts": [  
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {
@@ -99,7 +100,10 @@
               "browserTarget": "WebSocketFrontend:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -122,6 +126,7 @@
               "src/styles.scss"
             ],
             "scripts": [  
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
             ]
           }
         }

@@ -1,40 +1,15 @@
-<div id="registrationCarousel" class="carousel slide" data-bs-ride="false">
+<div #carousel id="registrationCarousel" class="carousel slide" data-bs-ride="false">
     <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div class="carousel-item" *ngFor="let item of carouselItems; let i = index" [class.active]="i === 0">
             <div class="carousel-custom-top">
-                <img src="/assets/registration/social_media.svg" class="d-block w-50 mx-auto"
-                    alt="Dartboard with one dart">
+              <img [src]="item.src" class="d-block w-50 mx-auto" [alt]="item.title">
             </div>
             <div class="carousel-custom-bottom">
-                <div class="carousel-caption d-block">
-                    <h5>Create an account</h5>
-                    <p>You can choose one of the available sign in methods to create your account.</p>
-                </div>
+              <div class="carousel-caption d-block">
+                <h5>{{ item.title }}</h5>
+                <p>{{ item.description }}</p>
+              </div>
             </div>
-        </div>
-        <div class="carousel-item">
-            <div class="carousel-custom-top">
-                <img src="/assets/registration/personal_data.svg" class="d-block w-50 mx-auto"
-                    alt="Dartboard with three darts">
-            </div>
-            <div class="carousel-custom-bottom">
-                <div class="carousel-caption d-block">
-                    <h5>Your profile</h5>
-                    <p>Enter a nickname. Enter an email address which will be kept private to flyingdarts</p>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="carousel-custom-top">
-                <img src="/assets/registration/video_call.svg" class="d-block w-50 mx-auto"
-                    alt="Person picking the darts for the dartboard">
-            </div>
-            <div class="carousel-custom-bottom">
-                <div class="carousel-caption d-block">
-                    <h5>Camera permission</h5>
-                    <p>We need permission to access your camera so your dartboard is visible. </p>
-                </div>
-            </div>
-        </div>
+          </div>
     </div>
 </div>
