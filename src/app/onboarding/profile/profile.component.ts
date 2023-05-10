@@ -8,6 +8,7 @@ import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { OnboardingApiService } from 'src/app/services/onboarding-api.service';
 import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
+import { CarouselModel } from 'src/app/shared/carousel/carousel.component';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,23 @@ import { UserProfileService } from 'src/app/services/user-profile.service';
 })
 export class ProfileComponent implements OnInit {
   public profileForm: FormGroup;
+  carouselItems: CarouselModel[] = [
+    {
+      src: '/assets/registration/social_media.svg',
+      title: 'Create an account',
+      description: 'You can choose one of the available sign-in methods to create your account.'
+    },
+    {
+      src: '/assets/registration/personal_data.svg',
+      title: 'Your profile',
+      description: 'Enter a nickname. Enter an email address which will be kept private to FlyingDarts.'
+    },
+    {
+      src: '/assets/registration/video_call.svg',
+      title: 'Camera permission',
+      description: 'We need permission to access your camera so your dartboard is visible.'
+    }
+  ];
   constructor(
     private router: Router, 
     public authenticator: AuthenticatorService, 
