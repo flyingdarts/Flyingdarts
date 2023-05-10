@@ -13,36 +13,33 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#" routerLink="/">Home</a>
             </li>
-            <li *ngIf="isLoggedIn" class="nav-item">
-              <a href="#" routerLink="/chat" class="nav-link" aria-current="page">Chat</a>
-            </li>
-            <li *ngIf="isLoggedIn" class="nav-item">
-              <a href="#" routerLink="/lobby" class="nav-link" aria-current="page">Lobby</a>
+            <li *ngIf="amplifyAuthService.isRegistered$" class="nav-item">
+              <a href="#" class="nav-link" aria-current="page" [routerLink]="['/', 'lobby']">Lobby</a>
             </li>
           </ul>
-          <ul *ngIf="!isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul *ngIf="!amplifyAuthService.isRegistered$" class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a href="#" class="nav-link" aria-current="page" [routerLink]="['/', 'onboarding', 'welcome', 'new-users']">Login / Register</a>
+              <a href="#" class="nav-link" aria-current="page" [routerLink]="['/', 'onboarding', { outlets: { 'onboarding-outlet': ['login']}}]">Login / Register</a>
             </li>
           </ul>
-          <ul *ngIf="isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul *ngIf="amplifyAuthService.isRegistered$" class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                {{userName$ | async}}
+                {{ userProfileService.userName$ | async}}
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" aria-current="page" href="#" routerLink="/profile">Profile</a>
+                  <a class="dropdown-item" aria-current="page" href="#" [routerLink]="['/', 'account', { outlets: { 'account-outlet': ['profile']}}]">Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="dropdown-item" aria-current="page" href="#" routerLink="/settings">Settings</a>
+                  <a class="dropdown-item" aria-current="page" href="#" [routerLink]="['/', 'account', { outlets: { 'account-outlet': ['settings']}}]">Settings</a>
                 </li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
                 <li class="nav-item">
-                  <a class="dropdown-item" aria-current="page" href="#" (click)="signOut()">Logout</a>
+                  <a class="dropdown-item" aria-current="page" href="#" (click)="amplifyAuthService.signOut()">Logout</a>
                 </li>
               </ul>
             </li>

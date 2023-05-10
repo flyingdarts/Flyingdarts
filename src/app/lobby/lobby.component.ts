@@ -59,10 +59,10 @@ export class LobbyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.amplifyAuthService.getUser().then((user: any) => {
-      this.playerLocalStorageService.setUserId(user.attributes.sub);
-      this.playerLocalStorageService.setUserName(user.attributes.name);
-    });
+    // this.amplifyAuthService.getUser().then((user: any) => {
+    //   this.playerLocalStorageService.setUserId(user.attributes.sub);
+    //   this.playerLocalStorageService.setUserName(user.attributes.name);
+    // });
 
     this.webSocketService.getMessages()
       .pipe(filter(a => a.action === WebSocketActions.RoomsOnCreate))
@@ -79,7 +79,6 @@ export class LobbyComponent implements OnInit {
   }
 
   joinRoom() {
-
     console.log("join room clicked", this.privateRoomId.value);
     this.router.navigate(['x01', this.privateRoomId.value]);
   }

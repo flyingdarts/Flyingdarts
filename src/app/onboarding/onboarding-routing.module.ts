@@ -8,38 +8,27 @@ import { OnboardingRootComponent } from './onboarding-root/onboarding-root.compo
 
 const routes: Routes = [
   {
-    path: "welcome",
+    path: "",
+    component: OnboardingRootComponent,
     canActivate: [OnboardingGuard],
     children: [
       {
-        path: "",
-        redirectTo: "new-users",
-        pathMatch: 'full'
+        path: "login",
+        component: LoginComponent,
+        outlet: "onboarding-outlet"
       },
       {
-        path: "new-users",
-        component: OnboardingRootComponent,
-        children: [
-          {
-            path: "",
-            component: LoginComponent,
-            outlet: "onboarding-outlet"
-          },
-          {
-            path: "profile",
-            component: ProfileComponent,
-            outlet: "onboarding-outlet"
-          },
-          {
-            path: "camera",
-            component: CameraComponent,
-            outlet: "onboarding-outlet"
-          }
-        ]
+        path: "profile",
+        component: ProfileComponent,
+        outlet: "onboarding-outlet"
       },
-      
+      {
+        path: "camera",
+        component: CameraComponent,
+        outlet: "onboarding-outlet"
+      }
     ]
-  }
+  },
 ];
 
 @NgModule({

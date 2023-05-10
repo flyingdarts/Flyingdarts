@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserProfileDetails } from '../shared/models/user-profile-details.model';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class UserProfileService {
   public set currentUserProfileDetails(value: UserProfileDetails) {
     const key = 'UserStateService.UserProfileDetails';
     this.storage.setItem(key, JSON.stringify(value));
+  }
+
+  public get userName$(): Observable<string> {
+    return of(this.currentUserProfileDetails.UserName);
   }
 }
