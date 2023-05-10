@@ -18,18 +18,18 @@ export class ProfileComponent implements OnInit {
   carouselItems: CarouselModel[] = [
     {
       src: '/assets/registration/social_media.svg',
-      title: 'Create an account',
-      description: 'You can choose one of the available sign-in methods to create your account.'
+      title: 'Username',
+      description: 'You can only change your username once every 30 days.'
     },
     {
       src: '/assets/registration/personal_data.svg',
-      title: 'Your profile',
-      description: 'Enter a nickname. Enter an email address which will be kept private to FlyingDarts.'
+      title: 'Email',
+      description: 'We will send you an email with a verification link.'
     },
     {
       src: '/assets/registration/video_call.svg',
-      title: 'Camera permission',
-      description: 'We need permission to access your camera so your dartboard is visible.'
+      title: 'Camera',
+      description: 'Go to the settings page for camera configuration.'
     }
   ];
   constructor(private formBuilder: FormBuilder, 
