@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { OnboardingApiService } from 'src/app/services/onboarding-api.service';
@@ -35,7 +36,8 @@ export class ProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
     private apiService: OnboardingApiService,
     private authService: AmplifyAuthService,
-    private webSocketService: WebSocketService) { 
+    private webSocketService: WebSocketService,
+    private router: Router) { 
     this.profileForm = new FormGroup({
       userName: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
@@ -61,6 +63,13 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    console.log({})
+    if (this.profileForm.valid) {
+        this.apiService.updateUserProfile({
+          cognitoUserId: this.authService.getCognitoUserId(),
+          userName: this.profileForm.value.userName,
+          email: this.profileForm.value.email,
+          country: this.profileForm.value.country
+        })
+      this.router.navigate(['/', 'account', { outlets: { 'account-outlet': ['profile']}}])
   }
 }

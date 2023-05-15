@@ -27,4 +27,8 @@ export class OnboardingApiService {
   public getUserProfile(cognitoUserId: string): void {
     this.webSocketService.postMessage(JSON.stringify({action: 'v2/user/profile/get', message: { CognitoUserId: cognitoUserId}}));
   }
+
+  public updateUserProfile(updateUserProfileCommand: any): void {
+    this.webSocketService.postMessage(JSON.stringify({action: 'v2/user/profile/update', message: updateUserProfileCommand}));
+  }
 }
