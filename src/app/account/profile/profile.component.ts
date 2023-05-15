@@ -71,5 +71,6 @@ export class ProfileComponent implements OnInit {
           country: this.profileForm.value.country
         })
       this.router.navigate(['/', 'account', { outlets: { 'account-outlet': ['profile']}}])
+    }
   }
 }
