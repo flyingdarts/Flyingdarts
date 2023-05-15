@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
-import * as packageJson from "./../../package.json";
+import packageJson from "./../../package.json";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
