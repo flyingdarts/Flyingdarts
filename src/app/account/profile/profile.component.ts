@@ -62,14 +62,16 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  updateProfile() {
+  async updateProfile() {
     if (this.profileForm.valid) {
-        this.apiService.updateUserProfile({
-          cognitoUserId: this.authService.getCognitoUserId(),
-          userName: this.profileForm.value.userName,
-          email: this.profileForm.value.email,
-          country: this.profileForm.value.country
-        })
+      var body = {
+        cognitoUserId: await this.authService.getCognitoUserId(),
+        userName: this.profileForm.value.userName,
+        email: this.profileForm.value.email,
+        country: this.profileForm.value.country
+      };
+      console.log(body);
+        this.apiService.updateUserProfile(body);
       this.router.navigate(['/', 'account', { outlets: { 'account-outlet': ['profile']}}])
     }
   }

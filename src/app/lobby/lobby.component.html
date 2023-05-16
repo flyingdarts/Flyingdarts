@@ -63,9 +63,14 @@
                         </div>
                     </div>
                 </div>
-                <form [formGroup]="messageForm" (ngSubmit)="send()">
+                <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
                     <input id="message" formControlName="message" class="form-control form-control-sm"
                         placeholder="Type something here..." type="email">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                              <i class="bi bi-arrow-up-right-circle"></i> <!-- Bootstrap send icon -->
+                            </button>
+                          </div>
                 </form>
             </div>
         

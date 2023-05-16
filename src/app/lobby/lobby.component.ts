@@ -68,21 +68,22 @@ export class LobbyComponent implements OnInit {
       .pipe(filter(a => a.action === WebSocketActions.RoomsOnCreate))
       .subscribe((x) => {
         this.shouldHideLoader = !this.shouldHideLoader;
-        this.router.navigate(['x01', (x.message as CreateRoomRequest).RoomId])
+        this.router.navigate(['/', 'games', { outlets: { 'games-outlet': ['x01', (x.message as CreateRoomRequest).RoomId]}}]);0
+
       })
   }
 
-  createRoom() {
+  public createRoom() {
     this.shouldHideLoader = !this.shouldHideLoader;
     var roomId = randomstring.generate(7)
     this.apiService.roomsOnCreate(roomId)
   }
 
-  joinRoom() {
+  public joinRoom() {
     console.log("join room clicked", this.privateRoomId.value);
-    this.router.navigate(['x01', this.privateRoomId.value]);
+    this.router.navigate(['/', 'games', { outlets: { 'games-outlet': ['x01', this.privateRoomId.value]}}]);0
   }
-  public send() {
+  public sendMessage() {
     this.webSocketService.postMessage(JSON.stringify({
       action: "message",
       message: {

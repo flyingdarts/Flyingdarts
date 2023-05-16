@@ -11,7 +11,7 @@ const routes: Routes = [
     canActivate: [AuthorizationGuard],
     children: [
       {
-        path: "x01",
+        path: "x01/:id",
         component: X01Component,
         outlet: "games-outlet"
       }
