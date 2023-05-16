@@ -36,6 +36,8 @@ export class AppComponent implements OnInit {
       if (x.action === WebSocketActions.UserProfileGet){
         if (x.message != null){
           this.userProfileState.currentUserProfileDetails = (x.message as UserProfileDetails)
+        } else {
+          this.userProfileState.currentUserProfileDetails = null;
         }
       }
     })

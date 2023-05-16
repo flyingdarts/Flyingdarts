@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationItem } from 'lottie-web';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.scss']
 })
-export class NavigationBarComponent implements OnInit {
+export class NavigationBarComponent implements OnInit, OnDestroy {
   public currentYear: number = new Date().getFullYear();
   public lottieOptions: AnimationOptions = {
     path: '/assets/animations/flyingdarts_icon.json',

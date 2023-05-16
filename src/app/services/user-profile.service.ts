@@ -18,7 +18,7 @@ export class UserProfileService {
     return serializedRequest;
   }
 
-  public set currentUserProfileDetails(value: UserProfileDetails) {
+  public set currentUserProfileDetails(value: UserProfileDetails | null) {
     const key = 'UserStateService.UserProfileDetails';
     this.storage.setItem(key, JSON.stringify(value));
   }
