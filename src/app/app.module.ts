@@ -13,10 +13,11 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { WebcamService } from './services/webcam.service';
 import { OnboardingStateService } from './services/onboarding-state.service';
 import { FacebookService } from './services/facebook.service';
-import { OnboardingApiService } from './services/onboarding-api.service';
+import { UserProfileApiService } from './services/user-profile-api.service';
 import { UserProfileService } from './services/user-profile.service';
 import { SharedModule } from './shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { X01ApiService } from './services/x01-api.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     JitsiService,
     WebcamService,
     FacebookService,
-    UserProfileService
+    OnboardingStateService,
+    UserProfileService,
+    UserProfileApiService,
+    X01ApiService
   ],
   bootstrap: [AppComponent],
 })

@@ -13,16 +13,16 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#" routerLink="/">Home</a>
             </li>
-            <li *ngIf="amplifyAuthService.isRegistered$" class="nav-item">
+            <li *ngIf="isRegistered" class="nav-item">
               <a href="#" class="nav-link" aria-current="page" [routerLink]="['/', 'lobby']">Lobby</a>
             </li>
           </ul>
-          <ul *ngIf="!amplifyAuthService.isRegistered$" class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul *ngIf="!isRegistered" class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a href="#" class="nav-link" aria-current="page" [routerLink]="['/', 'onboarding', { outlets: { 'onboarding-outlet': ['login']}}]">Login / Register</a>
             </li>
           </ul>
-          <ul *ngIf="amplifyAuthService.isRegistered$" class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul *ngIf="isRegistered" class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">

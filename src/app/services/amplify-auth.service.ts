@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from "@angular/core";
 import { Auth } from "aws-amplify";
 import { CognitoUser } from "../infrastructure/cognito/cognito-user.model";
-import { OnboardingApiService } from "./onboarding-api.service";
+import { UserProfileApiService } from "./user-profile-api.service";
 import { WebSocketService } from "./websocket.service";
 import { WebSocketActions } from "../infrastructure/websocket/websocket.actions.enum";
 import { UserProfileDetails } from "../shared/models/user-profile-details.model";
@@ -15,7 +15,7 @@ export class AmplifyAuthService implements OnInit {
   private _isRegistered: boolean = false;
   
   constructor(
-    private onboardingApiService: OnboardingApiService,
+    private onboardingApiService: UserProfileApiService,
     private webSocketService: WebSocketService) {
   }
   async ngOnInit() {

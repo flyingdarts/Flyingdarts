@@ -1,25 +1,8 @@
 import { Injectable } from '@angular/core';
 import { WebSocketService } from './websocket.service';
 @Injectable({ providedIn: 'root' })
-export class OnboardingApiService {
+export class UserProfileApiService {
   constructor(private webSocketService: WebSocketService) {}
-
-//   public createX01Game(createGameCommand: any): void {
-//     this.webSocketService.postMessage(JSON.stringify({action: 'v2/games/x01/create', message: createGameCommand}));
-//   }
-
-//   public updateX01Game(updateGameCommand: any): void {
-//     this.webSocketService.postMessage(JSON.stringify({action: 'v2/games/x01/update', message: updateGameCommand}));
-//   }
-
-//   public createRoom(createRoomCommand: any): void {
-//     this.webSocketService.postMessage(JSON.stringify({action: 'v2/rooms/create', message: createRoomCommand}));
-//   }
-
-//   public updateRoom(updateRoomCommand: any): void {
-//     this.webSocketService.postMessage(JSON.stringify({action: 'v2/rooms/update', message: updateRoomCommand}));
-//   }
-
   public createUserProfile(createUserProfileCommand: any): void {
     this.webSocketService.postMessage(JSON.stringify({action: 'v2/user/profile/create', message: createUserProfileCommand}));
   }
@@ -32,3 +15,6 @@ export class OnboardingApiService {
     this.webSocketService.postMessage(JSON.stringify({action: 'v2/user/profile/update', message: updateUserProfileCommand}));
   }
 }
+
+
+

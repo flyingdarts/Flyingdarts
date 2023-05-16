@@ -7,7 +7,7 @@ import { JitsiService } from 'src/app/services/jitsi.service';
 import { PlayerLocalStorageService } from 'src/app/services/player.local-storage.service';
 import { WebSocketService } from 'src/app/services/websocket.service';
 import { JoinRoomRequest } from 'src/app/websocket/requests/rooms/rooms.join.request';
-import { CreateX01ScoreRequest } from 'src/app/websocket/requests/x01/x01.score.request';
+import { CreateX01ScoreRequest } from 'src/app/websocket/requests/x01/x01-score.request';
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 
 @Component({

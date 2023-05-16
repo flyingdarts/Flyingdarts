@@ -24,6 +24,6 @@ export class UserProfileService {
   }
 
   public get userName$(): Observable<string> {
-    return of(this.currentUserProfileDetails.UserName);
+    return of(this.currentUserProfileDetails?.UserName || "Unknown");
   }
 }

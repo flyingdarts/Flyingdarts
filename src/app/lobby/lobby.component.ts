@@ -12,6 +12,9 @@ import { CreateRoomRequest } from 'src/app/websocket/requests/rooms/rooms.create
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 import { MessageRequest } from 'src/app/infrastructure/websocket/websocket.request.model';
 import { WebSocketStatus } from 'src/app/infrastructure/websocket/websocket.status.enum';
+import { X01ApiService } from '../services/x01-api.service';
+import { JoinRoomRequest } from '../websocket/requests/rooms/rooms.join.request';
+import { JoinX01QueueRequest } from '../websocket/requests/x01/x01-joinqueue.request';
 var randomstring = require("randomstring");
 const { v4: uuidv4 } = require('uuid');
 
@@ -37,6 +40,7 @@ export class LobbyComponent implements OnInit {
     private playerLocalStorageService: PlayerLocalStorageService,
     private amplifyAuthService: AmplifyAuthService,
     private apiService: ApiService,
+    private x01ApiService: X01ApiService,
     private router: Router,
     private webSocketService: WebSocketService
   ) {
@@ -65,18 +69,17 @@ export class LobbyComponent implements OnInit {
     // });
 
     this.webSocketService.getMessages()
-      .pipe(filter(a => a.action === WebSocketActions.RoomsOnCreate))
+      .pipe(filter(a => a.action === WebSocketActions.X01QueueJoin))
       .subscribe((x) => {
         this.shouldHideLoader = !this.shouldHideLoader;
-        this.router.navigate(['/', 'games', { outlets: { 'games-outlet': ['x01', (x.message as CreateRoomRequest).RoomId]}}]);0
+        this.router.navigate(['/', 'games', { outlets: { 'games-outlet': ['x01', (x.message as JoinX01QueueRequest).RoomId]}}]);
 
       })
   }
 
-  public createRoom() {
+  public joinX01Queue() {
     this.shouldHideLoader = !this.shouldHideLoader;
-    var roomId = randomstring.generate(7)
-    this.apiService.roomsOnCreate(roomId)
+    this.x01ApiService.joinX01Queue({GamePlayerId: this.clientId})
   }
 
   public joinRoom() {

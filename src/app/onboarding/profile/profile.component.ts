@@ -5,7 +5,7 @@ import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Auth } from 'aws-amplify';
 import { CognitoUser } from 'src/app/infrastructure/cognito/cognito-user.model';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { OnboardingApiService } from 'src/app/services/onboarding-api.service';
+import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
 import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { CarouselModel } from 'src/app/shared/carousel/carousel.component';
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
     public authenticator: AuthenticatorService, 
     private amplifyAuthService: AmplifyAuthService,
     private onboardingStateService: OnboardingStateService,
-    private onboardingApiService: OnboardingApiService) {
+    private onboardingApiService: UserProfileApiService) {
     this.profileForm = new FormGroup({
       userName: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
