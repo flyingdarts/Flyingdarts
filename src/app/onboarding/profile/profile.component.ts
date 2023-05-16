@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
   }
   async submitForm() {
     console.log(this.profileForm.value);
+    var userId = await this.amplifyAuthService.getCognitoUserId();
     if (this.profileForm.valid) {
       this.onboardingStateService.currentOnboardingState = { profileCompleted: true, cameraPermissionsGranted: false,
       currentOnboardingProfile: {
@@ -58,7 +59,7 @@ export class ProfileComponent implements OnInit {
         country: this.profileForm.value.country
       }}
         this.onboardingApiService.createUserProfile({
-          cognitoUserId: this.amplifyAuthService.getCognitoUserId(),
+          cognitoUserId: userId,
           userName: this.profileForm.value.userName,
           email: this.profileForm.value.email,
           country: this.profileForm.value.country

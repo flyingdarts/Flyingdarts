@@ -50,7 +50,7 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.isRegisteredSubscription = this.amplifyAuthService.isRegistered$.subscribe(
+    this.isRegisteredSubscription = this.userProfileService.isRegistered$.subscribe(
       (isRegistered: boolean) => {
         this.isRegistered = isRegistered;
         console.log("Is registered: ", this.isRegistered);
