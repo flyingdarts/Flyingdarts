@@ -48,6 +48,7 @@ export class LobbyComponent implements OnInit {
     this.clientId = uuidv4();
     this.webSocketService.getMessages()
       .subscribe(x => {
+        console.log(x);
         switch (x.action) {
           case WebSocketActions.Connect:
             this.webSocketStatus = WebSocketStatus.Connected
@@ -87,6 +88,11 @@ export class LobbyComponent implements OnInit {
     this.router.navigate(['/', 'games', { outlets: { 'games-outlet': ['x01', this.privateRoomId.value]}}]);0
   }
   public sendMessage() {
+    console.log("Sending message", {
+      date: new Date(),
+      message: this.messageForm.value.message,
+      owner: this.clientId,
+    });
     this.webSocketService.postMessage(JSON.stringify({
       action: "message",
       message: {

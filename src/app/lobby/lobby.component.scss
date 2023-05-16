@@ -351,8 +351,20 @@ textarea {
 .chatbox-container {
     display: flex;
     flex-direction: column;
-    height: 40%;
+    height: -webkit-fill-available;
     padding: 20px 20px 0px 20px;
+    margin: 0 20px;
+    width: -webkit-fill-available;
+    .chatbox-messages {
+        height: calc(100% - 40px);
+    }
+    .flyingdarts-primary-button {
+        width: 40px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        height: 40px;
+    }
 }
 
 .chatbox-status {
@@ -392,4 +404,14 @@ textarea {
 
 .lobby-container-inner {
     min-height: 250px;
+}
+
+.bg-unknown {
+    background-color: orange;
+}
+.bg-disconnected {
+    background-color: red;
+}
+.bg-connected {
+    background-color: greenyellow;
 }

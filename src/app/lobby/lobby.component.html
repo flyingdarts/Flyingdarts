@@ -45,35 +45,39 @@
                 <div class="chatbox-status">
                     <div [ngSwitch]="webSocketStatus">
                         <span class="badge" [ngClass]="{
-                          'bg-warning': webSocketStatus === 'WebSocket status unknown',
-                          'bg-success': webSocketStatus === 'Connected.',
-                          'bg-danger': webSocketStatus === 'Lost connection to server.'
+                          'bg-unknown': webSocketStatus === 'WebSocket status unknown',
+                          'bg-connected': webSocketStatus === 'Connected.',
+                          'bg-disconnected': webSocketStatus === 'Lost connection to server.'
                         }">&nbsp;</span>
                     </div>
                 </div>
                 <div class="chatbox">
-                    <div *ngFor="let item of messages">
-                        <div class="d-flex"
-                            [ngClass]="{'justify-content-start': item.owner === clientId, 'justify-content-end': item.owner !== clientId}">
-                            <div class="form-control form-control-sm chatbox-item">
-                                <div>
-                                    <p>{{item.date | date: 'HH:mm'}}: {{item.message}}</p>
+                    <div class="chatbox-messages">
+                        <div *ngFor="let item of messages">
+                            <div class="d-flex"
+                                [ngClass]="{'justify-content-start': item.owner === clientId, 'justify-content-end': item.owner !== clientId}">
+                                <div class="form-control form-control-sm chatbox-item">
+                                    <div>
+                                        <p>{{item.date | date: 'HH:mm'}}: {{item.message}}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
-                    <input id="message" formControlName="message" class="form-control form-control-sm"
-                        placeholder="Type something here..." type="email">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                              <i class="bi bi-arrow-up-right-circle"></i> <!-- Bootstrap send icon -->
+                    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+                        <div class="input-group">
+                            <input id="message" formControlName="message" class="form-control"
+                                placeholder="Type something here..." type="email">
+                            <div class="input-group-append">
+                            </div>
+                            <button class="flyingdarts-primary-button btn" type="submit">
+                                <i class="fa-regular fa-paper-plane"></i>
                             </button>
-                          </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
-        
+
         </div>
     </div>
 </div>
