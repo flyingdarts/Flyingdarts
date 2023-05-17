@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
+import { UserProfileApiService } from 'src/app/services/api/user-profile-api.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { WebSocketService } from 'src/app/services/websocket.service';
 import { CarouselModel } from 'src/app/shared/carousel/carousel.component';
@@ -33,24 +33,27 @@ export class ProfileComponent implements OnInit {
       description: 'Go to the settings page for camera configuration.'
     }
   ];
-  constructor(private formBuilder: FormBuilder, 
+  constructor(private formBuilder: FormBuilder,
     private apiService: UserProfileApiService,
     private authService: AmplifyAuthService,
     private webSocketService: WebSocketService,
-    private router: Router) { 
+    private router: Router) {
     this.profileForm = new FormGroup({
       userName: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email])
     });
-   }
+  }
 
-  async ngOnInit(){
+  async ngOnInit() {
     this.apiService.getUserProfile(await this.authService.getCognitoUserId());
 
-    this.webSocketService.getMessages().subscribe(x=> {
+    this.webSocketService.getMessages().subscribe(x => {
       if (x.action === WebSocketActions.UserProfileGet) {
         this.initForm(x.message as UserProfileDetails);
+      }
+      if (x.action === WebSocketActions.UserProfileUpdate) {
+        this.router.navigate(['/', 'lobby'])
       }
     })
   }
@@ -64,15 +67,11 @@ export class ProfileComponent implements OnInit {
 
   async updateProfile() {
     if (this.profileForm.valid) {
-      var body = {
-        cognitoUserId: await this.authService.getCognitoUserId(),
-        userName: this.profileForm.value.userName,
-        email: this.profileForm.value.email,
-        country: this.profileForm.value.country
-      };
-      console.log(body);
-        this.apiService.updateUserProfile(body);
-      this.router.navigate(['/', 'account', { outlets: { 'account-outlet': ['profile']}}])
+      this.apiService.updateUserProfile(
+        await this.authService.getCognitoUserId(),
+        this.profileForm.value.userName,
+        this.profileForm.value.email,
+        this.profileForm.value.country);
     }
   }
 }

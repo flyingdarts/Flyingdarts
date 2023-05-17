@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { WebSocketService } from './services/websocket.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AmplifyAuthService } from './services/amplify-auth.service';
-import { ApiService } from './services/api.service';
+import { ApiService } from './services/api/room-api.service';
 import { JitsiService } from './services/jitsi.service';
 import { PlayerLocalStorageService } from './services/player.local-storage.service';
 import { LoadingService } from './services/loading.service';
@@ -13,11 +13,11 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { WebcamService } from './services/webcam.service';
 import { OnboardingStateService } from './services/onboarding-state.service';
 import { FacebookService } from './services/facebook.service';
-import { UserProfileApiService } from './services/user-profile-api.service';
+import { UserProfileApiService } from './services/api/user-profile-api.service';
 import { UserProfileService } from './services/user-profile.service';
 import { SharedModule } from './shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { X01ApiService } from './services/x01-api.service';
+import { X01ApiService } from './services/api/x01-api.service';
 
 @NgModule({
   declarations: [

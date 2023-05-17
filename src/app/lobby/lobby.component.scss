@@ -122,12 +122,17 @@ ng-lottie {
     background-image: url('/assets/friends.svg');
     margin-left: 20px;
     margin-right: 10px;
+    display: flex;
+    justify-content: start !important;
+    .subtitle {
+        font-family: 'Poppins';
+        font-weight: 900;
+    }
 }
 
 .card-solo {
     background-image: url('/assets/solo.svg');
     background-position-x: right !important;
-    justify-content: space-between;
     margin-left: 10px;
     margin-right: 10px;
 }

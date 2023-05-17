@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from "@angular/core";
 import { Auth } from "aws-amplify";
 import { CognitoUser } from "../infrastructure/cognito/cognito-user.model";
-import { UserProfileApiService } from "./user-profile-api.service";
+import { UserProfileApiService } from "./api/user-profile-api.service";
 import { WebSocketService } from "./websocket.service";
 import { WebSocketActions } from "../infrastructure/websocket/websocket.actions.enum";
 import { UserProfileDetails } from "../shared/models/user-profile-details.model";
@@ -20,6 +20,12 @@ export class AmplifyAuthService {
   public async getCognitoUserId(): Promise<string> {
    var userInfo = await Auth.currentUserInfo() as CognitoUser;
     return userInfo.username
+  }
+
+  public async getCognitoId(): Promise<string> {
+    var userInfo = await Auth.currentAuthenticatedUser();
+    console.log(userInfo);
+    return userInfo["attributes"]["sub"]
   }
   
   public signOut(): void {

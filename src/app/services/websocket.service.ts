@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { WebSocketActions } from '../infrastructure/websocket/websocket.actions.enum';
 import { WebSocketMessage } from '../infrastructure/websocket/websocket.message.model';
@@ -8,8 +8,10 @@ import { WebSocketRequest } from '../infrastructure/websocket/websocket.request.
 @Injectable()
 export class WebSocketService<T = WebSocketRequest> {
   private socket: WebSocket;
-  private connected = false;
+  private connectedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public connected$: Observable<boolean> = this.connectedSubject.asObservable();
   private messages = new Subject<WebSocketMessage<T>>();
+
   constructor() {
     this.socket = new WebSocket(environment.webSocketUrl);
     this.connect();
@@ -19,13 +21,13 @@ export class WebSocketService<T = WebSocketRequest> {
 
     this.socket.onopen = (event) => {
       console.log(event);
-      this.connected = true;
+      this.connectedSubject.next(true);
       this.messages.next({ action: WebSocketActions.Connect, message: event as any });
     };
 
     this.socket.onclose = (event) => {
       console.log(event);
-      this.connected = false;
+      this.connectedSubject.next(false);
       this.messages.next({ action: WebSocketActions.Disconnect, message: event as any });
       setTimeout(() => this.connect(), 1000);
     };
@@ -43,7 +45,7 @@ export class WebSocketService<T = WebSocketRequest> {
   }
 
   public postMessage(payload: string): void {
-    if (this.connected) {
+    if (this.connectedSubject.value) {
       this.socket.send(payload);
     }
   }

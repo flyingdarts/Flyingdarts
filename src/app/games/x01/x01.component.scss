@@ -12,7 +12,13 @@ p {
 .calc-row {
     padding-bottom: 10px !important;
 }
-
+.history-row {
+    td {
+        padding: 0;
+        text-align: start;
+        opacity: 0.5;
+    }
+}
 .calc-container {
     .calc-header {
         padding-right: 20px !important;
@@ -83,7 +89,7 @@ p, span, table, td {
 th {
     color: $flyingdarts-secundary;
 }
-h1 {}
+
 
 h2 {
     color: black;

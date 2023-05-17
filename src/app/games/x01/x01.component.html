@@ -6,25 +6,39 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="text-start" colspan="2">First to</th>
+                                <th class="text-start" colspan="2">{{table_header}}</th>
                                 <th>Sets</th>
                                 <th class="text-start" colspan="2">Legs</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="text-start">{{player_name}}</td>
+                                <td class="text-start">{{playerName}}</td>
                                 <td><i class="flag-icon"></i></td>
-                                <td>6</td>
-                                <td>2</td>
-                                <td>225</td>
+                                <td>{{playerSets}}</td>
+                                <td>{{playerLegs}}</td>
+                                <td>{{playerScore}}</td>
+                            </tr>
+                            <tr class="history-row">
+                                <td colspan="5">
+                                    <small>
+                                        {{ playerHistory$ | async }}
+                                    </small>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="text-start">{{opponent_name}}</td>
+                                <td class="text-start">{{opponentName}}</td>
                                 <td><i class="flag-icon"></i></td>
-                                <td>6</td>
-                                <td>2</td>
-                                <td>225</td>
+                                <td>{{opponentSets}}</td>
+                                <td>{{opponentLegs}}</td>
+                                <td>{{opponentScore}}</td>
+                            </tr>
+                            <tr class="history-row">
+                                <td colspan="5">
+                                    <small>
+                                        {{ opponentHistory$ | async }}
+                                    </small>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -33,10 +47,10 @@
                     <div class="col-12">
                         <div class="row text-center">
                             <div>
-                                <button class="btn btn-success btn-total"
+                                <button [disabled]="inputShouldBeDisabled" class="btn btn-success btn-total"
                                     (click)="sendScore()">{{lastThreeSum}}</button>
-                                <button class="btn btn-warning" (click)="resetInput()"><i
-                                        class="material-icons">restart_alt</i></button>
+                                <button [disabled]="inputShouldBeDisabled" class="btn btn-warning"
+                                    (click)="resetInput()"><i class="material-icons">restart_alt</i></button>
                             </div>
                             <!-- <p class="mb-0 mt-3">{{ currentInput }} </p> -->
                             <p class="mb-0 mt-3">{{ lastThreeString }} </p>

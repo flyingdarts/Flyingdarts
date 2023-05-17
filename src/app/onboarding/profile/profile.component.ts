@@ -5,7 +5,7 @@ import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Auth } from 'aws-amplify';
 import { CognitoUser } from 'src/app/infrastructure/cognito/cognito-user.model';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
+import { UserProfileApiService } from 'src/app/services/api/user-profile-api.service';
 import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { CarouselModel } from 'src/app/shared/carousel/carousel.component';
@@ -58,12 +58,11 @@ export class ProfileComponent implements OnInit {
         email: this.profileForm.value.email,
         country: this.profileForm.value.country
       }}
-        this.onboardingApiService.createUserProfile({
-          cognitoUserId: userId,
-          userName: this.profileForm.value.userName,
-          email: this.profileForm.value.email,
-          country: this.profileForm.value.country
-        })
+      this.onboardingApiService.createUserProfile(
+        await this.amplifyAuthService.getCognitoUserId(),
+        this.profileForm.value.userName,
+        this.profileForm.value.email,
+        this.profileForm.value.country);
       this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
     }
       

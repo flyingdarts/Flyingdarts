@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import packageJson from "./../../package.json";
-import { UserProfileApiService } from './services/user-profile-api.service';
+import { UserProfileApiService } from './services/api/user-profile-api.service';
 import { AmplifyAuthService } from './services/amplify-auth.service';
 import { WebSocketService } from './services/websocket.service';
 import { WebSocketActions } from './infrastructure/websocket/websocket.actions.enum';

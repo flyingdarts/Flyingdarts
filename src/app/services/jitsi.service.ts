@@ -25,7 +25,8 @@ export class JitsiService {
     }
 
     changeSize(width: number, height: number) {
-        this.api.resizeLargeVideo(width, height);
+        if (this.api != undefined)
+            this.api.resizeLargeVideo(width, height);
     }
 
     moveRoom(nameRoom: String, isAdmin: Boolean): void {

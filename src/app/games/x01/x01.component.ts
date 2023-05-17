@@ -1,14 +1,16 @@
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, filter } from 'rxjs';
-import { isNullOrUndefined } from 'src/app/app.component';
-import { ApiService } from 'src/app/services/api.service';
+import { BehaviorSubject, Subscription, filter } from 'rxjs';
 import { JitsiService } from 'src/app/services/jitsi.service';
 import { PlayerLocalStorageService } from 'src/app/services/player.local-storage.service';
 import { WebSocketService } from 'src/app/services/websocket.service';
-import { JoinRoomRequest } from 'src/app/websocket/requests/rooms/rooms.join.request';
-import { CreateX01ScoreRequest } from 'src/app/websocket/requests/x01/x01-score.request';
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
+import { CreateX01ScoreCommand } from 'src/app/requests/CreateX01ScoreCommand';
+import { JoinGameCommand } from 'src/app/requests/JoinGameCommand';
+import { X01ApiService } from 'src/app/services/api/x01-api.service';
+import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
+import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
   selector: 'app-x01',
@@ -16,8 +18,8 @@ import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.act
   styleUrls: ['./x01.component.scss']
 })
 export class X01Component implements OnInit, OnDestroy, AfterViewInit {
-
-  public roomId: string = '';
+  public inputShouldBeDisabled: boolean = false;
+  public gameId: string = '';
   public roomSubscription?: Subscription;
   public inviteLink: string = ''
   public scoreActionButtonText = 'NO SCORE'
@@ -28,20 +30,35 @@ export class X01Component implements OnInit, OnDestroy, AfterViewInit {
   public lastThreeSum: number = 0;
 
   public player: number[] = [];
-  public player_name: string = "Pajeet";
-  public player_score: number = 0;
+
+  public table_header: string = "";
+
+  public playerName: string = "Pajeet";
+  public playerSets: number = 0;
+  public playerLegs: number = 0;
+  public playerScore: number = 0;
+  public playerScores: string[] = [];
+  public playerScores$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.playerScores);
+  public playerHistory$: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  public playerTotal: number = 0;
+
+  public opponentName: string = "Punjabi";
+  public opponentSets: number = 0;
+  public opponentLegs: number = 0;
+  public opponentScore: number = 0;
+  public opponentScores: string[] = [];
+  public opponentScores$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.playerScores);
+  public opponentHistory$: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  public opponentTotal: number = 0;
+
+
+  public player_id: string = ""
   public player_avg: number = 0;
-  public player_total: number = 0;
-  public playerScores: ScoreRecord[] = [];
-  public player_history: string = "60, 26, 45, 100";
+
+
 
   public opponent: number[] = [];
-  public opponent_name: string = "Punjabi";
-  public opponent_score: number = 0;
   public opponent_avg: number = 0;
-  public opponent_total: number = 0;
-  public opponentScores: ScoreRecord[] = [];
-  public opponent_history: string = "60, 26, 45";
 
   public webcamHeight = 300;
   public webcamWidth = 300;
@@ -66,78 +83,97 @@ export class X01Component implements OnInit, OnDestroy, AfterViewInit {
   // public players$: Observable<Player[]>
   constructor(
     private webSocketService: WebSocketService,
-    private apiService: ApiService,
+    private apiService: X01ApiService,
     private route: ActivatedRoute,
-    private playerLocalStorageService: PlayerLocalStorageService,
+    private userProfileService: UserProfileService,
+    private authService: AmplifyAuthService,
     private jitsiService: JitsiService) {
     // Initialize screen size on component initialization
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
-
-    let roomId = this.route.snapshot.params["id"];
-    let userId = this.playerLocalStorageService.getUserId();
-    let userName = this.playerLocalStorageService.getUserName();
-    if (!isNullOrUndefined(roomId) && !isNullOrUndefined(userId) && !isNullOrUndefined(userName)) {
-      console.log("ngOnInit with params for room join", roomId, userId, userName);
-      this.apiService.roomsOnJoin(roomId, userId, userName);
-    }
   }
   ngAfterViewInit(): void {
-    var jitsiFrameWidth = document.getElementById("jitsi-iframe")?.offsetWidth;
-    var jitsiFrameHeight = document.getElementById("jitsi-iframe")?.offsetHeight;
-    console.log(`Available screen size: ${ this.screenWidth }px x ${ this.screenHeight }px`)
-    console.log(`Available jitsi size: ${ jitsiFrameWidth }px x ${ jitsiFrameHeight }px`)
-    this.jitsiService.changeSize(jitsiFrameWidth ?? 480, jitsiFrameHeight ?? 270)
+    console.log("test after view init x01 component");
   }
 
-  ngOnInit() {
-    this.roomSubscription = this.route.params.subscribe(params => {
-      this.roomId = params['id']
+  async ngOnInit() {
+    console.log("test init x01 component");
+    this.player_id =  await this.authService.getCognitoId();
+    this.playerName = this.userProfileService.currentUserProfileDetails.UserName;
+    this.gameId = this.route.snapshot.paramMap.get('id')!;
+    this.webSocketService.connected$.subscribe(connected => {
+      if (connected) {
+        // Execute something when connected is true
+        console.log("Connected to WebSocket!");
+        this.apiService.joinGame(this.gameId, this.player_id, this.playerName)
+      }
+    });
+
+    this.webSocketService.getMessages().subscribe(x => {
+      console.log(x);
+      switch (x.action) {
+        case WebSocketActions.X01Join:
+          this.onJoinRoomCommand(x);
+          break;
+        case WebSocketActions.X01Score:
+          this.onScoreCommand(x)
+          break;
+      }
     })
-    this.player_score = 501
-    this.opponent_score = 501
-    this.player_total = 501
-    this.opponent_total = 501
-
-    this.webSocketService.getMessages()
-      .pipe(filter(x => x.action === WebSocketActions.RoomsOnJoin))
-      .subscribe(x => {
-        let message: JoinRoomRequest = x.message as JoinRoomRequest;
-        console.log("Received join room request", message);
-        if (message.PlayerId == this.playerLocalStorageService.getUserId()) {
-          this.player_name = message.PlayerName;
-        } else {
-          this.opponent_name = message.PlayerName;
-        }
-      });
-    this.webSocketService.getMessages()
-      .pipe(filter(x => x.action === WebSocketActions.X01OnScore))
-      .subscribe(x => {
-        let message: CreateX01ScoreRequest = x.message as CreateX01ScoreRequest;
-        console.log("Received x01 score request", message);
-        if (message.PlayerId == this.playerLocalStorageService.getUserId()) {
-          if (this.playerScores.filter(x => x.score == message.Input + message.Score).length == 1) {
-
-          } else {
-            this.playerScores.push({ score: this.player_score, input: message.Input });
-            this.player_score = message.Score;
-          }
-        } else {
-          this.opponentScores.push({ score: this.opponent_score, input: message.Input });
-          this.opponent_score = message.Score;
-        }
-      })
 
     var view = document.getElementById("webcamView");
     this.webcamHeight = view?.clientHeight!;
     this.webcamWidth = view?.clientWidth!;
 
-    this.jitsiService.namePrincipalRoom = `Flyingdarts ${this.roomId}`;
+    this.jitsiService.namePrincipalRoom = `Flyingdarts ${this.gameId}`;
     this.jitsiService.moveRoom(this.jitsiService.namePrincipalRoom, false);
-    this.jitsiService.user.setName(this.playerLocalStorageService.getUserName());
-
-    console.log("on init snapshot", this.route.snapshot);
+    this.jitsiService.user.setName(this.playerName);
   }
+  insertPlayerScore(score: string) {
+    this.playerScores.push(score);
+    this.playerScores$.next(this.playerScores);
+    this.updatePlayerHistory();
+  }
+  insertOpponentScore(score: string) {
+    this.playerScores.push(score);
+    this.playerScores$.next(this.playerScores);
+    this.updateOpponentHistory();
+  }
+  private updatePlayerHistory() {
+    this.playerHistory$.next(this.playerScores.join(', '));
+  }
+  private updateOpponentHistory() {
+    this.opponentHistory$.next(this.playerScores.join(', '));
+  }
+  onJoinRoomCommand(x: any) {
+    this.inputShouldBeDisabled = false;
+    let message: JoinGameCommand = x.message as JoinGameCommand;
+    console.log("Received join room command", message);
+    console.log(message.Game);
+    this.table_header = `Best of ${message.Game!.X01.Sets}/${message.Game!.X01.Legs}`
+    if (message.PlayerId == this.player_id) {
+      this.playerName = message.PlayerName;
+      this.playerScore = message.Game!.X01.StartingScore;
+    } else {
+      this.opponentName = message.PlayerName;
+      this.opponentScore = message.Game!.X01.StartingScore;
+    }
+  }
+
+  onScoreCommand(x: any) {
+    this.inputShouldBeDisabled = !this.inputShouldBeDisabled;
+    let message: CreateX01ScoreCommand = x.message as CreateX01ScoreCommand;
+    console.log("Received x01 score request", message);
+    if (message.PlayerId ==this.player_id) {
+        this.playerScore = message.Score;
+        this.insertPlayerScore(message.Input.toString())
+    } else {
+      this.opponentScore = message.Score;
+      this.insertOpponentScore(message.Input.toString())
+    }
+    this.resetInput()
+  }
+
   ngOnDestroy() {
     clearTimeout(this.resizeTimer);
   }
@@ -167,8 +203,8 @@ export class X01Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   sendScore() {
-    this.apiService.gamesOnScore(this.roomId, this.playerLocalStorageService.getUserId(), this.player_score - this.lastThreeSum, this.lastThreeSum);
-    this.resetInput()
+    this.apiService.score(this.gameId, this.player_id, this.playerScore - this.lastThreeSum, this.lastThreeSum);
+    this.inputShouldBeDisabled = !this.inputShouldBeDisabled;
   }
 
   resetInput() {
@@ -206,4 +242,16 @@ export class X01Component implements OnInit, OnDestroy, AfterViewInit {
 export interface ScoreRecord {
   score: number;
   input: number;
+}
+
+export interface Game {
+  X01: X01;
+}
+
+export interface X01 {
+  DoubleIn: boolean;
+  DoubleOut: boolean;
+  Legs: number;
+  Sets: number;
+  StartingScore: number;
 }
