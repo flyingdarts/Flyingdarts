@@ -24,6 +24,10 @@ export class JitsiService {
         this.namePrincipalRoom = 'PrincipalRoom';
     }
 
+    changeSize(width: number, height: number) {
+        this.api.resizeLargeVideo(width, height);
+    }
+
     moveRoom(nameRoom: String, isAdmin: Boolean): void {
         const myNode = document.getElementById('jitsi-iframe');
         myNode!.innerHTML = '';
@@ -33,9 +37,6 @@ export class JitsiService {
 
         this.options = {
             roomName: nameRoom,
-            width: 1016,
-            height: 783,
-
             configOverwrite: {
                 prejoinPageEnabled: this.user.name != '' ? false : true,
                 apiLogLevels: ['error']
@@ -75,8 +76,8 @@ export class JitsiService {
 
         this.options = {
             roomName: this.namePrincipalRoom,
-            width: 1016,
-            height: 783,
+            width: 480,
+            height: 270,
             configOverwrite: {
                 prejoinPageEnabled: false,
                 openBridgeChannel: 'datachannel',

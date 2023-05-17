@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { isNullOrUndefined } from 'src/app/app.component';
@@ -15,7 +15,7 @@ import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.act
   templateUrl: './x01.component.html',
   styleUrls: ['./x01.component.scss']
 })
-export class X01Component implements OnInit {
+export class X01Component implements OnInit, OnDestroy, AfterViewInit {
 
   public roomId: string = '';
   public roomSubscription?: Subscription;
@@ -33,6 +33,7 @@ export class X01Component implements OnInit {
   public player_avg: number = 0;
   public player_total: number = 0;
   public playerScores: ScoreRecord[] = [];
+  public player_history: string = "60, 26, 45, 100";
 
   public opponent: number[] = [];
   public opponent_name: string = "Punjabi";
@@ -40,12 +41,28 @@ export class X01Component implements OnInit {
   public opponent_avg: number = 0;
   public opponent_total: number = 0;
   public opponentScores: ScoreRecord[] = [];
+  public opponent_history: string = "60, 26, 45";
 
   public webcamHeight = 300;
   public webcamWidth = 300;
   public webcamImage: any;
   public deviceId: String = "";
+  public screenWidth: number = 0;
+  public screenHeight: number = 0;
+  private resizeTimer: any;
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    clearTimeout(this.resizeTimer);
+    this.resizeTimer = setTimeout(() => {
+      this.screenWidth = window.innerWidth;
+      this.screenHeight = window.innerHeight;
+      var jitsiFrameWidth = document.getElementById("jitsi-iframe")?.offsetWidth;
+      var jitsiFrameHeight = document.getElementById("jitsi-iframe")?.offsetHeight;
+      console.log(`Available screen size: ${ this.screenWidth }px x ${ this.screenHeight }px`)
+      console.log(`Available jitsi size: ${ jitsiFrameWidth }px x ${ jitsiFrameHeight }px`)
+    }, 1000)
+  }
   // public players$: Observable<Player[]>
   constructor(
     private webSocketService: WebSocketService,
@@ -53,6 +70,9 @@ export class X01Component implements OnInit {
     private route: ActivatedRoute,
     private playerLocalStorageService: PlayerLocalStorageService,
     private jitsiService: JitsiService) {
+    // Initialize screen size on component initialization
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
 
     let roomId = this.route.snapshot.params["id"];
     let userId = this.playerLocalStorageService.getUserId();
@@ -61,6 +81,13 @@ export class X01Component implements OnInit {
       console.log("ngOnInit with params for room join", roomId, userId, userName);
       this.apiService.roomsOnJoin(roomId, userId, userName);
     }
+  }
+  ngAfterViewInit(): void {
+    var jitsiFrameWidth = document.getElementById("jitsi-iframe")?.offsetWidth;
+    var jitsiFrameHeight = document.getElementById("jitsi-iframe")?.offsetHeight;
+    console.log(`Available screen size: ${ this.screenWidth }px x ${ this.screenHeight }px`)
+    console.log(`Available jitsi size: ${ jitsiFrameWidth }px x ${ jitsiFrameHeight }px`)
+    this.jitsiService.changeSize(jitsiFrameWidth ?? 480, jitsiFrameHeight ?? 270)
   }
 
   ngOnInit() {
@@ -111,7 +138,9 @@ export class X01Component implements OnInit {
 
     console.log("on init snapshot", this.route.snapshot);
   }
-
+  ngOnDestroy() {
+    clearTimeout(this.resizeTimer);
+  }
   dartBoardInput(input: number) {
     if (this.lastThreeInputs.length == 3) {
       this.lastThreeInputs = this.lastThreeInputs.slice(1)

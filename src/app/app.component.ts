@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import packageJson from "./../../package.json";
@@ -16,6 +16,7 @@ import { UserProfileDetails } from './shared/models/user-profile-details.model';
 export class AppComponent implements OnInit {
   public currentYear: number = new Date().getFullYear();
   public currentVersion: string = "";
+
   public lottieOptions: AnimationOptions = {
     path: '/assets/animations/flyingdarts_icon.json',
     loop: false
@@ -31,10 +32,10 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     var cognitoUserId = await this.authService.getCognitoUserId();
     this.userProfileApi.getUserProfile(cognitoUserId);
-    
-    this.webSocketService.getMessages().subscribe(x=>{
-      if (x.action === WebSocketActions.UserProfileGet){
-        if (x.message != null){
+
+    this.webSocketService.getMessages().subscribe(x => {
+      if (x.action === WebSocketActions.UserProfileGet) {
+        if (x.message != null) {
           this.userProfileState.currentUserProfileDetails = (x.message as UserProfileDetails)
         } else {
           this.userProfileState.currentUserProfileDetails = null;
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit {
   }
 
   title = 'flyingdarts';
+
 }
 export function isNullOrUndefined(value: any): boolean {
   return value == null || value == undefined

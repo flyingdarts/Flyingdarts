@@ -1,4 +1,5 @@
 @import './../../../colors.scss';
+
 .btn-total {
     font-size: 20px;
     font-weight: 500;
@@ -8,22 +9,50 @@ p {
     font-size: 40px;
 }
 
-.calc-header {}
+.calc-row {
+    padding-bottom: 10px !important;
+}
 
-.calc-body {
-    height: calc(100%);
+.calc-container {
+    .calc-header {
+        padding-right: 20px !important;
 
-    div {
-        flex-grow: 1;
+        .p-name,
+        .o-name {
+            font-size: medium;
+        }
+
+        .p-score,
+        .o-score {
+            font-size: medium;
+        }
+
+        .p-avg,
+        .o-avg {
+            font-size: medium;
+        }
+        .p-history,
+        .o-history {
+            font-size: medium;
+        }
+    }
+
+    .calc-body {
+        height: calc(100%);
 
         div {
-            justify-content: center;
-            align-items: center;
-            background-color: #3c46a7;
-            margin: 1px;
+            flex-grow: 1;
+
+            div {
+                justify-content: center;
+                align-items: center;
+                background-color: #3c46a7;
+                margin: 1px;
+            }
         }
     }
 }
+
 
 .invite-link {
     font-size: 1.4em;
@@ -48,7 +77,12 @@ span {
     padding: 0;
     margin: 0;
 }
-
+p, span, table, td {
+    color: $flyingdarts-primary;
+}
+th {
+    color: $flyingdarts-secundary;
+}
 h1 {}
 
 h2 {
@@ -70,6 +104,10 @@ h2 {
     text-align: center;
     justify-content: space-evenly;
     flex-direction: column;
+
+    .row {
+        padding: 0 20px;
+    }
 
     .lobby-game-modes {
         height: calc(100% - 160px);
@@ -160,14 +198,16 @@ ng-lottie {
     }
 }
 
-table {
-    width: 120px;
-
-    td {
-        width: 50%;
-    }
+.stats-container {
+    margin-bottom: 10px;
 }
 
+.button-container {
+    margin-bottom: 20px;
+}
+.dartboard-container {
+    margin: 0 10%;
+}
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
     h2 {

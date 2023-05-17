@@ -1,32 +1,35 @@
 <div class="lobby-container container-fluid px-0">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-5 p-0 flyingdarts-mobile-container">
+    <div class="row h-100 calc-row">
+        <div class="col-sm-12 col-md-12 col-lg-4 p-0 calc-container">
             <div class="calc-header">
-                <div class="row g-0">
-                    <div class="col-6">
-                        <div class="row text-center">
-                            <p class="mb-0">{{ player_score }}</p>
-                        </div>
-                        <div class="row text-center">
-                            <p class="mb-4">{{ player_name }}</p>
-                        </div>
-                        <div class="row text-center">
-                            <h3 class="mb-0">AVG: {{ player_avg }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="row text-center">
-                            <p class="mb-0">{{ opponent_score }}</p>
-                        </div>
-                        <div class="row text-center">
-                            <p class="mb-4">{{ opponent_name }}</p>
-                        </div>
-                        <div class="row text-center">
-                            <h3 class="mb-0">AVG: {{ opponent_avg }}</h3>
-                        </div>
-                    </div>
+                <div class="row stats-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-start" colspan="2">First to</th>
+                                <th>Sets</th>
+                                <th class="text-start" colspan="2">Legs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-start">{{player_name}}</td>
+                                <td><i class="flag-icon"></i></td>
+                                <td>6</td>
+                                <td>2</td>
+                                <td>225</td>
+                            </tr>
+                            <tr>
+                                <td class="text-start">{{opponent_name}}</td>
+                                <td><i class="flag-icon"></i></td>
+                                <td>6</td>
+                                <td>2</td>
+                                <td>225</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="row g-0">
+                <div class="row g-0 button-container">
                     <div class="col-12">
                         <div class="row text-center">
                             <div>
@@ -40,27 +43,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row g-0">
-                <div class="col-2 g-0">
-                    <div *ngFor="let item of playerScores">
-                        <span>
-                            {{item.score}} - {{item.input}}
-                        </span>
-                    </div>
-                </div>
-                <div class="col-8 g-0">
-                    <app-dartboard (targetPressedEvent)="dartBoardInput($event)"></app-dartboard>
-                </div>
-                <div class="col-2 g-0">
-                    <div *ngFor="let item of opponentScores">
-                        <span>
-                            {{item.score}} - {{item.input}}
-                        </span>
+                <div class="row g-0 p-0 dartboard-container">
+                    <div class="col-12 g-0">
+                        <app-dartboard (targetPressedEvent)="dartBoardInput($event)"></app-dartboard>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-5" id="jitsi-iframe"></div>
+        <div class="col-sm-12 col-md-12 col-lg-8 p-0" id="jitsi-iframe"></div>
     </div>
 </div>
