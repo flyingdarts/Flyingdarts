@@ -5,8 +5,6 @@ $navbar-height: auto;
 .flyingdarts-nav {
     margin: 0;
     padding: 0;
-    padding-right: 10px;
-
     ng-lottie {
         height: 40px;
         width: 40px;
@@ -30,7 +28,6 @@ $navbar-height: auto;
         }
 
         a.nav-link {
-            margin-right: 40px;
             font-size: 20px;
             font-weight: 400 !important;
             color: #3C46A7

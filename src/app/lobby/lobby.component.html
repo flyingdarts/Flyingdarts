@@ -55,10 +55,10 @@
                     <div class="chatbox-messages">
                         <div *ngFor="let item of messages">
                             <div class="d-flex"
-                                [ngClass]="{'justify-content-start': item.owner === clientId, 'justify-content-end': item.owner !== clientId}">
+                                [ngClass]="{'justify-content-start': item.Owner === clientId, 'justify-content-end': item.Owner !== clientId}">
                                 <div class="form-control form-control-sm chatbox-item">
                                     <div>
-                                        <p>{{item.date | date: 'HH:mm'}}: {{item.message}}</p>
+                                        <p>{{item.Date | date: 'HH:mm'}}: {{item.Message}}</p>
                                     </div>
                                 </div>
                             </div>

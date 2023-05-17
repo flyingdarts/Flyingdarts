@@ -54,7 +54,7 @@ export class LobbyComponent implements OnInit {
             this.webSocketStatus = WebSocketStatus.Connected
             break;
           case WebSocketActions.Default:
-            this.messages.push(JSON.parse(x.message! as string) as MessageRequest)
+            this.messages.push(x.message! as MessageRequest)
             break;
           case WebSocketActions.Disconnect:
             this.webSocketStatus = WebSocketStatus.Disconnected
