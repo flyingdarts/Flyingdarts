@@ -11,17 +11,14 @@ import { OnboardingStateService } from 'src/app/services/onboarding-state.servic
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  public isAuthenticated: boolean = false; // Initial value is false
+  private isAuthenticatedSubscription?: Subscription = undefined;
   
-  constructor(private stateService: OnboardingStateService) {
+  constructor(private stateService: OnboardingStateService, private authService: AmplifyAuthService, private router: Router) {
 
   }
-  async ngOnInit() {
-
-    this.initOnboardingState();
-  }
-
-  initOnboardingState() {
-    if (this.stateService.currentOnboardingState == null)
+  ngOnInit() {
+    if (this.stateService.currentOnboardingState == null) {
       this.stateService.currentOnboardingState = {
         cameraPermissionsGranted: false,
         profileCompleted: false,
@@ -30,6 +27,23 @@ export class LoginComponent implements OnInit {
           email: '',
           nickname: ''
         }
+      }  
+    }
+    this.isAuthenticatedSubscription = this.authService.isAuthenticated$.subscribe(
+      (isAuthenticated: boolean) => {
+        this.isAuthenticated = isAuthenticated;
+        if (this.isAuthenticated) {
+          if (!this.stateService.currentOnboardingState.profileCompleted) {
+            this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile']}}])
+          } else {
+            this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
+          }
+        }
       }
+    );
+    if (this.authService.isAuthenticated$) {
+
+    }
+    
   }
 }
