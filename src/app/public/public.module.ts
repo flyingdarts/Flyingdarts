@@ -6,17 +6,21 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { SharedModule } from '../shared/shared.module';
+import { LoginComponent } from './login/login.component';
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 
 @NgModule({
   declarations: [
     LeaderboardComponent,
     PrivacyPolicyComponent, 
-    TermsOfServiceComponent
+    TermsOfServiceComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
+    AmplifyAuthenticatorModule,
     SharedModule
   ]
 })

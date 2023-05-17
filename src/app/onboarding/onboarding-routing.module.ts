@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { OnboardingGuard } from './onboarding.guard';
 import { CameraComponent } from './camera/camera.component';
-import { LoginComponent } from './login/login.component';
 import { OnboardingRootComponent } from './onboarding-root/onboarding-root.component';
 
 const routes: Routes = [
@@ -12,11 +11,6 @@ const routes: Routes = [
     component: OnboardingRootComponent,
     canActivate: [OnboardingGuard],
     children: [
-      {
-        path: "login",
-        component: LoginComponent,
-        outlet: "onboarding-outlet"
-      },
       {
         path: "profile",
         component: ProfileComponent,

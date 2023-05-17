@@ -19,7 +19,7 @@
           </ul>
           <ul *ngIf="!isRegistered" class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a href="#" class="nav-link" aria-current="page" [routerLink]="['/', 'onboarding', { outlets: { 'onboarding-outlet': ['login']}}]">Login / Register</a>
+              <a href="#" class="nav-link" aria-current="page" [routerLink]="['/', 'login']">Login / Register</a>
             </li>
           </ul>
           <ul *ngIf="isRegistered" class="navbar-nav ms-auto mb-2 mb-lg-0">

@@ -29,21 +29,13 @@ export class LoginComponent implements OnInit {
         }
       }  
     }
-    this.isAuthenticatedSubscription = this.authService.isAuthenticated$.subscribe(
-      (isAuthenticated: boolean) => {
-        this.isAuthenticated = isAuthenticated;
-        if (this.isAuthenticated) {
-          if (!this.stateService.currentOnboardingState.profileCompleted) {
-            this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile']}}])
-          } else {
-            this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
-          }
-        }
-      }
-    );
-    if (this.authService.isAuthenticated$) {
-
+    console.log(this.stateService.currentOnboardingState)
+    if (!this.stateService.currentOnboardingState.profileCompleted) {
+      console.log("routing to profile");
+      this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile']}}])
+    } else {
+      console.log("routing to camera");
+      this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
     }
-    
   }
 }
