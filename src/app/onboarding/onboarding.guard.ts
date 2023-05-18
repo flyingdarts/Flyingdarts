@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { OnboardingStateService } from '../services/onboarding-state.service';
@@ -8,15 +8,22 @@ import { OnboardingStateService } from '../services/onboarding-state.service';
   providedIn: 'root'
 })
 export class OnboardingGuard implements CanActivate {
-  constructor(private stateService: OnboardingStateService) {
+  constructor(private stateService: OnboardingStateService, private router: Router) {
 
   }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log("should be blocking", this.stateService.currentOnboardingState.profileCompleted)
-    return !this.stateService.currentOnboardingState.profileCompleted;
-
-  }
+      if (!this.stateService.currentOnboardingState.profileCompleted) {
+        return true;
+      } else {
+        if (!this.stateService.currentOnboardingState.cameraPermissionsGranted) {
+          this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}]);
+        } else {
+          this.router.navigate(['/', 'lobby']);
+        }
+        return false;
+      }
+    }
   
 }
