@@ -6,7 +6,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="text-start" colspan="2">{{table_header}}</th>
+                                <th class="text-start" colspan="2">{{tableHeader}}</th>
                                 <th>Sets</th>
                                 <th class="text-start" colspan="2">Legs</th>
                             </tr>
@@ -48,12 +48,12 @@
                         <div class="row text-center">
                             <div>
                                 <button [disabled]="inputShouldBeDisabled" class="btn btn-success btn-total"
-                                    (click)="sendScore()">{{lastThreeSum}}</button>
+                                    (click)="sendScore()">{{input.Sum}}</button>
                                 <button [disabled]="inputShouldBeDisabled" class="btn btn-warning"
                                     (click)="resetInput()"><i class="material-icons">restart_alt</i></button>
                             </div>
                             <!-- <p class="mb-0 mt-3">{{ currentInput }} </p> -->
-                            <p class="mb-0 mt-3">{{ lastThreeString }} </p>
+                            <p class="mb-0 mt-3">{{ input.getString }} </p>
                         </div>
                     </div>
                 </div>
