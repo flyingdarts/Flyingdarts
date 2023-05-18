@@ -52,14 +52,14 @@ export class ProfileComponent implements OnInit {
     console.log(this.profileForm.value);
     var userId = await this.amplifyAuthService.getCognitoUserId();
     if (this.profileForm.valid) {
-      this.onboardingStateService.currentOnboardingState = { profileCompleted: true, cameraPermissionsGranted: false,
+      this.onboardingStateService.currentOnboardingState = {facebookId: userId, profileCompleted: true, cameraPermissionsGranted: false,
       currentOnboardingProfile: {
         nickname: this.profileForm.value.userName,
         email: this.profileForm.value.email,
         country: this.profileForm.value.country
       }}
       this.onboardingApiService.createUserProfile(
-        await this.amplifyAuthService.getCognitoUserId(),
+        userId,
         this.profileForm.value.email,
         this.profileForm.value.userName,
         this.profileForm.value.country);

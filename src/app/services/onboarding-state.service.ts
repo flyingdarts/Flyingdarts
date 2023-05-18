@@ -23,6 +23,7 @@ export class OnboardingStateService {
 }
 
 export interface CurrentOnboardingState {
+    facebookId: string | null;
     profileCompleted: boolean;
     cameraPermissionsGranted: boolean;
     currentOnboardingProfile: CurrentOnboardingProfile;
