@@ -5,6 +5,9 @@ import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
+import { WebSocketService } from 'src/app/services/websocket.service';
+import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
+import { UserProfileDetails } from '../models/user-profile-details.model';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -28,7 +31,8 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   constructor(
     public router: Router,
     public amplifyAuthService: AmplifyAuthService, 
-    public userProfileService: UserProfileService
+    public userProfileService: UserProfileService,
+    public webSocketService: WebSocketService
   ) {}
 
   onAnimate(animationItem: AnimationItem): void {
@@ -36,6 +40,11 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.webSocketService.getMessages().subscribe(x=> {
+      if (x.action === WebSocketActions.UserProfileGet) {
+        this.userProfileService.currentUserProfileDetails = x.message as UserProfileDetails
+      }
+    })
     this.userProfileSubscription = this.userProfileService.userName$.subscribe(
       (userName: string) => {
         this.userName = userName;

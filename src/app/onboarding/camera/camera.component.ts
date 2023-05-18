@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
+import { UserProfileApiService } from 'src/app/services/api/user-profile-api.service';
 import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
 import { WebcamService } from 'src/app/services/webcam.service';
 
@@ -9,19 +10,20 @@ import { WebcamService } from 'src/app/services/webcam.service';
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss']
 })
-export class CameraComponent implements OnInit, OnDestroy {
+export class CameraComponent implements OnInit {
 
   constructor(
     public authenticator: AuthenticatorService, 
     private webcamService: WebcamService, 
     private router: Router,
-    private stateService: OnboardingStateService) {
+    private stateService: OnboardingStateService,
+    private userProfileApiService: UserProfileApiService) {
     
-  }
-  ngOnDestroy(): void {
   }
   ngOnInit(): void {
     this.accessCamera();
+
+    this.userProfileApiService.getUserProfile(this.stateService.currentOnboardingState.facebookId!);
   }
   saveCamera() {
     var currentState = this.stateService.currentOnboardingState;
