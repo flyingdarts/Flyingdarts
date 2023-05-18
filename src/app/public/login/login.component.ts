@@ -27,10 +27,8 @@ export class LoginComponent implements OnInit {
           email: '',
           nickname: ''
         }
-      }  
-    }
-    console.log(this.stateService.currentOnboardingState)
-    if (!this.stateService.currentOnboardingState.profileCompleted) {
+      }
+    } else if (!this.stateService.currentOnboardingState.profileCompleted) {
       console.log("routing to profile");
       this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile']}}])
     } else {
