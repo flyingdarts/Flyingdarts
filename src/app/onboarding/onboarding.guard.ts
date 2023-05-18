@@ -19,10 +19,11 @@ export class OnboardingGuard implements CanActivate {
       } else {
         if (!this.stateService.currentOnboardingState.cameraPermissionsGranted) {
           this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}]);
+          return true;
         } else {
           this.router.navigate(['/', 'lobby']);
+          return false;
         }
-        return false;
       }
     }
   

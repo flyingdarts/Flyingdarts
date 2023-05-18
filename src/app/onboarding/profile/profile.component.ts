@@ -60,8 +60,8 @@ export class ProfileComponent implements OnInit {
       }}
       this.onboardingApiService.createUserProfile(
         await this.amplifyAuthService.getCognitoUserId(),
-        this.profileForm.value.userName,
         this.profileForm.value.email,
+        this.profileForm.value.userName,
         this.profileForm.value.country);
       this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
     }
