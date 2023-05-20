@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
     this.userProfileApi.getUserProfile(cognitoUserId);
 
     this.webSocketService.getMessages().subscribe(x => {
-      if (x.action === WebSocketActions.UserProfileGet) {
+      if (x.action === WebSocketActions.UserProfileGet ||  WebSocketActions.UserProfileUpdate) {
         if (x.message != null) {
           this.userProfileState.currentUserProfileDetails = (x.message as UserProfileDetails)
         }

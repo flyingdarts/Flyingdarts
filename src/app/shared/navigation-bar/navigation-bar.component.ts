@@ -41,7 +41,7 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.webSocketService.getMessages().subscribe(x=> {
-      if (x.action === WebSocketActions.UserProfileGet) {
+      if (x.action === WebSocketActions.UserProfileGet ||  WebSocketActions.UserProfileUpdate) {
         this.userProfileService.currentUserProfileDetails = x.message as UserProfileDetails
       }
     })
