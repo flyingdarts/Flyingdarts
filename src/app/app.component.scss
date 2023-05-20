@@ -1,8 +1,30 @@
 @import './../colors.scss';
 /* Media Query for Mobile Devices */
-@media (max-width: 480px) {}
+.body-content {
+    height: 100%;
+    .card {
+        height: 100%;
+    }
+}
+@media (max-width: 480px) {
+    .body-content {
+        height: calc(100vh - 40px) !important;
+        .card {
+            height: auto;
+            margin-bottom: 20px;
+        }
+    }
+}
 /* Media Query for low resolution  Tablets, Ipads */
-@media (min-width: 481px) and (max-width: 767px) {}
+@media (min-width: 481px) and (max-width: 767px) {
+    .body-content {
+        height: calc(100vh - 40px) !important;
+        .card {
+            height: auto;
+            margin-bottom: 20px;
+        }
+    }
+}
 
 /* Media Query for Tablets Ipads portrait mode */
 @media (min-width: 768px) and (max-width: 1024px) {}
@@ -15,12 +37,7 @@
 .footer-pp-and-tos {
     cursor: pointer;
 }
-.body-content {
-    height: 100%;
-    .card {
-        height: 100%;
-    }
-}
+
 
 .card-footer {
     background: unset;
