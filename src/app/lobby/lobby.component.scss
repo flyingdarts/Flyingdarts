@@ -302,6 +302,9 @@ ng-lottie {
         margin-top: 20px;
         margin-left: 20px;
     }
+    .chatbox {
+        height: 400px !important;
+    }
 }
 
 /* Media Query for Laptops and Desktops */
@@ -322,6 +325,9 @@ ng-lottie {
                 }
             }
         }
+    }
+    .chatbox {
+        height: 310px !important;
     }
 }
 
