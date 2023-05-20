@@ -76,6 +76,7 @@ export class ProfileComponent implements OnInit {
   }
   async fetchUserProfile(): Promise<void> {
     try {
+      this.loadingTitle = "Fetching your profile";
       this.apiService.getUserProfile(await this.authService.getCognitoUserId());
       this.isLoading = true;
     } catch (error) {
@@ -118,6 +119,7 @@ export class ProfileComponent implements OnInit {
 
   async updateProfile() {
     if (this.profileForm.valid) {
+      this.loadingTitle = "Updating your profile";
       this.apiService.updateUserProfile(
         await this.authService.getCognitoUserId(),
         this.profileForm.value.email,
