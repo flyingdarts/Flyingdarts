@@ -76,6 +76,7 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   title = 'flyingdarts';
 
   public signOut(): void {
+    this.userProfileService.clear();
     this.amplifyAuthService.signOut();
   }
 }
