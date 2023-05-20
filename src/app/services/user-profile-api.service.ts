@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WebSocketService } from './websocket.service';
+
 import { WebSocketActions } from '../infrastructure/websocket/websocket.actions.enum';
 import { WebSocketMessage } from '../infrastructure/websocket/websocket.message.model';
 import { CreateUserProfileCommand } from 'src/app/requests/CreateUserProfileCommand';
@@ -7,7 +7,7 @@ import { GetUserProfileCommand } from 'src/app/requests/GetUserProfileCommand';
 import { UpdateUserProfileCommand } from 'src/app/requests/UpdateUserProfileCommand';
 @Injectable({ providedIn: 'root' })
 export class UserProfileApiService {
-  constructor(private webSocketService: WebSocketService) {
+  constructor(private webSocketMessagingService: WebSocketMessagingService) {
 
   }
   public createUserProfile(cognitoUserId: string, email: string, userName: string, country: string): void {
@@ -21,7 +21,7 @@ export class UserProfileApiService {
       action: WebSocketActions.UserProfileCreate,
       message: message
     };
-    this.webSocketService.postMessage(JSON.stringify(body));
+    this.webSocketMessagingService.sendMessage(JSON.stringify(body));
   }
 
   public getUserProfile(cognitoUserId: string): void {
@@ -32,7 +32,7 @@ export class UserProfileApiService {
       action: WebSocketActions.UserProfileGet,
       message: message
     };
-    this.webSocketService.postMessage(JSON.stringify(body));
+    this.webSocketMessagingService.sendMessage(JSON.stringify(body));
   }
 
   public updateUserProfile(cognitoUserId: string, email: string, userName: string, country: string): void {
@@ -46,7 +46,7 @@ export class UserProfileApiService {
       action: WebSocketActions.UserProfileUpdate,
       message: message
     };
-    this.webSocketService.postMessage(JSON.stringify(body));
+    this.webSocketMessagingService.sendMessage(JSON.stringify(body));
   }
 }
 
