@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { JitsiUser } from '../infrastructure/jitsi/user';
 declare var JitsiMeetExternalAPI: any;
 import { Router } from '@angular/router'; // import router from angular router
-import { PlayerLocalStorageService } from './player.local-storage.service';
 
 @Injectable({
     providedIn: 'root',
@@ -18,9 +17,9 @@ export class JitsiService {
     isAudioMuted = true;
     isVideoMuted = true;
 
-    constructor(private route: Router, private playerLocalStorageService: PlayerLocalStorageService) {
+    constructor(private route: Router) {
         this.user = new JitsiUser();
-        this.user.setName(playerLocalStorageService.getUserName())
+        // this.user.setName(playerLocalStorageService.getUserName())
         this.namePrincipalRoom = 'PrincipalRoom';
     }
 

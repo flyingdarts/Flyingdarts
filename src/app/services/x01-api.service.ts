@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { WebSocketService } from '../websocket.service';
-import { WebSocketActions } from '../../infrastructure/websocket/websocket.actions.enum';
+import { WebSocketService } from './websocket.service';
+import { WebSocketActions } from '../infrastructure/websocket/websocket.actions.enum';
 import { WebSocketMessage } from 'src/app/infrastructure/websocket/websocket.message.model';
 import { CreateX01ScoreCommand } from 'src/app/requests/CreateX01ScoreCommand';
 import { JoinX01QueueCommand } from 'src/app/requests/JoinX01QueueCommand';

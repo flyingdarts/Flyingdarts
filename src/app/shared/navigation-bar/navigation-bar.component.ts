@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationItem } from 'lottie-web';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileService } from 'src/app/services/user-profile.service';
+import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
 import { WebSocketService } from 'src/app/services/websocket.service';
@@ -31,7 +31,7 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   constructor(
     public router: Router,
     public amplifyAuthService: AmplifyAuthService, 
-    public userProfileService: UserProfileService,
+    public userProfileService: UserProfileStateService,
     public webSocketService: WebSocketService
   ) {}
 

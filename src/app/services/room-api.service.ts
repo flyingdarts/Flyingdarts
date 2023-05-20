@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { CreateRoomCommand } from "../../requests/CreateRoomCommand";
-import { WebSocketActions } from "../../infrastructure/websocket/websocket.actions.enum";
-import { WebSocketService } from "../websocket.service";
-import { WebSocketMessage } from "../../infrastructure/websocket/websocket.message.model";
-import { JoinGameCommand } from "../../requests/JoinGameCommand";
+import { CreateRoomCommand } from "../requests/CreateRoomCommand";
+import { WebSocketActions } from "../infrastructure/websocket/websocket.actions.enum";
+import { WebSocketService } from "./websocket.service";
+import { WebSocketMessage } from "../infrastructure/websocket/websocket.message.model";
+import { JoinGameCommand } from "../requests/JoinGameCommand";
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {

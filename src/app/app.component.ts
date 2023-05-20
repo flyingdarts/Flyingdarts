@@ -2,11 +2,11 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import packageJson from "./../../package.json";
-import { UserProfileApiService } from './services/api/user-profile-api.service';
+import { UserProfileApiService } from './services/user-profile-api.service';
 import { AmplifyAuthService } from './services/amplify-auth.service';
 import { WebSocketService } from './services/websocket.service';
 import { WebSocketActions } from './infrastructure/websocket/websocket.actions.enum';
-import { UserProfileService as UserProfileStateService } from './services/user-profile.service';
+import { UserProfileStateService as UserProfileStateService } from './services/user-profile-state.service';
 import { UserProfileDetails } from './shared/models/user-profile-details.model';
 @Component({
   selector: 'app-root',
@@ -37,8 +37,6 @@ export class AppComponent implements OnInit {
       if (x.action === WebSocketActions.UserProfileGet) {
         if (x.message != null) {
           this.userProfileState.currentUserProfileDetails = (x.message as UserProfileDetails)
-        } else {
-          this.userProfileState.currentUserProfileDetails = null;
         }
       }
     })

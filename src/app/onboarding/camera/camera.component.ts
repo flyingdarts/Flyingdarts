@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
-import { UserProfileApiService } from 'src/app/services/api/user-profile-api.service';
+import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
 import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
 import { WebcamService } from 'src/app/services/webcam.service';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { WebSocketService } from '../websocket.service';
-import { WebSocketActions } from '../../infrastructure/websocket/websocket.actions.enum';
-import { WebSocketMessage } from '../../infrastructure/websocket/websocket.message.model';
+import { WebSocketService } from './websocket.service';
+import { WebSocketActions } from '../infrastructure/websocket/websocket.actions.enum';
+import { WebSocketMessage } from '../infrastructure/websocket/websocket.message.model';
 import { CreateUserProfileCommand } from 'src/app/requests/CreateUserProfileCommand';
 import { GetUserProfileCommand } from 'src/app/requests/GetUserProfileCommand';
 import { UpdateUserProfileCommand } from 'src/app/requests/UpdateUserProfileCommand';

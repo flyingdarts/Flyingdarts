@@ -23,7 +23,12 @@
                     </div>
                   </div>
                   <div class="w-100">
-                    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+                    <app-loading 
+                      [lottieOptions]="lottieOptions" 
+                      [title]="loadingTitle"
+                      [subtitle]="loadingSubtitle" [hidden]="!isLoading"></app-loading>
+
+                    <form [hidden]="isLoading" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
                       <h1 class="fw-bold my-sign-in-header">Edit profile</h1>
                       <div class="row">
                         <div class="col-6">

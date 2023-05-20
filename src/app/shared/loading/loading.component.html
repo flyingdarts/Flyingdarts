@@ -1,10 +1,9 @@
 <div class="lobby-container container-fluid px-0">
     <div class="top-fill"></div>
     <div class="col-12 px-0">
-        <p>Busy looking for an opponent</p>
-        <ng-lottie [options]="lottieOptions" (animationCreated)="onAnimate($event)">
-        </ng-lottie>
-        <p class="subtitle">You are pretty skilled...</p>
+      <p>{{ title }}</p>
+      <ng-lottie [options]="lottieOptions" (animationCreated)="onAnimate($event)"></ng-lottie>
+      <p class="subtitle">{{ subtitle }}</p>
     </div>
     <div class="bottom-fill"></div>
-</div>
+  </div>

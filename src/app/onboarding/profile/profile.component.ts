@@ -5,9 +5,9 @@ import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { Auth } from 'aws-amplify';
 import { CognitoUser } from 'src/app/infrastructure/cognito/cognito-user.model';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileApiService } from 'src/app/services/api/user-profile-api.service';
+import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
 import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
-import { UserProfileService } from 'src/app/services/user-profile.service';
+import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 import { CarouselModel } from 'src/app/shared/carousel/carousel.component';
 
 @Component({

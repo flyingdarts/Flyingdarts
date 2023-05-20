@@ -6,9 +6,9 @@ import { WebSocketService } from 'src/app/services/websocket.service';
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 import { CreateX01ScoreCommand } from 'src/app/requests/CreateX01ScoreCommand';
 import { JoinGameCommand } from 'src/app/requests/JoinGameCommand';
-import { X01ApiService } from 'src/app/services/api/x01-api.service';
+import { X01ApiService } from 'src/app/services/x01-api.service';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileService } from 'src/app/services/user-profile.service';
+import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 export class InputModel {
   Sum: number;
   Darts: number[];
@@ -66,7 +66,7 @@ export class X01Component implements OnInit, AfterViewInit {
     private webSocketService: WebSocketService,
     private apiService: X01ApiService,
     private route: ActivatedRoute,
-    private userProfileService: UserProfileService,
+    private userProfileService: UserProfileStateService,
     private authService: AmplifyAuthService,
     private jitsiService: JitsiService) {
   }

@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserProfileService {
+export class UserProfileStateService {
   private storage = localStorage;
 
   public clear(): void {
