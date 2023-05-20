@@ -291,3 +291,48 @@ path,
 .flyingdarts-primary-button:hover {
     background-color: darken($flyingdarts-secundary, 4%);
 }
+
+@media (max-width: 480px) {
+    body {
+        height: 100% !important;
+    }
+    .hide-mobile {
+        display: none !important;
+    }
+    .padding-bottom-5 {
+        padding-bottom: 20px;
+    }
+    .chatbox {
+        height: 200px !important;
+        padding-bottom: 10px !important;
+    }
+    .card-footer {
+        height: 60px !important;
+    }
+    .github-link {
+        margin-bottom: unset !important;
+    }
+}
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) and (max-width: 767px) {
+    body {
+        height: 100% !important;
+    }
+    .hide-mobile {
+        display: none !important;
+    }
+    .padding-bottom-5 {
+        padding-bottom: 20px;
+    }
+    .chatbox {
+        height: 200px !important;
+        padding-bottom: 10px !important;
+    }
+    .card-footer {
+        height: 60px !important;
+    }
+    .github-link {
+        margin-bottom: unset !important;
+    }
+}
+
