@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
   ];
   constructor(private formBuilder: FormBuilder,
     private apiService: UserProfileApiService,
+    private userProfileService: UserProfileStateService,
     private authService: AmplifyAuthService,
     private webSocketService: WebSocketService,
     private router: Router) {
@@ -64,6 +65,7 @@ export class ProfileComponent implements OnInit {
       }
       if (x.action === WebSocketActions.UserProfileUpdate) {
         this.isLoading = false;
+        this.userProfileService.currentUserProfileDetails = (x.message as UserProfileDetails)
       }
     })
     setTimeout(async () => {     
