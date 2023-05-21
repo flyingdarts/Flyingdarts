@@ -36,4 +36,4 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
           embed-title: Flyingdarts.Angular
-          embed-description: ${{ steps.cmd.outputs.stderr }}
+          embed-description: ${{ steps.cmd.outputs.stdout }}
