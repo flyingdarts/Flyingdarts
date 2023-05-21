@@ -25,14 +25,17 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli  
         
-      - name: Get build output
+      - name: Build the application
         uses: mathiasvr/command-output@v2.0.0
         continue-on-error: true
         id: build
         with: 
           run: ng build
-        
-      - name: Discord Webhook Action
+          
+      - name: Write output into a file
+        run: echo ${{ steps.build.outputs.stderr }} >> build_output.txt
+
+      - name: Log to discord
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
