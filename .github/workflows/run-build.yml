@@ -28,10 +28,9 @@ jobs:
       - name: Build Angular project
         run: |
           # Run the build command and redirect both stdout and stderr to a file
-          ng build &> build.log
+          ng build &> build.log || echo "::error::Build failed. See build.log for details."
 
-      - name: Store the contents of the build log in an environment variable
-        run: |
+          # Store the contents of the build log in an environment variable
           echo "BUILD_LOG=$(cat build.log)" >> $GITHUB_ENV
 
       - name: Show build log
