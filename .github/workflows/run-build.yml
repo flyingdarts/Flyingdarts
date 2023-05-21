@@ -45,3 +45,4 @@ jobs:
           embed-footer-text: ${{ github.ref_name }}
           embed-timestamp: ${{ github.event.head_commit.timestamp }}
           embed-author-name: ${{ github.event.head_commit.author }}
+
