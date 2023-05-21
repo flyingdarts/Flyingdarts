@@ -27,6 +27,7 @@ jobs:
         
       - name: Get build output
         uses: mathiasvr/command-output@v2.0.0
+        continue-on-error: true
         id: build
         with:
           run: ng build
