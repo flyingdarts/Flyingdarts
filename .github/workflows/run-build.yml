@@ -30,7 +30,8 @@ jobs:
           # Run the build command and redirect both stdout and stderr to a file
           ng build &> build.log
 
-          # Store the contents of the build log in an environment variable
+      - name: Store the contents of the build log in an environment variable
+        run: |
           echo "BUILD_LOG=$(cat build.log)" >> $GITHUB_ENV
 
       - name: Show build log
