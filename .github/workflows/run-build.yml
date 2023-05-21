@@ -41,8 +41,4 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
           embed-title: Flyingdarts.Angular
-          embed-description: ${{ env.BUILD_ERRORS_ENCODED }}
-          embed-footer-text: ${{ github.ref_name }}
-          embed-timestamp: ${{ github.event.head_commit.timestamp }}
-          embed-author-name: ${{ github.event.head_commit.author }}
 
