@@ -25,23 +25,17 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli  
 
-      - name: Build Angular project
+      - name: Build
         run: |
-          # Run the build command and redirect both stdout and stderr to a file
-          ng build &> build.log || echo "::error::Build failed. See build.log for details."
-
-          # Store the contents of the build log in an environment variable
-          echo "BUILD_LOG=$(cat build.log)" >> $GITHUB_ENV
-
-      - name: Show build log
-        run: echo "$BUILD_LOG"
+          ERROR_OUTPUT=$(ng build 2>&1) || true
+          echo "::set-env name=BUILD_ERRORS::$ERROR_OUTPUT"
 
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
           embed-title: "Flyingdarts.Angular"
-          embed-description: ${{ env.BUILD_LOG }}
+          embed-description: ${{ env.BUILD_ERRORS }}
           embed-footer-text: ${{ github.ref_name }}
           embed-timestamp: ${{ github.event.head_commit.timestamp }}
           embed-author-name: ${{ github.event.head_commit.author }}
