@@ -24,21 +24,16 @@ jobs:
         
       - name: Install Angular CLI
         run: npm install -g @angular/cli  
-
-      - name: Build
-        id: build
-        run: |
-          ERROR_OUTPUT=$(ng build 2>&1) || true
-          echo "::set-output name=build_errors::${ERROR_OUTPUT}"
-
-      - name: Encode build errors
-        run: |
-          BUILD_ERRORS_ENCODED=$(echo "${{ steps.build.outputs.build_errors }}" | base64)
-          echo "build_errors_encoded=${BUILD_ERRORS_ENCODED}" >> $GITHUB_STATE
-
+        
+      - name: Get build output
+        uses: mathiasvr/command-output@v2.0.0
+        id: today
+        with:
+          run: ng build
+          
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
           embed-title: Flyingdarts.Angular
-          embed-description: ${{ env.GITHUB_STATE_build_errors_encoded }}
+          embed-description: ${{ steps.cmd.outputs.stderr }}
