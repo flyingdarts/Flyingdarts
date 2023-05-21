@@ -24,13 +24,13 @@ jobs:
         
       - name: Install Angular CLI
         run: npm install -g @angular/cli  
-        
+
       - name: Build
         id: build
         run: |
           ng build 2>&1 | tee build_output.txt
           ERROR_OUTPUT=$(cat build_output.txt) || true
-          echo "build_errors=${ERROR_OUTPUT}" >> $GITHUB_STATE
+          echo "::set-output name=build_errors::${ERROR_OUTPUT}"
 
       - name: Encode build errors
         run: |
