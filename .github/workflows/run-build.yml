@@ -40,7 +40,7 @@ jobs:
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
-          embed-title: "Flyingdarts.Angular"
+          embed-title: Flyingdarts.Angular
           embed-description: ${{ env.BUILD_ERRORS_ENCODED }}
           embed-footer-text: ${{ github.ref_name }}
           embed-timestamp: ${{ github.event.head_commit.timestamp }}
