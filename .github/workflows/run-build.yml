@@ -28,7 +28,8 @@ jobs:
       - name: Build
         id: build
         run: |
-          ERROR_OUTPUT=$(ng build 2>&1) || true
+          ng build 2>&1 | tee build_output.txt
+          ERROR_OUTPUT=$(cat build_output.txt) || true
           echo "build_errors=${ERROR_OUTPUT}" >> $GITHUB_STATE
 
       - name: Encode build errors
