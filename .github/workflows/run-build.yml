@@ -27,7 +27,7 @@ jobs:
         
       - name: Get build output
         uses: mathiasvr/command-output@v2.0.0
-        id: today
+        id: build
         with:
           run: ng build
           
@@ -36,4 +36,4 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
           embed-title: Flyingdarts.Angular
-          embed-description: ${{ steps.cmd.outputs.stdout }}
+          embed-description: ${{ steps.build.outputs.stderr }}
