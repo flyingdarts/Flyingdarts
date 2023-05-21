@@ -28,18 +28,13 @@ jobs:
       - name: Build
         id: build
         run: |
-          ERROR_OUTPUT=$(ng build --prod 2>&1) || true
+          ERROR_OUTPUT=$(ng build 2>&1) || true
           echo "::set-output name=build_errors::$ERROR_OUTPUT"
-
-      - name: Encode build errors
-        run: |
-          BUILD_ERRORS_ENCODED=$(echo "${{ steps.build.outputs.build_errors }}" | base64)
-          echo "::set-output name=build_errors_encoded::$BUILD_ERRORS_ENCODED"
           
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
           embed-title: Flyingdarts.Angular
-          embed-description: ${{ env.BUILD_ERRORS_ENCODED }}
+          embed-description: ${{ env.ERROR_OUTPUT }}
 
