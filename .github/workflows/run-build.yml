@@ -26,12 +26,14 @@ jobs:
         run: npm install -g @angular/cli  
         
       - name: Get build output
-        uses: mathiasvr/command-output@v2.0.0
-        continue-on-error: true
         id: build
-        with:
-          run: ng build --error-only
-          
+        run: |
+          ng build --no-emit 2> warnings.txt
+          ng build --configuration=production > output.txt
+        
+      - name: Display warnings
+        run: cat warnings.txt
+        
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v5.3.0
         with:
