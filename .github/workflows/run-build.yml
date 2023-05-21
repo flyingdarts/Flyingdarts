@@ -26,10 +26,14 @@ jobs:
         run: npm install -g @angular/cli  
         
       - name: Get build output
+        uses: mathiasvr/command-output@v2.0.0
+        continue-on-error: true
         id: build
-        run: |
-          ng build --no-emit 2> warnings.txt
-          ng build --configuration=production > output.txt
+        with: 
+          run: ng build --no-emit 2> warnings.txt > output.txt
+          
+      - name: Display errors
+        run: cat output.txt
         
       - name: Display warnings
         run: cat warnings.txt
