@@ -28,8 +28,7 @@ jobs:
       - name: Build
         id: build
         run: |
-          ng build 2>&1 | tee build_output.txt
-          ERROR_OUTPUT=$(cat build_output.txt) || true
+          ERROR_OUTPUT=$(ng build 2>&1) || true
           echo "::set-output name=build_errors::${ERROR_OUTPUT}"
 
       - name: Encode build errors
