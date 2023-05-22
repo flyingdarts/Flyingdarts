@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 import { AnimationOptions } from 'ngx-lottie/lib/symbols';
 import { FormControl, FormGroup } from '@angular/forms';
-import { WebSocketService } from 'src/app/services/websocket.service';
+import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.service';
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 import { MessageRequest } from 'src/app/infrastructure/websocket/websocket.request.model';
 import { WebSocketStatus } from 'src/app/infrastructure/websocket/websocket.status.enum';

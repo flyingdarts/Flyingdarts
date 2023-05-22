@@ -2,7 +2,7 @@ import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angu
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subscription, filter } from 'rxjs';
 import { JitsiService } from 'src/app/services/jitsi.service';
-import { WebSocketService } from 'src/app/services/websocket.service';
+import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.service';
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 import { CreateX01ScoreCommand } from 'src/app/requests/CreateX01ScoreCommand';
 import { JoinGameCommand } from 'src/app/requests/JoinGameCommand';

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { WebSocketActions } from '../infrastructure/websocket/websocket.actions.enum';
-import { WebSocketMessage } from '../infrastructure/websocket/websocket.message.model';
-import { WebSocketRequest } from '../infrastructure/websocket/websocket.request.model';
+import { WebSocketActions } from './websocket.actions.enum';
+import { WebSocketMessage } from './websocket.message.model';
+import { WebSocketRequest } from './websocket.request.model';
 
 @Injectable()
 export class WebSocketService<T = WebSocketRequest> {

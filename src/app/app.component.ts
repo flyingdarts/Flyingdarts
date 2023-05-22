@@ -4,7 +4,7 @@ import { AnimationOptions } from 'ngx-lottie';
 import packageJson from "./../../package.json";
 import { UserProfileApiService } from './services/user-profile-api.service';
 import { AmplifyAuthService } from './services/amplify-auth.service';
-import { WebSocketService } from './services/websocket.service';
+import { WebSocketService } from './infrastructure/websocket/websocket.service';
 import { WebSocketActions } from './infrastructure/websocket/websocket.actions.enum';
 import { UserProfileStateService as UserProfileStateService } from './services/user-profile-state.service';
 import { UserProfileDetails } from './shared/models/user-profile-details.model';

@@ -5,9 +5,10 @@ import { WebSocketMessage } from '../infrastructure/websocket/websocket.message.
 import { CreateUserProfileCommand } from 'src/app/requests/CreateUserProfileCommand';
 import { GetUserProfileCommand } from 'src/app/requests/GetUserProfileCommand';
 import { UpdateUserProfileCommand } from 'src/app/requests/UpdateUserProfileCommand';
+import { WebSocketMessageService } from '../infrastructure/websocket/websocket-message.service';
 @Injectable({ providedIn: 'root' })
 export class UserProfileApiService {
-  constructor(private webSocketMessagingService: WebSocketMessagingService) {
+  constructor(private webSocketMessagingService: WebSocketMessageService) {
 
   }
   public createUserProfile(cognitoUserId: string, email: string, userName: string, country: string): void {

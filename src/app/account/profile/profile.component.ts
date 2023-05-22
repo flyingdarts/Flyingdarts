@@ -6,7 +6,7 @@ import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.act
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
 import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
-import { WebSocketService } from 'src/app/services/websocket.service';
+import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.service';
 import { CarouselModel } from 'src/app/shared/carousel/carousel.component';
 import { UserProfileDetails } from 'src/app/shared/models/user-profile-details.model';
 

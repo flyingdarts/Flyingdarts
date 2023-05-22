@@ -5,7 +5,7 @@ import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
-import { WebSocketService } from 'src/app/services/websocket.service';
+import { WebSocketService } from "src/app/infrastructure/websocket/websocket.service";
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 import { UserProfileDetails } from '../models/user-profile-details.model';
 

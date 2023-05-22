@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { WebSocketService } from './services/websocket.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AmplifyAuthService } from './services/amplify-auth.service';
 import { ApiService } from './services/room-api.service';
@@ -16,6 +15,7 @@ import { UserProfileStateService } from './services/user-profile-state.service';
 import { SharedModule } from './shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { X01ApiService } from './services/x01-api.service';
+import { WebSocketService } from './infrastructure/websocket/websocket.service';
 
 @NgModule({
   declarations: [
