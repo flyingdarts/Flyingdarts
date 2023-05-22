@@ -13,13 +13,9 @@ module.exports = function (config) {
       clearContext: false,
       zone: "ProxyZone"
     },
-    reporters: ["progress", "kjhtml"],
-    port: 9876,
-    colors: true,
+    reporters: ["progress"],
     logLevel: config.LOG_INFO,
-    autoWatch: true,
     browsers: ["ChromeHeadless"],
-    singleRun: false,
-    restartOnFileChange: true,
+    singleRun: true,
   });
 };
