@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { X01ApiService } from './services/x01-api.service';
 import { WebSocketService } from './infrastructure/websocket/websocket.service';
+import { WebSocketMessageService } from './infrastructure/websocket/websocket-message.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { WebSocketService } from './infrastructure/websocket/websocket.service';
       provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
     },
     WebSocketService,
+    WebSocketMessageService,
     ApiService,
     LoadingService,
     AmplifyAuthService,

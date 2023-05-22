@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable, BehaviorSubject, first } from 'rxjs';
 import { WebSocketService } from './websocket.service';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class WebSocketMessageService {
   private messageQueue: any[] = [];
   private isConnected = false;
