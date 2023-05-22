@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
-import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
-import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
-import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
-import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.service';
-import { CarouselModel } from 'src/app/shared/carousel/carousel.component';
-import { UserProfileDetails } from 'src/app/shared/models/user-profile-details.model';
+import { WebSocketActions } from './../../infrastructure/websocket/websocket.actions.enum';
+//import { WebSocketActions } from './../../infrastructure/websocket/websocket.actions.enum';
+import { AmplifyAuthService } from './../../services/amplify-auth.service';
+import { UserProfileApiService } from './../../services/user-profile-api.service';
+import { UserProfileStateService } from './../../services/user-profile-state.service';
+import { WebSocketService } from './../../infrastructure/websocket/websocket.service';
+import { CarouselModel } from './../../shared/carousel/carousel.component';
+import { UserProfileDetails } from './../../shared/models/user-profile-details.model';
 
 @Component({
   selector: 'app-profile',

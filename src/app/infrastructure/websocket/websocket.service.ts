@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from './../../../environments/environment';
 import { WebSocketActions } from './websocket.actions.enum';
 import { WebSocketMessage } from './websocket.message.model';
 import { WebSocketRequest } from './websocket.request.model';

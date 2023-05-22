@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
 import { timeInterval } from 'rxjs';
-import { LoadingService } from 'src/app/services/loading.service';
+import { LoadingService } from './../../services/loading.service';
 
 @Component({
   selector: 'app-loading',

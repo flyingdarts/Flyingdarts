@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subscription, filter } from 'rxjs';
-import { JitsiService } from 'src/app/services/jitsi.service';
-import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.service';
-import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
-import { CreateX01ScoreCommand } from 'src/app/requests/CreateX01ScoreCommand';
-import { JoinGameCommand } from 'src/app/requests/JoinGameCommand';
-import { X01ApiService } from 'src/app/services/x01-api.service';
-import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
+import { JitsiService } from './../../services/jitsi.service';
+import { WebSocketService } from './../../infrastructure/websocket/websocket.service';
+import { WebSocketActions } from './../../infrastructure/websocket/websocket.actions.enum';
+import { CreateX01ScoreCommand } from './../../requests/CreateX01ScoreCommand';
+import { JoinGameCommand } from './../../requests/JoinGameCommand';
+import { X01ApiService } from './../../services/x01-api.service';
+import { AmplifyAuthService } from './../../services/amplify-auth.service';
+import { UserProfileStateService } from './../../services/user-profile-state.service';
 export class InputModel {
   Sum: number;
   Darts: number[];

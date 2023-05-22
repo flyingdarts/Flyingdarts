@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
-import { Auth } from 'aws-amplify';
-import { CognitoUser } from 'src/app/infrastructure/cognito/cognito-user.model';
-import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
-import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
-import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
-import { CarouselModel } from 'src/app/shared/carousel/carousel.component';
+import { AmplifyAuthService } from './../../services/amplify-auth.service';
+import { UserProfileApiService } from './../../services/user-profile-api.service';
+import { OnboardingStateService } from './../../services/onboarding-state.service';
+import { CarouselModel } from './../../shared/carousel/carousel.component';
 
 @Component({
   selector: 'app-profile',

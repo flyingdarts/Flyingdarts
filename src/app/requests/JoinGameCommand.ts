@@ -1,4 +1,4 @@
-import { WebSocketRequest } from "src/app/infrastructure/websocket/websocket.request.model";
+import { WebSocketRequest } from "./../infrastructure/websocket/websocket.request.model";
 import { Game } from "../games/x01/x01.component";
 
 

@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 import { AnimationOptions } from 'ngx-lottie/lib/symbols';
 import { FormControl, FormGroup } from '@angular/forms';
-import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.service';
-import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
-import { MessageRequest } from 'src/app/infrastructure/websocket/websocket.request.model';
-import { WebSocketStatus } from 'src/app/infrastructure/websocket/websocket.status.enum';
-import { X01ApiService } from '../services/x01-api.service';
-import { JoinX01QueueCommand } from '../requests/JoinX01QueueCommand';
+import { WebSocketService } from './../infrastructure/websocket/websocket.service';
+import { WebSocketActions } from './../infrastructure/websocket/websocket.actions.enum';
+import { MessageRequest } from './../infrastructure/websocket/websocket.request.model';
+import { WebSocketStatus } from './../infrastructure/websocket/websocket.status.enum';
+import { X01ApiService } from './../services/x01-api.service';
+import { JoinX01QueueCommand } from './../requests/JoinX01QueueCommand';
 const { v4: uuidv4 } = require('uuid');
 
 @Component({

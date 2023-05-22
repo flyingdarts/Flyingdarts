@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
-import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
+import { AmplifyAuthService } from './../../services/amplify-auth.service';
 
 @Component({
   selector: 'app-leaderboard',

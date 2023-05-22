@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationItem } from 'lottie-web';
-import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
-import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
+import { AmplifyAuthService } from './../../services/amplify-auth.service';
+import { UserProfileStateService } from './../../services/user-profile-state.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
-import { WebSocketService } from "src/app/infrastructure/websocket/websocket.service";
-import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
+import { WebSocketService } from "./../../infrastructure/websocket/websocket.service";
+import { WebSocketActions } from './../../infrastructure/websocket/websocket.actions.enum';
 import { UserProfileDetails } from '../models/user-profile-details.model';
 
 @Component({

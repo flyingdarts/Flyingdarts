@@ -5,7 +5,7 @@ import { UserState } from './user.state';
 
 export const initialState: UserState = {
   isAuthenticated: false,
-  profile: null
+  profile: { UserName: '', Email: '', Country: '', FacebookId: ''}
 };
 
 export const userReducer = createReducer(

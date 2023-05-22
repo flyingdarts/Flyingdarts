@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OnboardingStateService } from 'src/app/services/onboarding-state.service';
+import { OnboardingStateService } from './../../services/onboarding-state.service';
 
 @Component({
   selector: 'app-login',

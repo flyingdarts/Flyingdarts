@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { X01PlayerState } from './games-state';
 
 export const updatePlayerName = createAction('[Games] Update Player Name', props<{ name: string }>());
 export const updatePlayerScore = createAction('[Games] Update Player Score', props<{ score: number }>());

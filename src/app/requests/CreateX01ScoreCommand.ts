@@ -1,4 +1,4 @@
-import { WebSocketRequest } from "src/app/infrastructure/websocket/websocket.request.model";
+import { WebSocketRequest } from "./../infrastructure/websocket/websocket.request.model";
 
 
 export interface CreateX01ScoreCommand extends WebSocketRequest {
