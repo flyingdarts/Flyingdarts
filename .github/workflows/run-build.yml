@@ -41,3 +41,41 @@ jobs:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
           contents: Flyingdarts.Angular
           filename: build_output.txt
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    depends-on: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli  
+        
+      - name: Build the application
+        uses: mathiasvr/command-output@v2.0.0
+        continue-on-error: true
+        id: test
+        with: 
+          run: ng test
+          
+      - name: Write output into a file
+        run: echo "${{ steps.test.outputs.stderr }}" > test_output.txt
+
+      - name: Log to discord
+        uses: tsickert/discord-webhook@v5.3.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
+          contents: Flyingdarts.Angular
+          filename: test_output.txt
+
+  
