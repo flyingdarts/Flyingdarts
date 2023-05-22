@@ -17,7 +17,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { X01ApiService } from './services/x01-api.service';
 import { WebSocketService } from './infrastructure/websocket/websocket.service';
 import { WebSocketMessageService } from './infrastructure/websocket/websocket-message.service';
-
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './state/user/user.reducer';
+import { gamesReducer } from './state/games/games.reducer'
 @NgModule({
   declarations: [
     AppComponent
@@ -27,6 +29,7 @@ import { WebSocketMessageService } from './infrastructure/websocket/websocket-me
     AppRoutingModule,
     ReactiveFormsModule,
     SharedModule,
+    StoreModule.forRoot({games: gamesReducer, user: userReducer})
   ],
   providers: [
     {

@@ -5,7 +5,7 @@ import { WebSocketActions } from './websocket.actions.enum';
 import { WebSocketMessage } from './websocket.message.model';
 import { WebSocketRequest } from './websocket.request.model';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class WebSocketService<T = WebSocketRequest> {
   private socket: WebSocket;
   private connectedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
