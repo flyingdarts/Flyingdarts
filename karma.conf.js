@@ -1,31 +1,3 @@
-// "use strict";
-// module.exports = function(config) {
-//     config.set({
-
-//         frameworks: ["jasmine", "karma-typescript"],
-
-//         module: "ES2020",
-
-//         files: [
-//             { pattern: "src/**/*.spec.ts" }
-//         ],
-
-//         preprocessors: {
-//             "src/**/*.spec.ts": ["karma-typescript"]
-//         },
-
-//         reporters: ["dots", "karma-typescript"],
-
-//         karmaTypescriptConfig: {
-//             tsconfig: "./tsconfig.spec.json"
-//         },
-
-//         browsers: ["ChromeHeadless"],
-
-//         singleRun: true
-//     });
-// };
-
 module.exports = function (config) {
   config.set({
     basePath: "",
@@ -46,7 +18,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ["Chrome"],
+    browsers: ["ChromeHeadless"],
     singleRun: false,
     restartOnFileChange: true,
   });

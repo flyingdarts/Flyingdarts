@@ -39,7 +39,7 @@ jobs:
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
-          contents: Flyingdarts.Angular
+          content: 'Build logs: Flyingdarts.Angular'
           filename: build_output.txt
 
   test:
@@ -75,7 +75,7 @@ jobs:
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
-          contents: Flyingdarts.Angular
+          content: 'Test logs: Flyingdarts.Angular'
           filename: test_output.txt
 
   
