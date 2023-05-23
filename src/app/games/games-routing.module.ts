@@ -10,8 +10,8 @@ const routes: Routes = [
     //canActivate: [AuthorizationGuard],
     children: [
       {
-        path: "x01/:id",
-        component: X01Component,
+        path: 'x01',
+        loadChildren: () => import('./x01/x01.module').then(mod => mod.X01Module),
         outlet: "games-outlet"
       }
     ]

@@ -12,3 +12,4 @@ export interface X01PlayerState {
   sets: number;
   legs: number;
 }
+
