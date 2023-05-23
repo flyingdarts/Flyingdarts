@@ -1,27 +1,27 @@
 import { createReducer, on } from '@ngrx/store';
 import { updatePlayerName, updatePlayerScore, updatePlayerScores, updatePlayerTotal, updatePlayerSets, updatePlayerLegs, updateOpponentName, updateOpponentScore, updateOpponentScores, updateOpponentTotal, updateOpponentSets, updateOpponentLegs } from './x01.actions';
 import { X01State } from './x01.state';
-export const initialState: X01State = {
+export const initialX01State: X01State = {
   player: {
-    name: '',
+    name: 'p1',
     score: 0,
     total: 0,
     sets: 0,
     legs: 0,
-    scores: []
+    scores: ["0", "0", "0"]
   },
   opponent: {
-    name: '',
+    name: 'p2',
     score: 0,
     total: 0,
     sets: 0,
     legs: 0,
-    scores: []
+    scores: ["0", "0", "0"]
   }
 };
 
 export const x01Reducer = createReducer(
-  initialState,
+  initialX01State,
   on(updatePlayerName, (state, { name }) => ({ ...state, player: { ...state.player, name } })),
   on(updatePlayerScore, (state, { score }) => ({ ...state, player: { ...state.player, score } })),
   on(updatePlayerScores, (state, { scores }) => ({ ...state, player: { ...state.player, scores } })),

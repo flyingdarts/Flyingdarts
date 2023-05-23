@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
     console.log(animationItem);
   }
 
-  title = 'flyingdarts';
+  title = 'Flyingdarts';
 
 }
 export function isNullOrUndefined(value: any): boolean {

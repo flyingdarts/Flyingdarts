@@ -5,6 +5,8 @@ import { GamesRoutingModule } from './games-routing.module';
 import { X01Component } from './x01/x01.component';
 import { SharedModule } from '../shared/shared.module';
 import { GamesRootComponent } from './games-root/games-root.component';
+import { StoreModule } from '@ngrx/store';
+import { gamesReducer } from '../state/games/games.reducer';
 
 
 @NgModule({
@@ -15,7 +17,8 @@ import { GamesRootComponent } from './games-root/games-root.component';
   imports: [
     CommonModule,
     GamesRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('games', gamesReducer),
   ]
 })
 export class GamesModule { }

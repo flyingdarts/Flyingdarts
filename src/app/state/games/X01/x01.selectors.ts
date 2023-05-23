@@ -1,6 +1,6 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { getX01State } from '../games.selectors';
+import { createSelector } from '@ngrx/store';
 import { X01State, X01PlayerState } from './x01.state';
+import { getX01State } from '../games.selectors';
 
 export const getPlayer = createSelector(getX01State, (state: X01State) => state.player);
 export const getPlayerName = createSelector(getPlayer, (player: X01PlayerState) => player.name);

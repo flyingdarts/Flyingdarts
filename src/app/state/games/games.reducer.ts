@@ -10,7 +10,7 @@ export const initialState: GamesState = {
       total: 0,
       sets: 0,
       legs: 0,
-      scores: []
+      scores: ["0", "0", "0"]
     },
     opponent: {
       name: '',
@@ -18,7 +18,7 @@ export const initialState: GamesState = {
       total: 0,
       sets: 0,
       legs: 0,
-      scores: []
+      scores: ["0", "0", "0"]
     }
   }
 };

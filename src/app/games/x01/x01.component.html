@@ -13,30 +13,30 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="text-start">{{playerName}}</td>
+                                <td class="text-start">{{x01State$.player.name | async}}</td>
                                 <td><i class="flag-icon"></i></td>
-                                <td>{{playerSets}}</td>
-                                <td>{{playerLegs}}</td>
-                                <td>{{playerScore}}</td>
+                                <td>{{x01State$.player.sets | async}}</td>
+                                <td>{{x01State$.player.legs | async}}</td>
+                                <td>{{x01State$.player.score | async}}</td>
                             </tr>
                             <tr class="history-row">
                                 <td colspan="5">
                                     <small>
-                                        {{ playerHistory$ | async }}
+                                        {{ x01State$.player.scores | async }}
                                     </small>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-start">{{opponentName}}</td>
+                                <td class="text-start">{{ x01State$.opponent.name | async }}</td>
                                 <td><i class="flag-icon"></i></td>
-                                <td>{{opponentSets}}</td>
-                                <td>{{opponentLegs}}</td>
-                                <td>{{opponentScore}}</td>
+                                <td>{{ x01State$.opponent.sets | async }}</td>
+                                <td>{{ x01State$.opponent.legs | async }}</td>
+                                <td>{{ x01State$.opponent.score | async }}</td>
                             </tr>
                             <tr class="history-row">
                                 <td colspan="5">
                                     <small>
-                                        {{ opponentHistory$ | async }}
+                                        {{ x01State$.opponent.scores | async }}
                                     </small>
                                 </td>
                             </tr>

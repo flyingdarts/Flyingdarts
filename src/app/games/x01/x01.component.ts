@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subscription, filter } from 'rxjs';
 import { JitsiService } from './../../services/jitsi.service';
@@ -9,6 +15,9 @@ import { JoinGameCommand } from './../../requests/JoinGameCommand';
 import { X01ApiService } from './../../services/x01-api.service';
 import { AmplifyAuthService } from './../../services/amplify-auth.service';
 import { UserProfileStateService } from './../../services/user-profile-state.service';
+import { X01State } from 'src/app/state/games/X01/x01.state';
+import { ComponentStore } from '@ngrx/component-store';
+import { GamesState } from 'src/app/state/games/games.state';
 export class InputModel {
   Sum: number;
   Darts: number[];
@@ -19,10 +28,12 @@ export class InputModel {
 
   public input(score: number) {
     if (this.Darts.length == 3) {
-      this.Darts = this.Darts.slice(1) // Fifo 
+      this.Darts = this.Darts.slice(1); // Fifo
       this.Darts.push(score); // Add new dart
       //this.lastThreeString = this.lastThreeInputs.join(' ')
-      this.Sum = this.Darts.reduce((a, b) => { return a + b })
+      this.Sum = this.Darts.reduce((a, b) => {
+        return a + b;
+      });
     }
   }
 
@@ -33,34 +44,40 @@ export class InputModel {
 @Component({
   selector: 'app-x01',
   templateUrl: './x01.component.html',
-  styleUrls: ['./x01.component.scss']
+  styleUrls: ['./x01.component.scss'],
+  providers: [ComponentStore]
 })
 export class X01Component implements OnInit, AfterViewInit {
   public inputShouldBeDisabled: boolean = false;
-  public input: InputModel = new InputModel(0, [0,0,0]);
+  public input: InputModel = new InputModel(0, [0, 0, 0]);
 
-  public tableHeader: string = "";
+  public tableHeader: string = '';
 
-  public playerName: string = "Player";
+  public playerName: string = 'Player';
   public playerSets: number = 0;
   public playerLegs: number = 0;
   public playerScore: number = 0;
   public playerScores: string[] = [];
-  public playerScores$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.playerScores);
-  public playerHistory$: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  public playerScores$: BehaviorSubject<string[]> = new BehaviorSubject<
+    string[]
+  >(this.playerScores);
+  public playerHistory$: BehaviorSubject<string> = new BehaviorSubject<string>(
+    ''
+  );
   public playerTotal: number = 0;
 
-  public opponentName: string = "Opponent";
+  public opponentName: string = 'Opponent';
   public opponentSets: number = 0;
   public opponentLegs: number = 0;
   public opponentScore: number = 0;
   public opponentScores: string[] = [];
   public opponentScores$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.playerScores);
-  public opponentHistory$: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  public opponentHistory$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public opponentTotal: number = 0;
 
-  public clientId: string = "";
-  public gameId: string = "";
+  public clientId: string = '';
+  public gameId: string = '';
+
 
   constructor(
     private webSocketService: WebSocketService,
@@ -68,50 +85,60 @@ export class X01Component implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private userProfileService: UserProfileStateService,
     private authService: AmplifyAuthService,
-    private jitsiService: JitsiService) {
+    private jitsiService: JitsiService,
+    private componentStore: ComponentStore<{games: GamesState}>
+  ) {
+
   }
+
+  public readonly x01State$ = this.componentStore.select(state => state.games.x01);
+
   ngAfterViewInit(): void {
-    console.log("test after view init x01 component");
+    console.log('test after view init x01 component');
   }
 
   async ngOnInit() {
-    console.log("test init x01 component");
-    this.clientId =  await this.authService.getCognitoId();
-    this.playerName = this.userProfileService.currentUserProfileDetails.UserName;
+    try {
+      this.clientId = await this.authService.getCognitoId();
+      this.playerName = this.userProfileService.currentUserProfileDetails.UserName;
+    } catch {
+      console.log('user is not authenticated');
+    }
     this.gameId = this.route.snapshot.paramMap.get('id')!;
-    this.webSocketService.connected$.subscribe(connected => {
+    if (
+      this.gameId != 'testje' &&
+      this.gameId != 'test123' &&
+      this.gameId != null &&
+      this.gameId != undefined
+    ) {
+      this.jitsiService.namePrincipalRoom = `Flyingdarts ${this.gameId}`;
+      this.jitsiService.moveRoom(this.jitsiService.namePrincipalRoom, false);
+      this.jitsiService.user.setName(this.playerName);
+    }
+    this.webSocketService.connected$.subscribe((connected) => {
       if (connected) {
         // Execute something when connected is true
-        console.log("Connected to WebSocket!");
-        this.apiService.joinGame(this.gameId, this.clientId, this.playerName)
+        this.apiService.joinGame(this.gameId, this.clientId, this.playerName);
       }
     });
-
-    this.webSocketService.getMessages().subscribe(x => {
+    
+    this.webSocketService.getMessages().subscribe((x) => {
       console.log(x);
       switch (x.action) {
         case WebSocketActions.X01Join:
           this.onJoinRoomCommand(x);
           break;
         case WebSocketActions.X01Score:
-          this.onScoreCommand(x)
+          this.onScoreCommand(x);
           break;
       }
-    })
-
-    this.jitsiService.namePrincipalRoom = `Flyingdarts ${this.gameId}`;
-    this.jitsiService.moveRoom(this.jitsiService.namePrincipalRoom, false);
-    this.jitsiService.user.setName(this.playerName);
+    });
   }
   insertPlayerScore(score: string) {
-    this.playerScores.push(score);
-    this.playerScores$.next(this.playerScores);
-    this.updatePlayerHistory();
+
   }
   insertOpponentScore(score: string) {
-    this.playerScores.push(score);
-    this.playerScores$.next(this.playerScores);
-    this.updateOpponentHistory();
+
   }
   private updatePlayerHistory() {
     this.playerHistory$.next(this.playerScores.join(', '));
@@ -122,9 +149,11 @@ export class X01Component implements OnInit, AfterViewInit {
   onJoinRoomCommand(x: any) {
     this.inputShouldBeDisabled = false;
     let message: JoinGameCommand = x.message as JoinGameCommand;
-    console.log("Received join room command", message);
+    console.log('Received join room command', message);
     console.log(message.Game);
-    this.tableHeader = `Best of ${message.Game!.X01.Sets}/${message.Game!.X01.Legs}`
+    this.tableHeader = `Best of ${message.Game!.X01.Sets}/${
+      message.Game!.X01.Legs
+    }`;
     if (message.PlayerId == this.clientId) {
       this.playerName = message.PlayerName;
       this.playerScore = message.Game!.X01.StartingScore;
@@ -137,15 +166,15 @@ export class X01Component implements OnInit, AfterViewInit {
   onScoreCommand(x: any) {
     this.inputShouldBeDisabled = !this.inputShouldBeDisabled;
     let message: CreateX01ScoreCommand = x.message as CreateX01ScoreCommand;
-    console.log("Received x01 score request", message);
-    if (message.PlayerId ==this.clientId) {
-        this.playerScore = message.Score;
-        this.insertPlayerScore(message.Input.toString())
+    console.log('Received x01 score request', message);
+    if (message.PlayerId == this.clientId) {
+      this.playerScore = message.Score;
+      this.insertPlayerScore(message.Input.toString());
     } else {
       this.opponentScore = message.Score;
-      this.insertOpponentScore(message.Input.toString())
+      this.insertOpponentScore(message.Input.toString());
     }
-    this.resetInput()
+    this.resetInput();
   }
 
   dartBoardInput(input: number) {
@@ -166,8 +195,7 @@ export class X01Component implements OnInit, AfterViewInit {
   }
 
   sendScore() {
-    this.apiService.score(this.gameId, this.clientId, this.playerScore - this.input.Sum, this.input.Sum);
-    this.inputShouldBeDisabled = !this.inputShouldBeDisabled;
+    
   }
 
   resetInput() {
