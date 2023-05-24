@@ -25,9 +25,9 @@ export class UserProfileApiService {
     this.webSocketMessagingService.sendMessage(JSON.stringify(body));
   }
 
-  public getUserProfile(cognitoUserId: string): void {
+  public getUserProfile(userId: string): void {
     var message: GetUserProfileCommand = {
-      CognitoUserId: cognitoUserId
+      UserId: userId
     };
     let body: WebSocketMessage<GetUserProfileCommand> = {
       action: WebSocketActions.UserProfileGet,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OnboardingStateService } from './../../services/onboarding-state.service';
+import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 
 @Component({
   selector: 'app-login',
@@ -9,27 +9,22 @@ import { OnboardingStateService } from './../../services/onboarding-state.servic
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private stateService: OnboardingStateService, private router: Router) {
+  constructor(private stateService: UserProfileStateService, private router: Router) {
 
   }
   ngOnInit() {
-    if (this.stateService.currentOnboardingState == null) {
-      this.stateService.currentOnboardingState = {
-        facebookId: null,
-        cameraPermissionsGranted: false,
-        profileCompleted: false,
-        currentOnboardingProfile: {
-          country: '',
-          email: '',
-          nickname: ''
-        }
+    if (this.stateService.currentUserProfileDetails == null) {
+      this.stateService.currentUserProfileDetails = {
+        isRegistered: false,
+        cameraPermissionGranted: false,
+        Id: '',
+        UserName: '',
+        Country: '',
+        Email: ''
       }
-    }
-     else if (!this.stateService.currentOnboardingState.profileCompleted && this.stateService.currentOnboardingState.facebookId == null) {
-      console.log("routing to profile");
+    } else if (!this.stateService.currentUserProfileDetails.isRegistered!) {
       this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile'] } }])
-    } else if (this.stateService.currentOnboardingState.profileCompleted && !this.stateService.currentOnboardingState.cameraPermissionsGranted && this.stateService.currentOnboardingState.facebookId != null) {
-      console.log("routing to camera");
+    } else if (this.stateService.currentUserProfileDetails.isRegistered! && !this.stateService.currentUserProfileDetails.cameraPermissionGranted!) {
       this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera'] } }])
     }
   }

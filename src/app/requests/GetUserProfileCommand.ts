@@ -1,4 +1,4 @@
 
 export interface GetUserProfileCommand {
-  CognitoUserId: string;
+  UserId: string;
 }

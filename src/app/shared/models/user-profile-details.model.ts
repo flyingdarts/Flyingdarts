@@ -3,5 +3,8 @@ export interface UserProfileDetails {
     UserName: string;
     Country: string;
     Email: string;
-    FacebookId: string;
+    Id: string;
+
+    isRegistered?: boolean;
+    cameraPermissionGranted?: boolean;
 }

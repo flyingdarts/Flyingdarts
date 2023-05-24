@@ -9,7 +9,6 @@ import { JitsiService } from './services/jitsi.service';
 import { LoadingService } from './services/loading.service';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { WebcamService } from './services/webcam.service';
-import { OnboardingStateService } from './services/onboarding-state.service';
 import { UserProfileApiService } from './services/user-profile-api.service';
 import { UserProfileStateService } from './services/user-profile-state.service';
 import { SharedModule } from './shared/shared.module';
@@ -41,7 +40,6 @@ import { StoreModule } from '@ngrx/store';
     AmplifyAuthService,
     JitsiService,
     WebcamService,
-    OnboardingStateService,
     UserProfileStateService,
     UserProfileApiService,
     X01ApiService

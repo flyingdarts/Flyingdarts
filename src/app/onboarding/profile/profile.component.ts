@@ -4,8 +4,11 @@ import { Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { AmplifyAuthService } from './../../services/amplify-auth.service';
 import { UserProfileApiService } from './../../services/user-profile-api.service';
-import { OnboardingStateService } from './../../services/onboarding-state.service';
 import { CarouselModel } from './../../shared/carousel/carousel.component';
+import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.service';
+import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
+import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
+import { UserProfileDetails } from 'src/app/shared/models/user-profile-details.model';
 
 @Component({
   selector: 'app-profile',
@@ -35,8 +38,10 @@ export class ProfileComponent implements OnInit {
     private router: Router, 
     public authenticator: AuthenticatorService, 
     private amplifyAuthService: AmplifyAuthService,
-    private onboardingStateService: OnboardingStateService,
-    private onboardingApiService: UserProfileApiService) {
+    private userProfileStateService: UserProfileStateService,
+    private userProfileApiService: UserProfileApiService,
+    private webSocketService: WebSocketService) {
+      
     this.profileForm = new FormGroup({
       userName: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
@@ -44,23 +49,22 @@ export class ProfileComponent implements OnInit {
     })
   }
   ngOnInit(): void {
+    this.webSocketService.getMessages().subscribe(x=> {
+      if (x.action === WebSocketActions.UserProfileCreate) {
+        this.userProfileStateService.currentUserProfileDetails = (x.message as UserProfileDetails);
+        this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
+      }
+    })
   }
   async submitForm() {
     console.log(this.profileForm.value);
     var userId = await this.amplifyAuthService.getCognitoUserId();
     if (this.profileForm.valid) {
-      this.onboardingStateService.currentOnboardingState = {facebookId: userId, profileCompleted: true, cameraPermissionsGranted: false,
-      currentOnboardingProfile: {
-        nickname: this.profileForm.value.userName,
-        email: this.profileForm.value.email,
-        country: this.profileForm.value.country
-      }}
-      this.onboardingApiService.createUserProfile(
+      this.userProfileApiService.createUserProfile(
         userId,
         this.profileForm.value.email,
         this.profileForm.value.userName,
         this.profileForm.value.country);
-      this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
     }
       
   }  
