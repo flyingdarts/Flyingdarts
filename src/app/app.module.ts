@@ -17,7 +17,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { X01ApiService } from './services/x01-api.service';
 import { WebSocketService } from './infrastructure/websocket/websocket.service';
 import { WebSocketMessageService } from './infrastructure/websocket/websocket-message.service';
-import { GameStore } from './state/games/game.store';
 import { StoreModule } from '@ngrx/store';
 
 @NgModule({
@@ -37,7 +36,6 @@ import { StoreModule } from '@ngrx/store';
     },
     WebSocketService,
     WebSocketMessageService,
-    GameStore,
     ApiService,
     LoadingService,
     AmplifyAuthService,

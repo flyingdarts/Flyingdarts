@@ -3,18 +3,19 @@ import { CommonModule } from '@angular/common';
 import { X01RoutingModule } from './x01-routing.module';
 import { X01Component } from './x01.component';
 import { SharedModule } from '../../shared/shared.module';
-import { StoreModule } from '@ngrx/store';
-import { x01Reducer } from './x01.reducer';
+import { ComponentStore } from '@ngrx/component-store';
+import { X01RootComponent } from './x01-root.component';
 
 @NgModule({
   declarations: [
+    X01RootComponent,
     X01Component
   ],
   imports: [
     CommonModule,
     X01RoutingModule,
     SharedModule,
-    StoreModule.forFeature('x01', x01Reducer)
-  ]
+  ],
+  providers: [ComponentStore]
 })
 export class X01Module { }

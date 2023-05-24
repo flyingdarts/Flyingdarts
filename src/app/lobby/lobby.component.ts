@@ -50,7 +50,7 @@ export class LobbyComponent implements OnInit {
           break;
         case WebSocketActions.X01JoinQueue:
           this.shouldHideLoader = !this.shouldHideLoader;
-          this.router.navigate(['/', 'games', { outlets: { 'games-outlet': ['x01', (x.message as JoinX01QueueCommand).GameId]}}]);
+          this.router.navigate(['/', 'x01', (x.message as JoinX01QueueCommand).GameId]);
         break;
       }
     })

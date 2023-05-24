@@ -1,12 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { X01Component } from './x01.component';
+import { X01RootComponent } from './x01-root.component';
 
 const routes: Routes = [
   {
-    path: "x01:id",
-    component: X01Component
-  }
+    path: "",
+    component: X01RootComponent,
+    //canActivate: [AuthorizationGuard],
+    children: [
+      {
+        path: ':id',
+        component: X01Component
+      }
+    ]
+  },
 ];
 
 @NgModule({
