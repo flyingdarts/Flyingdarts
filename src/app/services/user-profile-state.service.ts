@@ -24,7 +24,7 @@ export class UserProfileStateService {
   }
 
   public get userName$(): Observable<string> {
-    return of(this.currentUserProfileDetails?.UserName || "Unknown");
+    return of(this.currentUserProfileDetails?.UserName);
   }
 
   public get isRegistered$():Observable<boolean> {
