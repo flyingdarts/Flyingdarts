@@ -51,7 +51,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.webSocketService.getMessages().subscribe(x=> {
       if (x.action === WebSocketActions.UserProfileCreate) {
-        this.userProfileStateService.currentUserProfileDetails = (x.message as UserProfileDetails);
+        if (x.message != null) {
+          this.userProfileStateService.currentUserProfileDetails = (x.message as UserProfileDetails);
+        }
         this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
       }
     })

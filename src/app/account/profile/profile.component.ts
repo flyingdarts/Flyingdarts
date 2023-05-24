@@ -66,7 +66,9 @@ export class ProfileComponent implements OnInit {
       }
       if (x.action === WebSocketActions.UserProfileUpdate) {
         this.isLoading = false;
-        this.userProfileService.currentUserProfileDetails = (x.message as UserProfileDetails)
+        if (x.message != null) {
+          this.userProfileService.currentUserProfileDetails = (x.message as UserProfileDetails)
+        }
       }
     })
     setTimeout(async () => {     
