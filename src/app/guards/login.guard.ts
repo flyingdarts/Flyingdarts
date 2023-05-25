@@ -15,7 +15,17 @@ export class LoginGuard implements CanActivate {
   }
   async canActivate(): Promise<boolean> {
       try {
-        await this.authService.getCognitoId();
+        if (this.stateService.currentUserProfileDetails != null) {
+          this.stateService.currentUserProfileDetails.cognitoUserId = await this.authService.getCognitoId();
+          if (!this.stateService.currentUserProfileDetails.isRegistered!) {
+            this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile'] } }])
+            return false;
+          }
+          else {
+            this.router.navigate(['/lobby'])
+            return false
+          }
+        }
         return false;
       } catch(err) {
         console.log(err);
@@ -32,6 +42,7 @@ export class LoginGuard implements CanActivate {
           return true;
         } else {
           if (this.stateService.currentUserProfileDetails.cognitoUserId! == "") {
+              
               return true;
           } else if (!this.stateService.currentUserProfileDetails.isRegistered!) {
             this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile'] } }])
