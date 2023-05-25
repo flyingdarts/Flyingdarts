@@ -1,11 +1,12 @@
 {
   "name": "web-socket-frontend",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "serve": "npm run start",
     "test": "ng test"
   },
   "private": true,

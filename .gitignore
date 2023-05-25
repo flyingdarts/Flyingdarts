@@ -65,3 +65,4 @@ amplifytools.xcconfig
 *.pem
 *.crt
 *.key
+.vscode

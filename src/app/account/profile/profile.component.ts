@@ -58,19 +58,22 @@ export class ProfileComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-
     this.webSocketService.getMessages().subscribe(x => {
-      if (x.action === WebSocketActions.UserProfileGet) {
-        this.initForm(x.message as UserProfileDetails);
-        this.isLoading = false;
-      }
-      if (x.action === WebSocketActions.UserProfileUpdate) {
-        this.isLoading = false;
-        if (x.message != null) {
-          this.userProfileService.currentUserProfileDetails = (x.message as UserProfileDetails)
-        }
+      switch(x.action) {
+        case WebSocketActions.UserProfileGet:
+        case WebSocketActions.UserProfileCreate:
+        case WebSocketActions.UserProfileUpdate:
+          if (x.message != null) {
+            this.userProfileService.currentUserProfileDetails = (x.message as UserProfileDetails)
+            if (x.action === WebSocketActions.UserProfileGet) {
+              this.initForm(this.userProfileService.currentUserProfileDetails)
+            }
+            this.isLoading = false;
+          }
+        break;
       }
     })
+
     setTimeout(async () => {     
       if (this.isLoading) {
         this.fetchUserProfile();

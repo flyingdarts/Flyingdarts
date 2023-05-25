@@ -30,16 +30,23 @@ export class AppComponent implements OnInit {
     this.currentVersion = packageJson.version;
   }
   async ngOnInit() {
-    var cognitoUserId = await this.authService.getCognitoUserId();
-    this.userProfileApi.getUserProfile(cognitoUserId);
-
-    this.webSocketService.getMessages().subscribe(x => {
-      if (x.action === WebSocketActions.UserProfileGet ||  WebSocketActions.UserProfileUpdate) {
-        if (x.message != null) {
-          this.userProfileState.currentUserProfileDetails = (x.message as UserProfileDetails)
+    try {
+      var cognitoUserId = await this.authService.getCognitoUserId();
+      this.userProfileApi.getUserProfile(cognitoUserId);
+      this.webSocketService.getMessages().subscribe(x => {
+        switch(x.action) {
+          case WebSocketActions.UserProfileGet:
+          case WebSocketActions.UserProfileCreate:
+          case WebSocketActions.UserProfileUpdate:
+            if (x.message != null) {
+              this.userProfileState.currentUserProfileDetails = (x.message as UserProfileDetails)
+            }
+          break;
         }
-      }
-    })
+      })
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   onAnimate(animationItem: AnimationItem): void {

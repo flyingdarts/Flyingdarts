@@ -12,7 +12,7 @@ export class AuthorizationGuard implements CanActivate {
       await Auth.currentAuthenticatedUser();
       return true;
     } catch (error) {
-      this.router.navigate(['/', 'onboarding', 'welcome', 'new-users'])
+      this.router.navigate(['/', 'login'])
       return false;
     }
   }

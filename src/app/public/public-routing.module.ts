@@ -4,6 +4,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { LoginComponent } from './login/login.component';
+import { LoginGuard } from '../guards/login.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: 'terms-of-service',

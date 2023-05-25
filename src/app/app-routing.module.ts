@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthorizationGuard } from './guards/authorization.guard';
 
 const routes: Routes = [
   // Private module routes

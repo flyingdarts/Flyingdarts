@@ -40,11 +40,17 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isRegistered = this.userProfileService.currentUserProfileDetails.isRegistered!;
+
     this.webSocketService.getMessages().subscribe(x=> {
-      if (x.action === WebSocketActions.UserProfileGet || x.action === WebSocketActions.UserProfileUpdate) {
-        if (x.message != null) {
-          this.userProfileService.currentUserProfileDetails = x.message as UserProfileDetails
-        }
+      switch(x.action) {
+        case WebSocketActions.UserProfileGet:
+        case WebSocketActions.UserProfileCreate:
+        case WebSocketActions.UserProfileUpdate:
+          if (x.message != null) {
+            this.userProfileService.currentUserProfileDetails = (x.message as UserProfileDetails)
+          }
+        break;
       }
     })
     this.userProfileSubscription = this.userProfileService.userName$.subscribe(
@@ -58,13 +64,6 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
       (isAuthenticated: boolean) => {
         this.isAuthenticated = isAuthenticated;
         console.log("Is authenticated: ", this.isAuthenticated);
-      }
-    );
-
-    this.isRegisteredSubscription = this.userProfileService.isRegistered$.subscribe(
-      (isRegistered: boolean) => {
-        this.isRegistered = isRegistered;
-        console.log("Is registered: ", this.isRegistered);
       }
     );
   }
