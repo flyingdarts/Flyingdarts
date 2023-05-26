@@ -20,8 +20,8 @@ export class NavigationBarComponent implements OnInit {
     loop: false
   };
   public userName: string = ''; // Initial value is an empty string
-  public isAuthenticated: boolean = false; // Initial value is false
-  public isRegistered: boolean = false; // Initial value is false
+  public isAuthenticated!: boolean; // Initial value is false
+  public isRegistered!: boolean; // Initial value is false
   
   private userProfileSubscription?: Subscription = undefined;
   private isAuthenticatedSubscription?: Subscription = undefined;
@@ -36,10 +36,16 @@ export class NavigationBarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.userProfileService.currentUserProfileDetails);
+    this.isRegistered = this.userProfileService.currentUserProfileDetails != null;
+    this.userName = this.userProfileService.currentUserProfileDetails.UserName!;
+    console.log(this.isRegistered, this.userName)
     this.appStore.profile$.subscribe(x=> {
-      this.isRegistered = x != null;
-      this.userName = x!.UserName;
+      console.log(x);
+      if (this.isRegistered && x != null)
+        this.userName = x!.UserName;
     })
+
   }
   
   title = 'flyingdarts';
