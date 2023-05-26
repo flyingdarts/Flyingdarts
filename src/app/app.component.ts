@@ -2,17 +2,13 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import packageJson from "./../../package.json";
-import { UserProfileApiService } from './services/user-profile-api.service';
-import { AmplifyAuthService } from './services/amplify-auth.service';
-import { WebSocketService } from './infrastructure/websocket/websocket.service';
-import { WebSocketActions } from './infrastructure/websocket/websocket.actions.enum';
-import { UserProfileStateService as UserProfileStateService } from './services/user-profile-state.service';
-import { UserProfileDetails } from './shared/models/user-profile-details.model';
-import { AppStore } from "./app.store";
+import * as AuthActions from './auth.actions';
+import { Store } from '@ngrx/store';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   public currentYear: number = new Date().getFullYear();
@@ -24,11 +20,11 @@ export class AppComponent implements OnInit {
   };
 
   constructor(
-    private store: AppStore) {
+    private store: Store) {
     this.currentVersion = packageJson.version;
   }
   ngOnInit() {
-    this.store.profile$.subscribe(x=>console.log("Store,Profile", x))
+    this.store.dispatch(AuthActions.listenForAuthEvents());
   }
 
   onAnimate(animationItem: AnimationItem): void {

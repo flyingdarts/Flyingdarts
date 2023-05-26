@@ -16,8 +16,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { X01ApiService } from './services/x01-api.service';
 import { WebSocketService } from './infrastructure/websocket/websocket.service';
 import { WebSocketMessageService } from './infrastructure/websocket/websocket-message.service';
-import { ComponentStore, provideComponentStore } from '@ngrx/component-store';
+import { provideComponentStore } from '@ngrx/component-store';
 import { AppStore } from './app.store';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth.effects';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import { AppStore } from './app.store';
     AppRoutingModule,
     ReactiveFormsModule,
     SharedModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     {
