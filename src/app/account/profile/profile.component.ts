@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
   async fetchUserProfile(): Promise<void> {
     try {
       this.loadingTitle = "Fetching your profile";
-      this.apiService.getUserProfile(await this.authService.getCognitoUserId());
+      this.apiService.getUserProfile(await this.authService.getCognitoName());
       this.isLoading = true;
     } catch (error) {
       console.log('Error fetching user profile:', error);
@@ -99,7 +99,7 @@ export class ProfileComponent implements OnInit {
 
     const retryCallback = async () => {
       try {
-        this.apiService.getUserProfile(await this.authService.getCognitoUserId());
+        this.apiService.getUserProfile(await this.authService.getCognitoName());
         this.isLoading = true;
       } catch (error) {
         console.log(`Error fetching user profile (Attempt ${currentTry}):`, error);

@@ -11,9 +11,10 @@ export class UserProfileApiService {
   constructor(private webSocketMessagingService: WebSocketMessageService) {
 
   }
-  public createUserProfile(cognitoUserId: string, email: string, userName: string, country: string): void {
+  public createUserProfile(cognitoUserId: string, cognitoUserName: string, email: string, userName: string, country: string): void {
     var message: CreateUserProfileCommand = {
       CognitoUserId: cognitoUserId,
+      CognitoUserName: cognitoUserName,
       UserName: userName,
       Email: email,
       Country: country
@@ -25,9 +26,9 @@ export class UserProfileApiService {
     this.webSocketMessagingService.sendMessage(JSON.stringify(body));
   }
 
-  public getUserProfile(userId: string): void {
+  public getUserProfile(cognitoUserName: string): void {
     var message: GetUserProfileCommand = {
-      UserId: userId
+      CognitoUserName: cognitoUserName
     };
     let body: WebSocketMessage<GetUserProfileCommand> = {
       action: WebSocketActions.UserProfileGet,

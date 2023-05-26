@@ -76,7 +76,4 @@ export class LobbyComponent implements OnInit {
       }
     }))
   }
-  public signOut(): void {
-    Auth.signOut({ global: true });
-  }
 }

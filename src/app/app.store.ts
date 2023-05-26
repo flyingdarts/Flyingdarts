@@ -5,10 +5,11 @@ import { WebSocketService } from "./infrastructure/websocket/websocket.service";
 import { WebSocketActions } from "./infrastructure/websocket/websocket.actions.enum";
 import { Injectable } from "@angular/core";
 import { AppState, initialApplicationState } from "./app.state";
+import { UserProfileStateService } from "./services/user-profile-state.service";
 
 @Injectable()
 export class AppStore extends ComponentStore<AppState> implements OnStoreInit, OnStateInit {
-  constructor(private webSocketService: WebSocketService) {
+  constructor(private webSocketService: WebSocketService, private userProfileService: UserProfileStateService) {
     super(initialApplicationState);
   }
   ngrxOnStateInit() {
@@ -28,7 +29,9 @@ export class AppStore extends ComponentStore<AppState> implements OnStoreInit, O
         case WebSocketActions.UserProfileCreate:
         case WebSocketActions.UserProfileUpdate:
           if (x.message != null) {
+            console.log('got user profile message in ngrxOnStoreInit', x.message);
             this.setProfile(x.message as UserProfileDetails);
+            this.userProfileService.currentUserProfileDetails = x.message as UserProfileDetails;
           }
           break;
       }
@@ -39,5 +42,9 @@ export class AppStore extends ComponentStore<AppState> implements OnStoreInit, O
   readonly profile$: Observable<UserProfileDetails | null> = this.select(x => x.profile);
 
   readonly setProfile = this.updater((state, value: UserProfileDetails) => ({ ...state, profile: value }));
-
+  patchProfileState(newProfileValues: any) {
+    this.patchState((state) => ({
+      profile: { ...state.profile, ...newProfileValues }
+    }));
+  }
 }

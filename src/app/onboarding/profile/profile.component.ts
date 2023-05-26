@@ -9,6 +9,8 @@ import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.ser
 import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
 import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 import { UserProfileDetails } from 'src/app/shared/models/user-profile-details.model';
+import { AppStore } from 'src/app/app.store';
+import { isNullOrUndefined } from 'src/app/app.component';
 
 @Component({
   selector: 'app-profile',
@@ -35,13 +37,11 @@ export class ProfileComponent implements OnInit {
     }
   ];
   constructor(
-    private router: Router, 
-    public authenticator: AuthenticatorService, 
-    private amplifyAuthService: AmplifyAuthService,
+    private router: Router,
+    public authenticator: AuthenticatorService,
     private userProfileStateService: UserProfileStateService,
-    private userProfileApiService: UserProfileApiService,
-    private webSocketService: WebSocketService) {
-      
+    private appStore: AppStore) {
+
     this.profileForm = new FormGroup({
       userName: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
@@ -49,25 +49,18 @@ export class ProfileComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.webSocketService.getMessages().subscribe(x=> {
-      if (x.action === WebSocketActions.UserProfileCreate) {
-        if (x.message != null) {
-          this.userProfileStateService.currentUserProfileDetails = (x.message as UserProfileDetails);
-        }
-        this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera']}}])
-      }
-    })
+    if (!isNullOrUndefined(this.userProfileStateService.currentUserProfileDetails)) {
+      this.router.navigate(['/', 'lobby'])
+    }
   }
   async submitForm() {
-    console.log(this.profileForm.value);
-    var userId = await this.amplifyAuthService.getCognitoUserId();
     if (this.profileForm.valid) {
-      this.userProfileApiService.createUserProfile(
-        userId,
-        this.profileForm.value.email,
-        this.profileForm.value.userName,
-        this.profileForm.value.country);
+      this.appStore.patchProfileState({
+        UserName: this.profileForm.value.userName,
+        Email: this.profileForm.value.email,
+        Country: this.profileForm.value.country
+      });
+      this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['camera'] } }])
     }
-      
-  }  
+  }
 }

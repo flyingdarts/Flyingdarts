@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import { WebcamService } from './../../services/webcam.service';
+import { AppStore } from 'src/app/app.store';
+import { UserProfileApiService } from 'src/app/services/user-profile-api.service';
+import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
+import { UserProfileDetails } from 'src/app/shared/models/user-profile-details.model';
+import { isNullOrUndefined } from 'src/app/app.component';
 
 @Component({
   selector: 'app-camera',
@@ -9,26 +14,39 @@ import { WebcamService } from './../../services/webcam.service';
   styleUrls: ['./camera.component.scss']
 })
 export class CameraComponent implements OnInit {
-
+  private userProfileDetails: UserProfileDetails | null = null;
   constructor(
     public authenticator: AuthenticatorService, 
     private webcamService: WebcamService, 
-    private router: Router) {
+    private userProfileService: UserProfileApiService,
+    private userProfileStateService: UserProfileStateService,
+    private router: Router,
+    private appStore: AppStore) {
     
   }
   ngOnInit(): void {
+    this.appStore.profile$.subscribe(x=> {
+      this.userProfileDetails = x;
+    });
     this.accessCamera();
   }
   saveCamera() {
-    this.router.navigate(['/lobby'])
+    // this.router.navigate(['/lobby'])
+    console.log(this.userProfileDetails);
+    if (!isNullOrUndefined(this.userProfileDetails)) {
+       this.userProfileService.createUserProfile(this.userProfileDetails!.cognitoUserId!, this.userProfileDetails!.cognitoUserName!, this.userProfileDetails!.Email, this.userProfileDetails!.UserName, this.userProfileDetails!.Country);
+       this.userProfileStateService.currentUserProfileDetails = this.userProfileDetails;
+    }
   }
   async accessCamera() {
     const videoPlayer = document.querySelector('video') as HTMLVideoElement;
     await this.webcamService.requestCameraPermissions().then(stream => {
       videoPlayer.srcObject = stream;
       this.populateCameraSelectList();
+      this.appStore.patchProfileState({cameraPermissionGranted: true})
     }).catch(error => {
       console.error('Failed to attach stream to video element', error);
+      this.appStore.patchProfileState({cameraPermissionGranted: false})
     });
   }
   populateCameraSelectList() {

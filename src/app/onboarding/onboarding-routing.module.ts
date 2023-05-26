@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
-import { OnboardingGuard } from './onboarding.guard';
 import { CameraComponent } from './camera/camera.component';
 import { OnboardingRootComponent } from './onboarding-root/onboarding-root.component';
 
@@ -9,7 +8,6 @@ const routes: Routes = [
   {
     path: "",
     component: OnboardingRootComponent,
-    canActivate: [OnboardingGuard],
     children: [
       {
         path: "profile",
