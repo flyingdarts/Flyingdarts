@@ -6,6 +6,7 @@ import { UserProfileStateService } from './../../services/user-profile-state.ser
 import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
 import { WebSocketService } from "./../../infrastructure/websocket/websocket.service";
+import { AppStore } from 'src/app/app.store';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -30,17 +31,15 @@ export class NavigationBarComponent implements OnInit {
     public router: Router,
     public amplifyAuthService: AmplifyAuthService, 
     public userProfileService: UserProfileStateService,
-    public webSocketService: WebSocketService
+    public webSocketService: WebSocketService,
+    private appStore: AppStore
   ) {}
 
-  onAnimate(animationItem: AnimationItem): void {
-    console.log(animationItem);
-  }
-
   ngOnInit() {
-    console.log(this.userProfileService.currentUserProfileDetails);
-    this.isRegistered = this.userProfileService.currentUserProfileDetails != null;
-    this.userName = this.userProfileService.currentUserProfileDetails.UserName!;
+    this.appStore.profile$.subscribe(x=> {
+      this.isRegistered = x != null;
+      this.userName = x!.UserName;
+    })
   }
   
   title = 'flyingdarts';
