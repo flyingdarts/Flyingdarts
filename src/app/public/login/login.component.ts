@@ -22,11 +22,14 @@ export class LoginComponent implements OnInit {
   async ngOnInit() {
     try {
       var cognitoId = await this.authService.getCognitoId();
-      this.store.profile$.subscribe(x=> {
-        if (isNullOrUndefined(x)) {
-          this.store.setProfile({cognitoUserId: cognitoId, UserName: '', Email: '', Country: '', Id: ''})
-        }
-      })
+      var cognitoName = await this.authService.getCognitoName();
+      if (!isNullOrUndefined(cognitoId) && !isNullOrUndefined(cognitoName)) {
+        this.store.profile$.subscribe(x=> {
+          if (isNullOrUndefined(x)) {
+            this.store.setProfile({cognitoUserId: cognitoId, cognitoUserName: cognitoName, UserName: '', Email: '', Country: '', Id: ''})
+          }
+        })
+      }
     } catch(err){
       console.log(err)
     }

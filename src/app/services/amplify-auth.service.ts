@@ -19,8 +19,12 @@ export class AmplifyAuthService {
 
   public async getCognitoId(): Promise<string> {
     var userInfo = await Auth.currentAuthenticatedUser();
-    console.log(userInfo);
     return userInfo["attributes"]["sub"]
+  }
+
+  public async getCognitoName(): Promise<string> {
+    var userInfo = await Auth.currentAuthenticatedUser();
+    return userInfo["username"]
   }
   
   public signOut(): void {
