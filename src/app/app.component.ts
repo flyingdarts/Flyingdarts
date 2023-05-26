@@ -8,10 +8,11 @@ import { WebSocketService } from './infrastructure/websocket/websocket.service';
 import { WebSocketActions } from './infrastructure/websocket/websocket.actions.enum';
 import { UserProfileStateService as UserProfileStateService } from './services/user-profile-state.service';
 import { UserProfileDetails } from './shared/models/user-profile-details.model';
+import { AppStore } from "./app.store";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   public currentYear: number = new Date().getFullYear();
@@ -23,30 +24,11 @@ export class AppComponent implements OnInit {
   };
 
   constructor(
-    private authService: AmplifyAuthService,
-    private userProfileApi: UserProfileApiService,
-    private userProfileState: UserProfileStateService,
-    private webSocketService: WebSocketService) {
+    private store: AppStore) {
     this.currentVersion = packageJson.version;
   }
-  async ngOnInit() {
-    try {
-      var cognitoUserId = await this.authService.getCognitoUserId();
-      this.userProfileApi.getUserProfile(cognitoUserId);
-      this.webSocketService.getMessages().subscribe(x => {
-        switch(x.action) {
-          case WebSocketActions.UserProfileGet:
-          case WebSocketActions.UserProfileCreate:
-          case WebSocketActions.UserProfileUpdate:
-            if (x.message != null) {
-              this.userProfileState.currentUserProfileDetails = (x.message as UserProfileDetails)
-            }
-          break;
-        }
-      })
-    } catch(err) {
-      console.log(err);
-    }
+  ngOnInit() {
+    this.store.profile$.subscribe(x=>console.log("Store,Profile", x))
   }
 
   onAnimate(animationItem: AnimationItem): void {

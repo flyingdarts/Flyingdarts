@@ -16,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { X01ApiService } from './services/x01-api.service';
 import { WebSocketService } from './infrastructure/websocket/websocket.service';
 import { WebSocketMessageService } from './infrastructure/websocket/websocket-message.service';
-import { StoreModule } from '@ngrx/store';
+import { ComponentStore, provideComponentStore } from '@ngrx/component-store';
+import { AppStore } from './app.store';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,6 @@ import { StoreModule } from '@ngrx/store';
     AppRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    StoreModule.forRoot({})
   ],
   providers: [
     {
@@ -42,7 +42,8 @@ import { StoreModule } from '@ngrx/store';
     WebcamService,
     UserProfileStateService,
     UserProfileApiService,
-    X01ApiService
+    X01ApiService,
+    provideComponentStore(AppStore),
   ],
   bootstrap: [AppComponent],
 })

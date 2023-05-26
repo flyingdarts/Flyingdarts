@@ -8,6 +8,8 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import { ComponentStore } from '@ngrx/component-store';
+import { AppStore } from '../app.store';
 
 
 @NgModule({
