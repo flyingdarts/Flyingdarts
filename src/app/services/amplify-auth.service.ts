@@ -28,6 +28,7 @@ export class AmplifyAuthService {
   }
   
   public signOut(): void {
+    localStorage.clear();
     Auth.signOut({ global: true });
   }
 }

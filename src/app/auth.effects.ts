@@ -23,7 +23,6 @@ export class AuthEffects {
               }
               break;
             case 'signOut':
-              localStorage.clear();
               break;
             default:
               break;
