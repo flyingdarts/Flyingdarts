@@ -10,6 +10,8 @@ import { UserProfileStateService } from './../../services/user-profile-state.ser
 import { WebSocketService } from './../../infrastructure/websocket/websocket.service';
 import { CarouselModel } from './../../shared/carousel/carousel.component';
 import { UserProfileDetails } from './../../shared/models/user-profile-details.model';
+import { AppStore } from 'src/app/app.store';
+import { isNullOrUndefined } from 'src/app/app.component';
 
 @Component({
   selector: 'app-profile',
@@ -41,7 +43,8 @@ export class ProfileComponent implements OnInit {
     private userProfileService: UserProfileStateService,
     private authService: AmplifyAuthService,
     private webSocketService: WebSocketService,
-    private router: Router) {
+    private router: Router,
+    private appStore: AppStore) {
     this.profileForm = new FormGroup({
       userName: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
@@ -58,64 +61,16 @@ export class ProfileComponent implements OnInit {
 
   async ngOnInit() {
     this.isLoading = true;
-    this.webSocketService.getMessages().subscribe(x => {
-      switch(x.action) {
-        case WebSocketActions.UserProfileGet:
-        case WebSocketActions.UserProfileCreate:
-        case WebSocketActions.UserProfileUpdate:
-          if (x.message != null) {
-            this.userProfileService.currentUserProfileDetails = (x.message as UserProfileDetails)
-            if (x.action === WebSocketActions.UserProfileGet) {
-              this.initForm(this.userProfileService.currentUserProfileDetails)
-            }
-            this.isLoading = false;
-          }
-        break;
+    this.appStore.profile$.subscribe(x => {
+      if (!isNullOrUndefined(x)) {
+        this.userProfileService.currentUserProfileDetails = x;
+        this.initForm(x!)
+        this.isLoading = false;
       }
     })
-
-    setTimeout(async () => {     
-      if (this.isLoading) {
-        this.fetchUserProfile();
-      }
-    }, 2000);
-  }
-  async fetchUserProfile(): Promise<void> {
-    try {
-      this.loadingTitle = "Fetching your profile";
-      this.apiService.getUserProfile(await this.authService.getCognitoName());
-      this.isLoading = true;
-    } catch (error) {
-      console.log('Error fetching user profile:', error);
-      // Retry fetching the user profile with exponential backoff
-      this.retryFetchUserProfile();
-    }
   }
 
-  async retryFetchUserProfile(): Promise<void> {
-    const MAX_TRIES = 4;
-    let currentTry = 1;
-    let delay = 2000;
-
-    const retryCallback = async () => {
-      try {
-        this.apiService.getUserProfile(await this.authService.getCognitoName());
-        this.isLoading = true;
-      } catch (error) {
-        console.log(`Error fetching user profile (Attempt ${currentTry}):`, error);
-        if (currentTry < MAX_TRIES) {
-          currentTry++;
-          delay *= 2;
-          setTimeout(retryCallback, delay);
-        } else {
-          console.log('Exceeded maximum number of retries. Unable to fetch user profile.');
-        }
-      }
-    };
-
-    setTimeout(retryCallback, delay);
-  }
-  initForm(preloadedData: UserProfileDetails) {
+  private initForm(preloadedData: UserProfileDetails) {
     this.profileForm = this.formBuilder.group({
       userName: preloadedData.UserName || '',
       country: preloadedData.Country || '',
@@ -127,11 +82,11 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.valid) {
       this.loadingTitle = "Updating your profile";
       this.apiService.updateUserProfile(
-        await this.authService.getCognitoUserId(),
+        await this.authService.getCognitoName(),
         this.profileForm.value.email,
         this.profileForm.value.userName,
         this.profileForm.value.country);
-        this.isLoading = true;
+      this.isLoading = true;
     }
   }
 }
