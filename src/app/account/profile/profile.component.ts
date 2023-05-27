@@ -59,22 +59,15 @@ export class ProfileComponent implements OnInit {
   public loadingTitle: string = "Fetching your profile";
   public loadingSubtitle: string = "One moment please.";
 
-  async ngOnInit() {
-    this.isLoading = true;
-    this.appStore.profile$.subscribe(x => {
-      if (!isNullOrUndefined(x)) {
-        this.userProfileService.currentUserProfileDetails = x;
-        this.initForm(x!)
-        this.isLoading = false;
-      }
-    })
+  ngOnInit() {
+    this.initForm(this.userProfileService.currentUserProfileDetails)
   }
 
-  private initForm(preloadedData: UserProfileDetails) {
+  private initForm(profile: UserProfileDetails) {
     this.profileForm = this.formBuilder.group({
-      userName: preloadedData.UserName || '',
-      country: preloadedData.Country || '',
-      email: preloadedData.Email || '',
+      userName: profile.UserName || '',
+      country: profile.Country || '',
+      email: profile.Email || '',
     });
   }
 
