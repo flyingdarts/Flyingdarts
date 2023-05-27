@@ -23,10 +23,8 @@ export class AuthEffects {
               }
               break;
             case 'signOut':
-              // Dispatch an action or call a method to handle the user sign out event
-              console.log('ti signout hallo', event);
+              localStorage.clear();
               break;
-            // Add more event cases as needed
             default:
               break;
           }
