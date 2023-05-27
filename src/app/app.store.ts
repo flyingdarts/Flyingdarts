@@ -8,21 +8,12 @@ import { AppState, initialApplicationState } from "./app.state";
 import { UserProfileStateService } from "./services/user-profile-state.service";
 
 @Injectable()
-export class AppStore extends ComponentStore<AppState> implements OnStoreInit, OnStateInit {
+export class AppStore extends ComponentStore<AppState> implements OnStoreInit {
   constructor(private webSocketService: WebSocketService, private userProfileService: UserProfileStateService) {
     super(initialApplicationState);
   }
-  ngrxOnStateInit() {
-    console.log('app store OnStateInit');
-    console.log(this.select(x=>console.log(x)));
-    this.profile$.subscribe(x=>console.log(x));
-  }
 
   ngrxOnStoreInit() {
-    console.log('app store OnStoreInit');
-    console.log(this.select(x=>console.log(x)));
-    this.profile$.subscribe(x=>console.log(x));
-
     this.webSocketService.getMessages().subscribe(x => {
       switch (x.action) {
         case WebSocketActions.UserProfileGet:
