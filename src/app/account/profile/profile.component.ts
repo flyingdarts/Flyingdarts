@@ -41,10 +41,7 @@ export class ProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private apiService: UserProfileApiService,
     private userProfileService: UserProfileStateService,
-    private authService: AmplifyAuthService,
-    private webSocketService: WebSocketService,
-    private router: Router,
-    private appStore: AppStore) {
+    private authService: AmplifyAuthService) {
     this.profileForm = new FormGroup({
       userName: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),

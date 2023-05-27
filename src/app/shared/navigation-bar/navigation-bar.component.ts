@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimationItem } from 'lottie-web';
 import { AmplifyAuthService } from './../../services/amplify-auth.service';
 import { UserProfileStateService } from './../../services/user-profile-state.service';
 import { AnimationOptions } from 'ngx-lottie';
-import { Subscription } from 'rxjs';
 import { WebSocketService } from "./../../infrastructure/websocket/websocket.service";
 import { AppStore } from 'src/app/app.store';
 
@@ -22,10 +20,6 @@ export class NavigationBarComponent implements OnInit {
   public userName: string = ''; // Initial value is an empty string
   public isAuthenticated!: boolean; // Initial value is false
   public isRegistered!: boolean; // Initial value is false
-  
-  private userProfileSubscription?: Subscription = undefined;
-  private isAuthenticatedSubscription?: Subscription = undefined;
-  private isRegisteredSubscription?: Subscription = undefined;
 
   constructor(
     public router: Router,
@@ -33,7 +27,9 @@ export class NavigationBarComponent implements OnInit {
     public userProfileService: UserProfileStateService,
     public webSocketService: WebSocketService,
     private appStore: AppStore
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
     console.log(this.userProfileService.currentUserProfileDetails);

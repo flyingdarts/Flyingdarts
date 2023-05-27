@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
+import { AnimationOptions } from 'ngx-lottie/lib/symbols';
 import { timeInterval } from 'rxjs';
 import { LoadingService } from './../../services/loading.service';
 
@@ -18,10 +18,5 @@ export class LoadingComponent implements OnInit {
   }
   ngOnInit(): void {
     timeInterval()
-  }
-
-  // This is the component function that binds to the animationCreated event from the package  
-  onAnimate(animationItem: AnimationItem): void {
-    console.log(animationItem);
   }
 }
