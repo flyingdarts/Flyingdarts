@@ -31,6 +31,9 @@ export class LoginComponent implements OnInit {
           if (isNullOrUndefined(x)) {
             this.store.setProfile({cognitoUserId: cognitoId, cognitoUserName: cognitoName, UserName: '', Email: '', Country: ''})
             this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile'] } }])
+          } else {
+            this.store.setProfile(x!);
+            this.router.navigate(['/', 'lobby'])
           }
         })
       }

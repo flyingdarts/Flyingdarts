@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PublicRoutingModule } from './public-routing.module';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
@@ -8,16 +7,13 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
-import { ComponentStore } from '@ngrx/component-store';
-import { AppStore } from '../app.store';
-
 
 @NgModule({
   declarations: [
     LeaderboardComponent,
     PrivacyPolicyComponent, 
     TermsOfServiceComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     CommonModule,
