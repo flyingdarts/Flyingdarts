@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   public loading$: Observable<boolean> = this.store.select(x=>x.loading);
   public loadingTitle: string = 'Welcome back!';
   public loadingSubtitle: string = 'Redirecting you to the lobby.'
-  
+
   constructor(
     private stateService: UserProfileStateService, 
     private apiService: UserProfileApiService,
@@ -34,15 +34,15 @@ export class LoginComponent implements OnInit {
       if (!isNullOrUndefined(cognitoId) && !isNullOrUndefined(cognitoName)) {
         console.log('getting profile for', cognitoId, cognitoName);
         this.apiService.getUserProfile(cognitoName);
-        this.store.profile$.subscribe(x=> {
+        this.store.profile$.subscribe(async x=> {
           if (isNullOrUndefined(x)) {
             console.log('profile was null')
             this.store.setProfile({cognitoUserId: cognitoId, cognitoUserName: cognitoName, UserName: '', Email: '', Country: ''})
-            this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile'] } }])
+            await this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile'] } }])
           } else {
             console.log('found profile, routing to lobby')
             this.store.setProfile(x!);
-            this.router.navigate(['/', 'lobby'])
+            await this.router.navigate(['/', 'lobby'])
           }
         })
       } else {
