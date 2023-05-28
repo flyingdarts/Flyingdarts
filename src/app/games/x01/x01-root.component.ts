@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-games-root',
   template: `
     <router-outlet></router-outlet>
-    <app-loading></app-loading>
   `,
   styles: [`
     /* Add your styles here */
