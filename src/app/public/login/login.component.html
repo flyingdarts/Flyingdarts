@@ -1,5 +1,5 @@
 <app-loading *ngIf="(loading$ | async)"></app-loading>
-<div *ngIf="(!loading$ | async) class=" container-auth h-100">
+<div *ngIf="!(loading$ | async) class=" container-auth h-100">
   <div class="container-fluid body-content h-100">
     <div class="card h-100">
       <div class="card-body">
