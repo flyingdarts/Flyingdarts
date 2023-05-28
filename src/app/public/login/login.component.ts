@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
             console.log('profile was null')
             this.store.setProfile({cognitoUserId: cognitoId, cognitoUserName: cognitoName, UserName: '', Email: '', Country: ''})
             await this.router.navigate(['/', 'onboarding', { outlets: { 'onboarding-outlet': ['profile'] } }])
-          } else {
+          } else if (x?.UserId != null)  {
             console.log('found profile, routing to lobby')
             this.store.setProfile(x!);
             await this.router.navigate(['/', 'lobby'])
