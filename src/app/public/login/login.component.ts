@@ -45,10 +45,12 @@ export class LoginComponent implements OnInit {
         })
       } else {
         console.log('something null or undefined in login oninit')
+        this.store.setLoading(false)
       }
     } catch(err){
       console.log('error during oninit login')
       console.log(err)
+      this.store.setLoading(false)
     }
   }
 }
