@@ -14,7 +14,9 @@ import { UserProfileStateService } from 'src/app/services/user-profile-state.ser
 })
 export class LoginComponent implements OnInit {
   public loading$: Observable<boolean> = this.store.select(x=>x.loading);
-
+  public loadingTitle: string = 'Welcome back!';
+  public loadingSubtitle: string = 'Redirecting you to the lobby.'
+  
   constructor(
     private stateService: UserProfileStateService, 
     private apiService: UserProfileApiService,

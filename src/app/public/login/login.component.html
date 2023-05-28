@@ -1,5 +1,7 @@
 <div *ngIf="(loading$ | async)" class="container-auth h-100">
-  <app-loading title="Welcome back!" subtitle="Redirecting you to the lobby."></app-loading>
+  <app-loading 
+    [title]="loadingTitle"
+    [subtitle]="loadingSubtitle"></app-loading>
 </div>
 <div *ngIf="!(loading$ | async)" class=" container-auth h-100">
   <div class="container-fluid body-content h-100">
