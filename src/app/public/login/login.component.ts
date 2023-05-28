@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { isNullOrUndefined } from 'src/app/app.component';
 import { AppStore } from 'src/app/app.store';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
@@ -12,6 +13,7 @@ import { UserProfileStateService } from 'src/app/services/user-profile-state.ser
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  public loading$: Observable<boolean> = this.store.select(x=>x.loading);
 
   constructor(
     private stateService: UserProfileStateService, 
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
   async ngOnInit() {
     console.log("public login oninit")
+    this.store.setLoading(true);
     try {
       var cognitoId = await this.authService.getCognitoId();
       var cognitoName = await this.authService.getCognitoName();

@@ -1,6 +1,6 @@
 import { ComponentStore, OnStateInit, OnStoreInit } from "@ngrx/component-store";
 import { UserProfileDetails } from "./shared/models/user-profile-details.model";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { WebSocketService } from "./infrastructure/websocket/websocket.service";
 import { WebSocketActions } from "./infrastructure/websocket/websocket.actions.enum";
 import { Injectable } from "@angular/core";
@@ -23,6 +23,7 @@ export class AppStore extends ComponentStore<AppState> implements OnStoreInit {
             console.log('got user profile message in ngrxOnStoreInit', x.message);
             this.setProfile(x.message as UserProfileDetails);
             this.userProfileService.currentUserProfileDetails = x.message as UserProfileDetails;
+            this.setLoading(false);
           }
           break;
       }
@@ -32,7 +33,9 @@ export class AppStore extends ComponentStore<AppState> implements OnStoreInit {
   readonly loading$: Observable<boolean> = this.select(x => x.loading);
   readonly profile$: Observable<UserProfileDetails | null> = this.select(x => x.profile);
 
+  readonly setLoading = this.updater((state, value: boolean) => ({...state, loading: value}));
   readonly setProfile = this.updater((state, value: UserProfileDetails) => ({ ...state, profile: value }));
+
   patchProfileState(newProfileValues: any) {
     this.patchState((state) => ({
       profile: { ...state.profile, ...newProfileValues }
