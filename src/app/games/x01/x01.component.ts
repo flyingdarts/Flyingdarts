@@ -43,8 +43,7 @@ export class X01Component implements OnInit {
   async ngOnInit() {
 
     this.gameId = this.route.snapshot.paramMap.get('id')!;
-    this.clientId = await this.authService.getCognitoId();
-
+    this.clientId = this.userProfileService.currentUserProfileDetails.UserId!;
     this.componentStore.setState(initialX01State);
 
     this.webSocketService.connected$.subscribe((connected) => {
