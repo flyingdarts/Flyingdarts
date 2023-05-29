@@ -68,11 +68,11 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  async updateProfile() {
+  updateProfile() {
     if (this.profileForm.valid) {
       this.loadingTitle = "Updating your profile";
       this.apiService.updateUserProfile(
-        await this.authService.getCognitoName(),
+        this.userProfileService.currentUserProfileDetails.UserId!,
         this.profileForm.value.email,
         this.profileForm.value.userName,
         this.profileForm.value.country);

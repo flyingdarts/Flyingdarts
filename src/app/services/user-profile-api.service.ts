@@ -37,9 +37,9 @@ export class UserProfileApiService {
     this.webSocketMessagingService.sendMessage(JSON.stringify(body));
   }
 
-  public updateUserProfile(cognitoUserId: string, email: string, userName: string, country: string): void {
+  public updateUserProfile(userId: string, email: string, userName: string, country: string): void {
     var message: UpdateUserProfileCommand = {
-      CognitoUserId: cognitoUserId,
+      UserId: userId,
       UserName: userName,
       Email: email,
       Country: country

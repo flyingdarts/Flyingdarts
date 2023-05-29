@@ -1,6 +1,6 @@
 
 export interface UpdateUserProfileCommand {
-  CognitoUserId: string;
+  UserId: string;
   UserName: string;
   Email: string;
   Country: string;
