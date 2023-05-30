@@ -5,10 +5,11 @@ import { WebSocketMessage } from './../infrastructure/websocket/websocket.messag
 import { CreateX01ScoreCommand } from './../requests/CreateX01ScoreCommand';
 import { JoinX01QueueCommand } from './../requests/JoinX01QueueCommand';
 import { JoinGameCommand } from './../requests/JoinGameCommand';
+import { WebSocketMessageService } from '../infrastructure/websocket/websocket-message.service';
 
 @Injectable({ providedIn: 'root' })
 export class X01ApiService {
-  constructor(private webSocketService: WebSocketService) {
+  constructor(private webSocketMessageService: WebSocketMessageService) {
 
   }
   public joinGame(gameId: string, playerId: string, playerName: string) {
@@ -23,7 +24,7 @@ export class X01ApiService {
         message: message
     };
     console.log(body);
-    this.webSocketService.postMessage(JSON.stringify(body));
+    this.webSocketMessageService.sendMessage(JSON.stringify(body));
   }
 
   public joinQueue(gamePlayerId: string, roomId?: string) {
@@ -37,7 +38,7 @@ export class X01ApiService {
       action: WebSocketActions.X01JoinQueue,
       message: message
     };
-    this.webSocketService.postMessage(JSON.stringify(body));
+    this.webSocketMessageService.sendMessage(JSON.stringify(body));
   }
 
   public score(gameId: string, playerId: string, score: number, input: number) {
@@ -51,6 +52,6 @@ export class X01ApiService {
       action: WebSocketActions.X01Score,
       message: message
     };
-    this.webSocketService.postMessage(JSON.stringify(body));
+    this.webSocketMessageService.sendMessage(JSON.stringify(body));
   }
 }

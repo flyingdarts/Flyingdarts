@@ -4,7 +4,7 @@ import { AmplifyAuthService } from './../../services/amplify-auth.service';
 import { UserProfileStateService } from './../../services/user-profile-state.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { WebSocketService } from "./../../infrastructure/websocket/websocket.service";
-import { AppStore } from 'src/app/app.store';
+import { isNullOrUndefined } from 'src/app/app.component';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -25,19 +25,16 @@ export class NavigationBarComponent implements OnInit {
     public router: Router,
     public amplifyAuthService: AmplifyAuthService, 
     public userProfileService: UserProfileStateService,
-    public webSocketService: WebSocketService,
-    private appStore: AppStore
+    public webSocketService: WebSocketService
   ) {
 
   }
 
   ngOnInit() {
-    this.appStore.profile$.subscribe(x=> {
-      this.isRegistered = x != null;
-      if (this.isRegistered)
-        this.userName = x!.UserName;
-    })
-
+   if (!isNullOrUndefined(this.userProfileService.currentUserProfileDetails.UserId)) {
+    this.isRegistered = true;
+    this.userName = this.userProfileService.currentUserProfileDetails.UserName;
+   }
   }
   
   title = 'flyingdarts';
