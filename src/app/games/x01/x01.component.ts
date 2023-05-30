@@ -68,12 +68,12 @@ export class X01Component implements OnInit {
     });
   }
   private handleMetadata(data: any) { 
-    if (!isNullOrUndefined(data.Metadata)) {
+    console.log('handling metadata');
+    if (!isNullOrUndefined(data.metadata)) {
       var message = (data.message as JoinGameCommand);
-      if (message.PlayerId == this.clientId) {
-        var currentPlayers = (message.Metadata["CurrentPlayers"] as JoinGameCommand[])
-        console.log(currentPlayers);
-      }
+      var currentPlayers = (data.metadata["CurrentPlayers"] as JoinGameCommand[])
+      console.log('message', message);
+      console.log('current players', currentPlayers);
     }
   }
   private onJoinRoomCommand(message: JoinGameCommand) {
