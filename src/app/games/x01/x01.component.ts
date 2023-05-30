@@ -59,12 +59,22 @@ export class X01Component implements OnInit {
         case WebSocketActions.X01Join:
           console.log(x.message as JoinGameCommand);
           this.onJoinRoomCommand(x.message as JoinGameCommand);
+          this.handleMetadata(x);
           break;
         case WebSocketActions.X01Score:
           this.onScoreCommand(x.message as CreateX01ScoreCommand);
           break;
       }
     });
+  }
+  private handleMetadata(data: any) { 
+    if (!isNullOrUndefined(data.Metadata)) {
+      var message = (data.message as JoinGameCommand);
+      if (message.PlayerId == this.clientId) {
+        var currentPlayers = (message.Metadata["CurrentPlayers"] as JoinGameCommand[])
+        console.log(currentPlayers);
+      }
+    }
   }
   private onJoinRoomCommand(message: JoinGameCommand) {
     this.componentStore.setLoading(false);
@@ -77,13 +87,7 @@ export class X01Component implements OnInit {
       ? this.componentStore.setPlayerName(message.PlayerName)
       : this.componentStore.setOpponentName(message.PlayerName)
 
-    if (!isNullOrUndefined(message.Metadata)) {
-      console.log("got metadata", message.Metadata);
-      if (message.PlayerId == this.clientId) {
-        var currentPlayers = (message.Metadata["CurrentPlayers"] as JoinGameCommand[])
-        console.log(currentPlayers);
-      }
-    }
+    
   }
 
   private onScoreCommand(message: CreateX01ScoreCommand) {
