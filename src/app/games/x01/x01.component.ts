@@ -57,9 +57,8 @@ export class X01Component implements OnInit {
     this.webSocketService.getMessages().subscribe((x) => {
       switch (x.action) {
         case WebSocketActions.X01Join:
-          console.log(x.message as JoinGameCommand);
           this.onJoinRoomCommand(x.message as JoinGameCommand);
-          this.handleMetadata(x);
+          this.handleMetadata(x.message as JoinGameCommand);
           break;
         case WebSocketActions.X01Score:
           this.onScoreCommand(x.message as CreateX01ScoreCommand);
@@ -67,19 +66,15 @@ export class X01Component implements OnInit {
       }
     });
   }
-  private handleMetadata(data: any) { 
-    console.log('handling metadata', data);
-    var metadata = JSON.parse(data.metadata);
+  private handleMetadata(data: JoinGameCommand) { 
+    var metadata = JSON.parse(data.Metadata);
     if (!isNullOrUndefined(metadata)) {
-      var message = (data.message as JoinGameCommand);
       var currentPlayers = (metadata.CurrentPlayers as JoinGameCommand[])
-      console.log('message', message);
       console.log('current players', currentPlayers);
-
       for(var i = 0; i < currentPlayers.length; i++) {
         currentPlayers[i].PlayerId == this.clientId
-          ? this.componentStore.setPlayerName(message.PlayerName)
-          : this.componentStore.setOpponentName(message.PlayerName)
+          ? this.componentStore.setPlayerName(currentPlayers[i].PlayerName)
+          : this.componentStore.setOpponentName(currentPlayers[i].PlayerName)
       }
     }
   }
