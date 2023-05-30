@@ -7,12 +7,16 @@ import { WebSocketRequest } from './websocket.request.model';
 
 @Injectable({ providedIn: 'root' })
 export class WebSocketService<T = WebSocketRequest> {
-  private socket: WebSocket;
+  private socket!: WebSocket;
   private connectedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public connected$: Observable<boolean> = this.connectedSubject.asObservable();
   private messages = new Subject<WebSocketMessage<T>>();
 
   constructor() {
+    this.initialize();
+  }
+
+  private initialize(): void {
     this.socket = new WebSocket(environment.webSocketUrl);
     this.connect();
   }
@@ -31,7 +35,7 @@ export class WebSocketService<T = WebSocketRequest> {
       console.log('disconnected from the websocket server');
       setTimeout(() => {
         console.log('attempting to re-establish connection with the websocket server');
-        this.connect();
+        this.initialize();
       }, 1000);
     };
 
