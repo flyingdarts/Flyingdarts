@@ -72,6 +72,9 @@ export class X01Component implements OnInit {
     if (!isNullOrUndefined(data.metadata)) {
       var message = (data.message as JoinGameCommand);
       var currentPlayers = (data.metadata["CurrentPlayers"] as JoinGameCommand[])
+      console.log('message', message);
+      console.log('current players', currentPlayers);
+      
       for(var i = 0; i < currentPlayers.length; i++) {
         currentPlayers[i].PlayerId == this.clientId
           ? this.componentStore.setPlayerName(message.PlayerName)
