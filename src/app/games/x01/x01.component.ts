@@ -101,9 +101,16 @@ export class X01Component implements OnInit {
   }
 
   public sendScore() {
-    this.componentStore.setLoading(true);
+    this.componentStore.setLoading(true);    
     this.componentStore.playerScore$.pipe(first()).subscribe(score => {
-      this.x01ApiService.score(this.gameId!, this.clientId!, score - this.input.Sum, this.input.Sum)
+      const newScore = score - this.input.Sum;
+      
+      if (newScore >= 0) {
+        this.x01ApiService.score(this.gameId!, this.clientId!, newScore, this.input.Sum);
+      } else {
+        // Handle invalid score here (e.g., show an error message)
+        console.log('Invalid score: Cannot go below 0');
+      }
     });
   }
 
