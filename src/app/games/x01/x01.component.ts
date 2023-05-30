@@ -67,7 +67,7 @@ export class X01Component implements OnInit {
     });
   }
   private handleMetadata(data: JoinGameCommand) { 
-    var metadata = JSON.parse(data.Metadata);
+    var metadata = data.Metadata;
     if (!isNullOrUndefined(metadata)) {
       var currentPlayers = (metadata.CurrentPlayers as JoinGameCommand[])
       console.log('current players', currentPlayers);
