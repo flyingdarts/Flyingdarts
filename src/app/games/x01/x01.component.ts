@@ -13,6 +13,7 @@ import { X01ApiService } from 'src/app/services/x01-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
+import { isNullOrUndefined } from 'src/app/app.component';
 
 
 @Component({
@@ -75,6 +76,14 @@ export class X01Component implements OnInit {
     message.PlayerId == this.clientId
       ? this.componentStore.setPlayerName(message.PlayerName)
       : this.componentStore.setOpponentName(message.PlayerName)
+
+    if (!isNullOrUndefined(message.Metadata)) {
+      console.log("got metadata", message.Metadata);
+      if (message.PlayerId == this.clientId) {
+        var currentPlayers = (message.Metadata["CurrentPlayers"] as JoinGameCommand[])
+        console.log(currentPlayers);
+      }
+    }
   }
 
   private onScoreCommand(message: CreateX01ScoreCommand) {
