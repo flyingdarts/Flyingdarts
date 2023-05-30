@@ -28,7 +28,11 @@ export class WebSocketService<T = WebSocketRequest> {
       console.log(event);
       this.connectedSubject.next(false);
       this.messages.next({ action: WebSocketActions.Disconnect, message: event as any });
-      setTimeout(() => this.connect(), 1000);
+      console.log('disconnected from the websocket server');
+      setTimeout(() => {
+        console.log('attempting to re-establish connection with the websocket server');
+        this.connect();
+      }, 1000);
     };
 
     this.socket.onerror = (event) => {
