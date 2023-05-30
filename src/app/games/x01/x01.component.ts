@@ -68,13 +68,14 @@ export class X01Component implements OnInit {
     });
   }
   private handleMetadata(data: any) { 
-    console.log('handling metadata');
-    if (!isNullOrUndefined(data.metadata)) {
+    console.log('handling metadata', data);
+    var metadata = JSON.parse(data.metadata);
+    if (!isNullOrUndefined(metadata)) {
       var message = (data.message as JoinGameCommand);
-      var currentPlayers = (data.metadata["CurrentPlayers"] as JoinGameCommand[])
+      var currentPlayers = (metadata.CurrentPlayers as JoinGameCommand[])
       console.log('message', message);
       console.log('current players', currentPlayers);
-      
+
       for(var i = 0; i < currentPlayers.length; i++) {
         currentPlayers[i].PlayerId == this.clientId
           ? this.componentStore.setPlayerName(message.PlayerName)
