@@ -32,13 +32,9 @@ export class NavigationBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userProfileService.currentUserProfileDetails);
-    this.isRegistered = this.userProfileService.currentUserProfileDetails != null;
-    this.userName = this.userProfileService.currentUserProfileDetails.UserName!;
-    console.log(this.isRegistered, this.userName)
     this.appStore.profile$.subscribe(x=> {
-      console.log(x);
-      if (this.isRegistered && x != null)
+      this.isRegistered = x != null;
+      if (this.isRegistered)
         this.userName = x!.UserName;
     })
 

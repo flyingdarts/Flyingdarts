@@ -9,6 +9,8 @@ import { MessageRequest } from './../infrastructure/websocket/websocket.request.
 import { WebSocketStatus } from './../infrastructure/websocket/websocket.status.enum';
 import { X01ApiService } from './../services/x01-api.service';
 import { JoinX01QueueCommand } from './../requests/JoinX01QueueCommand';
+import { AppStore } from '../app.store';
+import { UserProfileStateService } from '../services/user-profile-state.service';
 const { v4: uuidv4 } = require('uuid');
 
 @Component({
@@ -29,11 +31,12 @@ export class LobbyComponent implements OnInit {
     message: new FormControl(''),
   });
   constructor(
+    private userProfileService: UserProfileStateService,
     private x01ApiService: X01ApiService,
     private router: Router,
     private webSocketService: WebSocketService
   ) {
-    this.clientId = uuidv4();
+    
   }
 
   ngOnInit(): void {
@@ -54,6 +57,8 @@ export class LobbyComponent implements OnInit {
         break;
       }
     })
+
+    this.clientId = this.userProfileService.currentUserProfileDetails.UserId!;
   }
 
   public joinX01Queue() {
