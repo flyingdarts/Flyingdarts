@@ -87,9 +87,21 @@ export class X01Component implements OnInit {
     this.componentStore.setPlayerScore(message.Game!.X01.StartingScore);
     this.componentStore.setOpponentScore(message.Game!.X01.StartingScore);
 
-    message.PlayerId == this.clientId
-      ? this.componentStore.setPlayerName(message.PlayerName)
-      : this.componentStore.setOpponentName(message.PlayerName);
+    if (message.PlayerId == this.clientId) {
+      this.componentStore.setPlayerName(message.PlayerName);
+      if (!isNullOrUndefined(message.History)) {
+        this.componentStore.setPlayerHistory(
+          message.History![message.PlayerId].History
+        );
+      }
+    } else {
+      this.componentStore.setOpponentName(message.PlayerName);
+      if (!isNullOrUndefined(message.History)) {
+        this.componentStore.setOpponentHistory(
+          message.History![message.PlayerId].History
+        );
+      }
+    }
   }
 
   private onScoreCommand(message: CreateX01ScoreCommand) {
@@ -107,7 +119,7 @@ export class X01Component implements OnInit {
       );
     }
     this.firstToThrow = message.NextToThrow;
-    
+
     this.resetScore();
   }
 

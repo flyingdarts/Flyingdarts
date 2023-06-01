@@ -7,6 +7,7 @@ export interface JoinGameCommand extends WebSocketRequest {
   PlayerName: string;
   Metadata?: any;
   FirstToThrow?: string;
+  History?: any;
 }
 
 export interface Game {
