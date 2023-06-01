@@ -32,7 +32,7 @@ export class X01Component implements OnInit {
 
   public clientId?: string;
   public firstToThrow?: string;
-
+  public shouldDisableInput: boolean = false;
   constructor(
     private componentStore: X01Store,
     private webSocketService: WebSocketService,
@@ -78,6 +78,7 @@ export class X01Component implements OnInit {
       }
 
       this.firstToThrow = metadata.FirstToThrow;
+      this.shouldDisableInput = this.firstToThrow == this.clientId;
     }
   }
   private onJoinRoomCommand(message: JoinGameCommand) {
@@ -119,6 +120,7 @@ export class X01Component implements OnInit {
       );
     }
     this.firstToThrow = message.NextToThrow;
+    this.shouldDisableInput = this.firstToThrow == this.clientId;
 
     this.resetScore();
   }
