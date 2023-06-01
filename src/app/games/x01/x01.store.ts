@@ -36,8 +36,8 @@ export class X01Store extends ComponentStore<X01State> {
   readonly setPlayerScore = this.updater((state, value: number) => ({ ...state, player: { ...state.player, score: value } }))
   readonly setOpponentScore = this.updater((state, value: number) => ({ ...state, opponent: { ...state.opponent, score: value } }))
   
-  readonly setPlayerHistory = this.updater((state, value: number[]) => ({ ...state, player: { ...state.player, history: value }}))
-  readonly setOpponentHistory = this.updater((state, value: number[]) => ({ ...state, opponent: { ...state.opponent, history: value }}))
+  readonly setPlayerHistory = this.updater((state, value: number[]) => ({ ...state, player: { ...state.player, scores: value }}))
+  readonly setOpponentHistory = this.updater((state, value: number[]) => ({ ...state, opponent: { ...state.opponent, scores: value }}))
 
   readonly setPlayerName = this.updater((state, value: string) => ({ ...state, player: { ...state.player, name: value }}))
   readonly setOpponentName = this.updater((state, value: string) => ({ ...state, opponent: { ...state.opponent, name: value }}))

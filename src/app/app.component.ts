@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
     private store: Store) {
     this.currentVersion = packageJson.version;
   }
+  
   ngOnInit() {
     this.store.dispatch(AuthActions.listenForAuthEvents());
   }
@@ -32,7 +33,6 @@ export class AppComponent implements OnInit {
   }
 
   title = 'Flyingdarts';
-
 }
 export function isNullOrUndefined(value: any): boolean {
   return value == null || value == undefined
