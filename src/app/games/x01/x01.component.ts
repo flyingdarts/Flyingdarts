@@ -29,7 +29,9 @@ export class X01Component implements OnInit {
   );
 
   private gameId?: string;
-  private clientId?: string;
+  
+  public clientId?: string;
+  public firstToThrow?: string;
 
   constructor(
     private componentStore: X01Store,
@@ -86,6 +88,8 @@ export class X01Component implements OnInit {
     message.PlayerId == this.clientId
       ? this.componentStore.setPlayerName(message.PlayerName)
       : this.componentStore.setOpponentName(message.PlayerName);
+
+    this.firstToThrow = message.FirstToThrow;
   }
 
   private onScoreCommand(message: CreateX01ScoreCommand) {
