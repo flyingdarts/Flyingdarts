@@ -10,8 +10,7 @@ export class DartboardComponent implements OnInit {
   @Output() targetPressedEvent = new EventEmitter<number>();
   private dartboardWidth: number = 1400;
   private dartboardHeight: number = 1400;
-  
-  @Input() isDisabled: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {

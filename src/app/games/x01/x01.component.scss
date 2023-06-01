@@ -1,5 +1,8 @@
 @import './../../../colors.scss';
 
+.dartboard-disabled { 
+    opacity: 0.5;
+}
 .btn-total {
     font-size: 20px;
     font-weight: 500;
