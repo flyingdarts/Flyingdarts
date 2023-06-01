@@ -106,6 +106,8 @@ export class X01Component implements OnInit {
         message.History![message.PlayerId].History
       );
     }
+    this.firstToThrow = message.NextToThrow;
+    
     this.resetScore();
   }
 

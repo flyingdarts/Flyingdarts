@@ -7,4 +7,5 @@ export interface CreateX01ScoreCommand extends WebSocketRequest {
   Score: number;
   Input: number;
   History?: any;
+  NextToThrow?: string;
 }
