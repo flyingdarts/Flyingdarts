@@ -29,7 +29,7 @@ export class X01Component implements OnInit {
   );
 
   private gameId?: string;
-  
+
   public clientId?: string;
   public firstToThrow?: string;
 
@@ -76,6 +76,8 @@ export class X01Component implements OnInit {
           ? this.componentStore.setPlayerName(currentPlayers[i].PlayerName)
           : this.componentStore.setOpponentName(currentPlayers[i].PlayerName);
       }
+
+      this.firstToThrow = metadata.FirstToThrow;
     }
   }
   private onJoinRoomCommand(message: JoinGameCommand) {
@@ -88,8 +90,6 @@ export class X01Component implements OnInit {
     message.PlayerId == this.clientId
       ? this.componentStore.setPlayerName(message.PlayerName)
       : this.componentStore.setOpponentName(message.PlayerName);
-
-    this.firstToThrow = message.FirstToThrow;
   }
 
   private onScoreCommand(message: CreateX01ScoreCommand) {
@@ -97,11 +97,14 @@ export class X01Component implements OnInit {
 
     if (message.PlayerId == this.clientId) {
       this.componentStore.setPlayerScore(message.Score);
-      this.componentStore.setPlayerHistory(message.History![message.PlayerId].History)
+      this.componentStore.setPlayerHistory(
+        message.History![message.PlayerId].History
+      );
     } else {
       this.componentStore.setOpponentScore(message.Score);
-      this.componentStore.setOpponentHistory(message.History![message.PlayerId].History)
-
+      this.componentStore.setOpponentHistory(
+        message.History![message.PlayerId].History
+      );
     }
     this.resetScore();
   }
