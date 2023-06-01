@@ -1,6 +1,4 @@
-import {
-  Component, OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { X01State, initialX01State } from './x01.state';
 import { X01Store } from './x01.store';
 import { Observable, first } from 'rxjs';
@@ -15,19 +13,20 @@ import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 import { isNullOrUndefined } from 'src/app/app.component';
 
-
 @Component({
   selector: 'app-x01',
   templateUrl: './x01.component.html',
   styleUrls: ['./x01.component.scss'],
-  providers: [X01Store]
+  providers: [X01Store],
 })
 export class X01Component implements OnInit {
-  public title: string = "";
+  public title: string = '';
 
   public input: X01Input = new X01Input(0, [0, 0, 0]);
 
-  public vm$: Observable<X01State> = this.componentStore.select(state => state);
+  public vm$: Observable<X01State> = this.componentStore.select(
+    (state) => state
+  );
 
   private gameId?: string;
   private clientId?: string;
@@ -38,22 +37,21 @@ export class X01Component implements OnInit {
     private authService: AmplifyAuthService,
     private x01ApiService: X01ApiService,
     private route: ActivatedRoute,
-    private userProfileService: UserProfileStateService) {
-  }
+    private userProfileService: UserProfileStateService
+  ) {}
 
   async ngOnInit() {
-
     this.gameId = this.route.snapshot.paramMap.get('id')!;
     this.clientId = this.userProfileService.currentUserProfileDetails.UserId!;
     this.componentStore.setState(initialX01State);
 
     this.webSocketService.connected$.subscribe((connected) => {
       if (connected) {
-        this.userProfileService.userName$.subscribe(userName => {
-          this.x01ApiService.joinGame(this.gameId!, this.clientId!, userName)
-        })
+        this.userProfileService.userName$.subscribe((userName) => {
+          this.x01ApiService.joinGame(this.gameId!, this.clientId!, userName);
+        });
       }
-    })
+    });
     this.webSocketService.getMessages().subscribe((x) => {
       switch (x.action) {
         case WebSocketActions.X01Join:
@@ -66,15 +64,15 @@ export class X01Component implements OnInit {
       }
     });
   }
-  private handleMetadata(data: JoinGameCommand) { 
+  private handleMetadata(data: JoinGameCommand) {
     var metadata = data.Metadata;
     if (!isNullOrUndefined(metadata)) {
-      var currentPlayers = (metadata.CurrentPlayers as JoinGameCommand[])
+      var currentPlayers = metadata.CurrentPlayers as JoinGameCommand[];
       console.log('current players', currentPlayers);
-      for(var i = 0; i < currentPlayers.length; i++) {
+      for (var i = 0; i < currentPlayers.length; i++) {
         currentPlayers[i].PlayerId == this.clientId
           ? this.componentStore.setPlayerName(currentPlayers[i].PlayerName)
-          : this.componentStore.setOpponentName(currentPlayers[i].PlayerName)
+          : this.componentStore.setOpponentName(currentPlayers[i].PlayerName);
       }
     }
   }
@@ -82,31 +80,40 @@ export class X01Component implements OnInit {
     this.componentStore.setLoading(false);
     this.title = `Best of ${message.Game!.X01.Sets}/${message.Game!.X01.Legs}`;
 
-    this.componentStore.setPlayerScore(message.Game!.X01.StartingScore)
-    this.componentStore.setOpponentScore(message.Game!.X01.StartingScore)
+    this.componentStore.setPlayerScore(message.Game!.X01.StartingScore);
+    this.componentStore.setOpponentScore(message.Game!.X01.StartingScore);
 
     message.PlayerId == this.clientId
       ? this.componentStore.setPlayerName(message.PlayerName)
-      : this.componentStore.setOpponentName(message.PlayerName)
+      : this.componentStore.setOpponentName(message.PlayerName);
   }
 
   private onScoreCommand(message: CreateX01ScoreCommand) {
     this.componentStore.setLoading(false);
 
-    message.PlayerId == this.clientId
-      ? this.componentStore.setPlayerScore(message.Score)
-      : this.componentStore.setOpponentScore(message.Score)
+    if (message.PlayerId == this.clientId) {
+      this.componentStore.setPlayerScore(message.Score);
+      this.componentStore.setPlayerHistory(message.History![message.PlayerId].History)
+    } else {
+      this.componentStore.setOpponentScore(message.Score);
+      this.componentStore.setOpponentHistory(message.History![message.PlayerId].History)
 
+    }
     this.resetScore();
   }
 
   public sendScore() {
-    this.componentStore.setLoading(true);    
-    this.componentStore.playerScore$.pipe(first()).subscribe(score => {
+    this.componentStore.setLoading(true);
+    this.componentStore.playerScore$.pipe(first()).subscribe((score) => {
       const newScore = score - this.input.Sum;
-      
+
       if (newScore >= 0) {
-        this.x01ApiService.score(this.gameId!, this.clientId!, newScore, this.input.Sum);
+        this.x01ApiService.score(
+          this.gameId!,
+          this.clientId!,
+          newScore,
+          this.input.Sum
+        );
       } else {
         // Handle invalid score here (e.g., show an error message)
         console.log('Invalid score: Cannot go below 0');
@@ -122,4 +129,3 @@ export class X01Component implements OnInit {
     this.input.next(input);
   }
 }
-
