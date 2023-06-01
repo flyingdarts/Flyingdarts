@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TweenMax } from 'gsap';
 
 @Component({
@@ -10,7 +10,8 @@ export class DartboardComponent implements OnInit {
   @Output() targetPressedEvent = new EventEmitter<number>();
   private dartboardWidth: number = 1400;
   private dartboardHeight: number = 1400;
-
+  
+  @Input() isDisabled: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
