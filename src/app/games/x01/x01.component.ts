@@ -31,8 +31,8 @@ export class X01Component implements OnInit {
   private gameId?: string;
 
   public clientId?: string;
-  public firstToThrow?: string;
   public shouldDisableInput: boolean = false;
+  
   constructor(
     private componentStore: X01Store,
     private webSocketService: WebSocketService,
@@ -76,9 +76,6 @@ export class X01Component implements OnInit {
           ? this.componentStore.setPlayerName(currentPlayers[i].PlayerName)
           : this.componentStore.setOpponentName(currentPlayers[i].PlayerName);
       }
-
-      this.firstToThrow = metadata.FirstToThrow;
-      this.shouldDisableInput = this.firstToThrow == this.clientId;
     }
   }
   private onJoinRoomCommand(message: JoinGameCommand) {
@@ -119,8 +116,7 @@ export class X01Component implements OnInit {
         message.History![message.PlayerId].History
       );
     }
-    this.firstToThrow = message.NextToThrow;
-    this.shouldDisableInput = this.firstToThrow == this.clientId;
+    this.shouldDisableInput = message.PlayerId == this.clientId;
 
     this.resetScore();
   }
@@ -137,6 +133,7 @@ export class X01Component implements OnInit {
           newScore,
           this.input.Sum
         );
+        this.shouldDisableInput = true;
       } else {
         // Handle invalid score here (e.g., show an error message)
         console.log('Invalid score: Cannot go below 0');
