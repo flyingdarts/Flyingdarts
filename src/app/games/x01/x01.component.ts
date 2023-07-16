@@ -89,14 +89,14 @@ export class X01Component implements OnInit {
       this.componentStore.setPlayerName(message.PlayerName);
       if (!isNullOrUndefined(message.History)) {
         this.componentStore.setPlayerHistory(
-          message.History![message.PlayerId].History
+          message.History![message.PlayerId]
         );
       }
     } else {
       this.componentStore.setOpponentName(message.PlayerName);
       if (!isNullOrUndefined(message.History)) {
         this.componentStore.setOpponentHistory(
-          message.History![message.PlayerId].History
+          message.History![message.PlayerId]
         );
       }
     }
@@ -108,12 +108,12 @@ export class X01Component implements OnInit {
     if (message.PlayerId == this.clientId) {
       this.componentStore.setPlayerScore(message.Score);
       this.componentStore.setPlayerHistory(
-        message.History![message.PlayerId].History
+        message.History![message.PlayerId]
       );
     } else {
       this.componentStore.setOpponentScore(message.Score);
       this.componentStore.setOpponentHistory(
-        message.History![message.PlayerId].History
+        message.History![message.PlayerId]
       );
     }
     this.shouldDisableInput = message.PlayerId == this.clientId;
