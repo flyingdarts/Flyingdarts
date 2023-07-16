@@ -47,9 +47,11 @@
     justify-content: space-between;
 
     .footer-copy {
-        
         height: fit-content;
         align-self: center;
+        color: #E5E5E5;
+        font-size: 20px;
+        font-weight: 400 !important;
     }
 
     p {
@@ -77,9 +79,15 @@
         margin-left: 20px;
     }
 }
-
+.card {
+    border: none !important;
+}
 .card-body {
     margin: 0;
     padding: 0;
     border: none;
+}
+
+.card-footer {
+
 }

@@ -6,8 +6,23 @@ body {
     height: 100vh !important;
     padding: 20px !important;
     margin: 0 !important;
+    background-color: #252D49;
+}
+.arrow-background-light {
+    background-image: url('assets/images/arrow_background_light.svg');
+}
+.arrow-background-dark {
+    background-image: url('assets/images/arrow_background_dark.svg');
+}
+.arrow-background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
+.card {
+    background: none;
+}
 $input-bg: white;
 $body-bg: unset;
 
@@ -185,30 +200,31 @@ amplify-slot[name='force-new-password-header'] .amplify-heading {
 
 .federated-sign-in-container {
     padding-bottom: 0;
+    justify-content: center;
+
 }
 
 
 .federated-sign-in-button {
     background: white;
     border-width: 1px;
-    border-radius: 4px;
-    margin: 0;
-    width: 100%;
-    height: 40px;
+    border-radius: 10px;
+    margin: 0 auto;
+    height: 50px;
+    width: 90%;
     display: flex;
-    justify-content: center;
     align-items: center;
     text-decoration: none;
     text-align: center;
-    padding: 0px 20px;
-
+    path {
+        opacity: 1 !important;
+    }
     .federated-sign-in-button-row {
         align-items: center;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         height: 40px;
-        display: flex;
 
         svg {
             height: 16px;
@@ -217,7 +233,6 @@ amplify-slot[name='force-new-password-header'] .amplify-heading {
         p {
             padding: 0;
             margin: 0;
-            margin-left: 16px;
         }
     }
 }

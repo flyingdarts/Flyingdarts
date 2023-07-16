@@ -9,7 +9,7 @@ import { LoginGuard } from '../guards/login.guard';
 const routes: Routes = [
   {
     path: '',
-    component: LeaderboardComponent
+    component: LoginComponent
   },
   {
     path: 'login',
