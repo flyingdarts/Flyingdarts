@@ -74,9 +74,21 @@ a {
 }
 
 .room-number-input {
-     
-}
+     border: 1px solid white;
+     border-radius: 10px;
+     background-color:#4c56c0;
+     color: white;
+     /* Set the color of the placeholder text to white */
 
+}
+::placeholder {
+    color: white;
+  }
+  
+  /* Center the placeholder text horizontally */
+  input[type="text"] {
+    text-align: center;
+  }
 .create-room-button {
     background-color: #7B81D8;
     color: white;
