@@ -1,430 +1,85 @@
 @import './../../colors.scss';
-h1,
-h2,
-p,
-span {
-    padding: 0;
-    margin: 0;
-}
-
-h1 {}
-
-h2 {
-    color: black;
-    padding: 20px;
-}
-
-.row {
-    margin: 0;
-    padding: 0;
-}
-
-.loading-hidden {
-    display: none !important;
-}
-
-.loading-div {
-    position: absolute;
-    display: block;
-    height: 100%;
-    left: 0;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: radial-gradient(#4c56c0, transparent);
-}
-
-.lobby-card-inner:first {
-    margin-left: 20px;
-}
-
-.lobby-container {
-    height: 60%;
+h1 {
     text-align: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-
-    .lobby-game-modes {
-        height: 100%;
-
-        div:hover {
-            cursor: pointer;
-        }
-
-        .lobby-card-inner {
-            height: 100%;
-            display: flex !important;
-            width: 100%;
-        }
-
-        .lobby-card {
-            background-color: #4C56C0;
-            background-repeat: no-repeat;
-            background-size: 95%;
-            background-position-y: bottom;
-            background-position-x: center;
-            background-size: contain;
-            padding: 20px;
-            border-radius: 10px !important;
-            justify-content: end;
-            width: 100%;
-
-            p {
-                font-size: 2em;
-                font-weight: 600;
-                color: white;
-                font-size-adjust: 0.5;
-            }
-
-            .my-room-form-label {
-                font-size: 1.6em;
-                font-weight: 600;
-                color: white;
-                font-size-adjust: 0.5;
-            }
-
-            .my-room-form-label-tiny {
-                font-size: 1em;
-                font-weight: 200;
-                color: #4C56C0;
-                font-size-adjust: 0.5;
-                padding: 0 10px;
-            }
-
-            .subtitle {
-                font-size: 24px;
-                font-weight: 300;
-            }
-
-            .lobby-card-content {
-                height: 140px;
-                width: 100%;
-                text-align: center;
-
-                svg {
-                    height: 140px;
-                    width: 140px;
-                }
-            }
-        }
-    }
+    margin-top: 50px;
+    margin-bottom: 40px;
 }
-
-ng-lottie {
-    svg {
-        height: 140px;
-        width: 140px;
-    }
-}
-
-.card-friends {
-    background-image: url('/assets/friends.svg');
-    margin-left: 20px;
-    margin-right: 10px;
+.flyingdarts-mobile-container {
+    color: white;
+    background: #4c56c0;
+    background-image: url('./../../assets/images/dartboard_icon_light.svg');
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: center;
+    background-size: 80%;
+    align-items: center;
+    padding: 0 20px !important;
+    align-self: center;
+    height: 60%;
+    align-content: center;
+    border-radius: 25px;
+    justify-content: space-between;
     display: flex;
-    justify-content: start !important;
-    .subtitle {
-        font-family: 'Poppins';
-        font-weight: 900;
-    }
-}
-
-.card-solo {
-    background-image: url('/assets/solo.svg');
-    background-position-x: right !important;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.card-question {
-    background-image: url('/assets/ideas.svg');
-    background-position-x: left !important;
-    margin-left: 10px;
+    flex-direction: column;
     margin-right: 20px;
 }
 
-.solo-beuter {
-    flex-direction: column;
-    text-align: left;
-
-    p {
-        font-weight: 200 !important;
-
-        strong {
-            font-weight: 700 !important;
-            color: $flyingdarts-secundary;
-        }
-    }
+.flyingdarts-login-main {
+    width: 100%;
 }
 
-/* Media Query for Mobile Devices */
-@media (max-width: 480px) {
-    h2 {
-        font-size: 0.8em;
-    }
-
-    .card {
-        height: 100% !important;
-    }
-
-    .lobby-container {
-        .lobby-game-modes {
-            height: auto;
-
-            .lobby-card {
-                width: calc(100% - 40px);
-
-                p {
-                    font-size: 1.2em;
-                    font-weight: 600;
-                    color: white;
-                    font-size-adjust: 0.5;
-                }
-
-                .subtitle {
-                    font-size: 0.8em;
-                    font-weight: 300;
-                }
-
-                .lobby-card-content {
-                    height: 100px;
-                    width: 100%;
-                    text-align: center;
-
-                    svg {
-                        height: 100px;
-                        width: 100px;
-                    }
-                }
-            }
-        }
-    }
-
-    .card-friends {
-        margin: 0 auto !important;
-    }
-
-    .card-solo {
-        margin: 0 auto !important;
-        
-    }
-
-    .card-question {
-        margin: 0 auto !important;
-    }
-    .chatbox-container {
-        padding-top: 0px !important;
-    }
+.flyingdarts-login-container {
+    height: 100%;
+    width: 100%;
+    padding-right: 20px;
+    justify-content: center;
 }
 
-/* Media Query for low resolution  Tablets, Ipads */
-@media (min-width: 481px) and (max-width: 767px) {
-    h2 {
-        font-size: 0.8em;
-    }
-
-    .lobby-container {
-        .lobby-game-modes {
-            .lobby-card {
-                width: calc(100% - 40px);
-
-                p {
-                    font-size: 1.6em;
-                    font-weight: 600;
-                    color: white;
-                    font-size-adjust: 0.5;
-                }
-
-                .subtitle {
-                    font-size: 24px;
-                    font-weight: 300;
-                }
-            }
-        }
-    }
-
-    .card-friends {
-        margin: 0 auto;
-    }
-
-    .card-solo {
-        margin: 0;
-        margin: 0 auto;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .card-question {
-        margin: 0;
-        margin: 0 auto;
-
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-}
-
-/* Media Query for Tablets Ipads portrait mode */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .lobby-container {
-        .lobby-game-modes {
-            .lobby-card {
-                p {
-                    font-size: 1.6em;
-                    font-weight: 600;
-                    color: white;
-                    font-size-adjust: 0.5;
-                }
-
-                .subtitle {
-                    font-size: 24px;
-                    font-weight: 300;
-                }
-            }
-        }
-    }
-
-    .card-friends {
-        margin: 0;
-        margin-left: 20px;
-        margin-right: 10px;
-    }
-
-    .card-solo {
-        margin: 0;
-        margin-right: 20px;
-        margin-left: 10px;
-    }
-
-    .card-question {
-        margin: 0;
-        margin-right: 20px;
-        margin-top: 20px;
-        margin-left: 20px;
-    }
-    .chatbox {
-        height: 400px !important;
-    }
-}
-
-/* Media Query for Laptops and Desktops */
-@media (min-width: 1025px) and (max-width: 1280px) {
-    .lobby-container {
-        .lobby-game-modes {
-            .lobby-card {
-                p {
-                    font-size: 1.4em;
-                    font-weight: 600;
-                    color: white;
-                    font-size-adjust: 0.5;
-                }
-
-                .subtitle {
-                    font-size: 1em;
-                    font-weight: 300;
-                }
-            }
-        }
-    }
-    .chatbox {
-        height: 310px !important;
-    }
-}
-
-/* Media Query for Large screens */
-@media (min-width: 1281px) {
-    .lobby-container {
-        .lobby-game-modes {
-            .lobby-card {
-                p {
-                    font-size: 1.6em;
-                    font-weight: 600;
-                    color: white;
-                    font-size-adjust: 0.5;
-                }
-
-                .subtitle {
-                    font-size: 24px;
-                    font-weight: 300;
-                }
-            }
-        }
-    }
-}
-
-p {
+.body-content {
     margin: 0;
     padding: 0;
 }
 
-textarea { 
-    resize: none;
-    height: 250px;
+.card {
+    border: none;
 }
-.chatbox-container {
+
+
+.card-body {
+    margin: 0;
+    padding: 0;
+    border: none;
+    margin-bottom: 15px;
+}
+.form-check {
+    margin: 0 40px;
+    margin-top: 20px;
+}
+.form-check-input:checked, .form-check-input:focus {
+    background-color: $flyingdarts-secundary;
+    border-color: $flyingdarts-secundary;
+    box-shadow: none;
+}
+
+a {
+    color: $flyingdarts-secundary;
+}
+
+.registration-step-create-account {
     display: flex;
     flex-direction: column;
-    height: -webkit-fill-available;
-    padding: 20px 20px 0px 20px;
-    margin: 0 20px;
-    width: -webkit-fill-available;
-    .chatbox-messages {
-        height: calc(100% - 40px);
-    }
-    .flyingdarts-primary-button {
-        width: 40px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        height: 40px;
-    }
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 
-.chatbox-status {
-    position: absolute;
-    width: 12px;
-    right: 0;
-    padding-right: 40px;
-}
-.chatbox {
-    padding: 20px;
-    background-color: #4C56C0;
-    height: -webkit-fill-available;
-    border-radius: 10px;
-    .chatbox-item {
-        margin: 5px 0;
-        color: white;
-        background-color: rgba(255, 255, 255, 0.2);
-        border: none;
-        width: fit-content;
-    }
+.room-number-input {
+     
 }
 
-
-.chatbox-send-message {
-    margin-top: 14px;
-    padding: 10px 20px;
-    color: rgba(255, 255, 255, 0.9);
+.create-room-button {
+    background-color: #7B81D8;
+    color: white;
     border: none;
-    background-image: url('./../../assets/endless-constellation.svg');
-}
-
-.badge {
-    height: 12px;
-    width: 12px;
-    border-radius: 6px;
-}
-
-.lobby-container-inner {
-    min-height: 250px;
-}
-
-.bg-unknown {
-    background-color: orange;
-}
-.bg-disconnected {
-    background-color: red;
-}
-.bg-connected {
-    background-color: greenyellow;
+    margin-top: 20px;
 }

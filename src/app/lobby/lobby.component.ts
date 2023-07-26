@@ -11,6 +11,7 @@ import { X01ApiService } from './../services/x01-api.service';
 import { JoinX01QueueCommand } from './../requests/JoinX01QueueCommand';
 import { AppStore } from '../app.store';
 import { UserProfileStateService } from '../services/user-profile-state.service';
+import { Observable } from 'rxjs';
 const { v4: uuidv4 } = require('uuid');
 
 @Component({
@@ -19,6 +20,8 @@ const { v4: uuidv4 } = require('uuid');
   styleUrls: ['./lobby.component.scss']
 })
 export class LobbyComponent implements OnInit {
+  public loading$: Observable<boolean> = this.store.select(x=>x.loading);
+
   public messages: MessageRequest[] = [];
   public webSocketStatus: WebSocketStatus = WebSocketStatus.Unknown
   public clientId: string = ""
@@ -34,7 +37,8 @@ export class LobbyComponent implements OnInit {
     private userProfileService: UserProfileStateService,
     private x01ApiService: X01ApiService,
     private router: Router,
-    private webSocketService: WebSocketService
+    private webSocketService: WebSocketService,
+    private store: AppStore
   ) {
     
   }

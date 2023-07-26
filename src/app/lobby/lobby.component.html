@@ -1,76 +1,25 @@
-<div class="h-100">
-    <div class="lobby-container container-fluid px-0">
-        <div class="lobby-game-modes row">
-            <div class="lobby-container-inner col-lg-3 col-md-6 col-sm-12 px-0 padding-bottom-5">
-                <div class="lobby-card-inner">
-                    <div class="lobby-card card card-friends">
-                        <p>Play with friends</p>
-                        <p class="subtitle">Try it out now!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="lobby-container-inner col-lg-3 col-md-6 col-sm-12 px-0 padding-bottom-5" (click)="joinX01Queue()">
-                <div class="lobby-card-inner">
-                    <div class="lobby-card card card-solo">
-                        <div class="lobby-card-content">
-                            <p>1v1</p>
-                        </div>
-                        <div class="d-flex w-100 solo-beuter">
-                            <p>Level: <strong>23</strong></p>
-                            <p>Average score: <strong>60</strong></p>
-                            <p>Highest checkout: <strong>139</strong></p>
-                            <p>Matches played: <strong>35</strong></p>
-                        </div>
-                        <div [class.loading-hidden]="shouldHideLoader" class="loading-div">
-                            <app-loading></app-loading>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="lobby-container-inner col-lg-6 col-md-12 col-sm-12 px-0 hide-mobile">
-                <div class="lobby-card-inner">
-                    <div class="lobby-card card card-question">
-                        <p class="form-label my-room-form-label">Let us know what you want next!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="chatbox-container col-lg-12 col-md-12 col-sm-12 px-0">
-                <div class="chatbox-status">
-                    <div [ngSwitch]="webSocketStatus">
-                        <span class="badge" [ngClass]="{
-                          'bg-unknown': webSocketStatus === 'WebSocket status unknown',
-                          'bg-connected': webSocketStatus === 'Connected.',
-                          'bg-disconnected': webSocketStatus === 'Lost connection to server.'
-                        }">&nbsp;</span>
-                    </div>
-                </div>
-                <div class="chatbox">
-                    <div class="chatbox-messages">
-                        <div *ngFor="let item of messages">
-                            <div class="d-flex"
-                                [ngClass]="{'justify-content-start': item.Owner === clientId, 'justify-content-end': item.Owner !== clientId}">
-                                <div class="form-control form-control-sm chatbox-item">
-                                    <div>
-                                        <p>{{item.Date | date: 'HH:mm'}}: {{item.Message}}</p>
-                                    </div>
+<div *ngIf="(loading$ | async)" class="container-auth h-100">
+    <app-loading></app-loading>
+</div>
+<div *ngIf="!(loading$ | async)" class=" container-auth h-100">
+    <div class="container-fluid body-content h-100">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="container-fluid px-0 h-100">
+                    <div class="flyingdarts-login-container d-flex">
+                        <div class="col-sm-12 col-md-12 col-lg-4 p-0 flyingdarts-mobile-container">
+                            <div class="form-group">
+                                <h1 class="fw-bold my-sign-in-header">Play with friends</h1>
+                                <div class="form-check">
+                                    <input class="form-control room-number-input" type="text" value="" id="roomNumber"
+                                        checked>
+                                    <button class="form-control create-room-button">Create room</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
-                        <div class="input-group">
-                            <input id="message" formControlName="message" class="form-control"
-                                placeholder="Type something here..." type="email">
-                            <div class="input-group-append">
-                            </div>
-                            <button class="flyingdarts-primary-button btn" type="submit">
-                                <i class="fa-regular fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
