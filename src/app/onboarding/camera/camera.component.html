@@ -1,46 +1,30 @@
-<div class="container-auth h-100">
-    <div class="container-fluid body-content h-100">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="container-fluid px-0 h-100">
-            <div class="flyingdarts-login-container d-flex">
-              <div class="col-sm-0 col-md-12 col-lg-8 top-container">
-                <app-carousel></app-carousel>
-              </div>
-              <div class="col-sm-12 col-md-12 col-lg-4 p-0 flyingdarts-mobile-container">
-                <ng-container></ng-container>
-                <div class="registration-step-camera-permissions">
-                    <div class="camera-header">
-                      <h1 class="fw-bold my-sign-in-header">Flyingdarts</h1>
-                      <div class="mb-3">
-                        <label for="cameraFormSelectCamera" class="form-label">Select your camera</label>
-                        <select id="cameraFormSelectCamera" class="form-select" aria-label="Default select example">
-                        </select>
-                      </div>
-                      <div class="camera-video">
-                        <video id="videoPlayer" #videoPlayer autoplay></video>
-                      </div>
-                      <p class="camera-description">
-                        Please ensure your dartboard centered in the view. 
-                        Pro tip: <a href="https://www.logitech.com/nl-be/products/webcams/c270-hd-webcam.960-001063.html" target="_blank">Buy a 720p/30fps HD Webcam from Logitech for €39,99.</a>
-                      </p>
-                    </div>
-                    <div class="camera-footer">
-                      <button class="btn flyingdarts-primary-button" (click)="saveCamera()">Finish registration</button>
-                      <div class="registration-steps d-flex">
-                        <div class="carousel-footer">
-                          <div>
-                            <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="0"
-                              aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="1"
-                              aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#registrationCarousel" data-bs-slide-to="2"
-                              aria-label="Slide 3"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
+  <div class="container-fluid container-auth h-100">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="container-fluid px-0 h-100">
+          <div class="flyingdarts-login-container d-flex">
+            <div class="col-sm-12 col-md-12 col-lg-4 p-0 flyingdarts-mobile-container">
+              <ng-container></ng-container>
+              <div class="registration-step-camera-permissions">
+                <div class="camera-header">
+                  <h1 class="fw-bold my-sign-in-header">Select your camera</h1>
+                  <div class="mb-3">
+                    <select id="cameraFormSelectCamera" class="form-select" aria-label="Default select example">
+                    </select>
                   </div>
+                  <div class="camera-video">
+                    <video id="videoPlayer" #videoPlayer autoplay></video>
+                  </div>
+                  <p class="camera-description">
+                    Please ensure your dartboard centered in the view.
+                    <!-- Pro tip: <a href="https://www.logitech.com/nl-be/products/webcams/c270-hd-webcam.960-001063.html"
+                      target="_blank">Buy a 720p/30fps HD Webcam from Logitech for €39,99.</a> -->
+                  </p>
+                </div>
+                <div class="camera-footer">
+                  <button class="btn flyingdarts-primary-button" (click)="saveCamera()">Finish registration</button>
+                </div>
               </div>
             </div>
           </div>
