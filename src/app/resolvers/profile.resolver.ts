@@ -19,9 +19,13 @@ export class ProfileResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return new Observable<boolean>((observer) => {
       const profileSubscription = this.webSocketService.getMessages().subscribe(x=> {
+        
         if (x.action === WebSocketActions.UserProfileGet && isNullOrUndefined(x.message as UserProfileDetails)) {
             observer.next(true);
             observer.complete();
+            if (route.outlet == 'onboarding-outlet') {
+              this.appStore.setLoading(false);
+            }
         } else {
           this.router.navigate(['/', 'lobby'])
           observer.next(false);
