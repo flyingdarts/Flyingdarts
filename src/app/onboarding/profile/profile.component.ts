@@ -11,6 +11,7 @@ import { UserProfileStateService } from 'src/app/services/user-profile-state.ser
 import { UserProfileDetails } from 'src/app/shared/models/user-profile-details.model';
 import { AppStore } from 'src/app/app.store';
 import { isNullOrUndefined } from 'src/app/app.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,8 @@ import { isNullOrUndefined } from 'src/app/app.component';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  public loading$: Observable<boolean> = this.appStore.select(x=>x.loading);
+
   public profileForm: FormGroup;
   carouselItems: CarouselModel[] = [
     {

@@ -1,15 +1,25 @@
 @import './../../../colors.scss';
 
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
 .flyingdarts-mobile-container {
     color: white;
     background: #4c56c0;
+    background-image: url('./../../../assets/images/dartboard_icon_light.svg');
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: center;
+    background-size: 80%;
     align-items: center;
     padding: 0 20px !important;
     align-self: center;
-    height: 100%;
+    height: 60%;
     align-content: center;
-    height: 100%;
-    border-radius: 10px;
+    border-radius: 25px;
     justify-content: space-between;
     display: flex;
     flex-direction: column;
@@ -24,6 +34,7 @@
     height: 100%;
     width: 100%;
     padding-right: 20px;
+    justify-content: center;
 }
 
 .body-content {
@@ -43,43 +54,13 @@
     margin-bottom: 15px;
 }
 
-.carousel-footer {
-    display: flex !important;
-    padding: 0 20px;
-    justify-content: space-between;
-    height: 40px;
-
-    p {
-        font-family: 'Poppins';
-        font-size: 1em;
-        color: #3C46A7;
-    }
-
-    div {
-        button {
-            width: 10px !important;
-            height: 10px !important;
-            background-color: #EFEFEF;
-            border: none !important;
-            opacity: 1 !important;
-            border-radius: 5px;
-        }
-
-        button:nth-of-type(2) {
-            margin: 0 10px;
-        }
-
-        button:nth-of-type(3) {
-            margin-right: 10px;
-        }
-
-        .active {
-            background-color: $flyingdarts-secundary !important;
-        }
-    }
+.form-check {
+    margin: 0 40px;
+    margin-top: 20px;
 }
 
-.form-check-input:checked, .form-check-input:focus {
+.form-check-input:checked,
+.form-check-input:focus {
     background-color: $flyingdarts-secundary;
     border-color: $flyingdarts-secundary;
     box-shadow: none;
@@ -88,15 +69,42 @@
 a {
     color: $flyingdarts-secundary;
 }
-.registration-step-create-profile {
+
+.registration-step-create-account {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    width: 100%;
-    .profile-form-description {
-        text-align: center;
-        font-size: 12px;
-    }
 }
+
+.room-number-input {
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: #4c56c0;
+    color: white;
+    /* Set the color of the placeholder text to white */
+
+}
+
+::placeholder {
+    color: white;
+}
+
+/* Center the placeholder text horizontally */
+input[type="text"], input[type="email"], select {
+    text-align: center;
+    background-color: #4C56C0;
+    color: white;
+    border: 2px solid white;
+    margin: 10px 0;
+}
+
+.create-room-button {
+    background-color: #7B81D8;
+    color: white;
+    border: none;
+    margin-top: 20px;
+}
+
+$form-select-indicator-color: white !important;
