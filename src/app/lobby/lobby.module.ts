@@ -5,6 +5,7 @@ import { LobbyRoutingModule } from './lobby-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LobbyComponent } from './lobby.component';
+import { UserProfileApiService } from '../services/user-profile-api.service';
 
 
 @NgModule({
@@ -16,6 +17,9 @@ import { LobbyComponent } from './lobby.component';
     LobbyRoutingModule,
     ReactiveFormsModule,
     SharedModule
+  ],
+  providers: [
+    UserProfileApiService,
   ]
 })
 export class LobbyModule { }

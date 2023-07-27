@@ -9,7 +9,7 @@ import { MessageRequest } from './../infrastructure/websocket/websocket.request.
 import { WebSocketStatus } from './../infrastructure/websocket/websocket.status.enum';
 import { X01ApiService } from './../services/x01-api.service';
 import { JoinX01QueueCommand } from './../requests/JoinX01QueueCommand';
-import { AppStore } from '../app.store';
+import { AppStore } from 'src/app/app.store';
 import { UserProfileStateService } from '../services/user-profile-state.service';
 import { Observable } from 'rxjs';
 const { v4: uuidv4 } = require('uuid');
