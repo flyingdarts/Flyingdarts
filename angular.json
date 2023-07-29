@@ -14,6 +14,13 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "cucumber.config.js",
+            "devServerTarget": "WebSocketFrontend:serve"
+          }
+        },
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
