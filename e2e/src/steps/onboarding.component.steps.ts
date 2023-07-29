@@ -13,6 +13,10 @@ Given("the onboarding profile page is loaded", async () => {
     await browser.get("http://localhost:4200/onboarding/(onboarding-outlet:profile)");
     // Re-enable waiting for Angular
     await browser.waitForAngularEnabled(true);
+
+    var currentUrl = await browser.getCurrentUrl();
+
+    expect(currentUrl).to.be.equal("http://localhost:4200/onboarding/(onboarding-outlet:profile)")
 })
 
 Given(/^I can fill in (.*) as my Nickname$/, async (name: string) => {

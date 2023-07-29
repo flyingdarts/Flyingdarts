@@ -57,11 +57,11 @@ function CompileAndMoveTypeScript {
     # Run 'tsc' for each file with the '--outDir' parameter
     tsc $source
 
-    # Move the resulting .js file to the output directory
+    # Move the resulting .js file to the output directory with the -Force parameter
     $jsFilePath = $source -replace "\.ts$", ".js"
     $jsFileName = Split-Path $jsFilePath -Leaf
     $destinationPath = Join-Path $destination $jsFileName
-    Move-Item $jsFilePath $destinationPath
+    Move-Item -Force $jsFilePath $destinationPath
 }
 
 # Compile and move TypeScript files for steps
@@ -75,3 +75,4 @@ foreach ($path in $pagesFilePaths) {
     $absolutePath = Join-Path $pagesSourceDirectory $path
     CompileAndMoveTypeScript -source $absolutePath -destination $pagesOutputDirectory
 }
+

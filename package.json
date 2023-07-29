@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "serve": "npm run start",
-    "e2e": "ng e2e",
+    "e2e": "powershell.exe -ExecutionPolicy Bypass -File compile-test-files.ps1 && ng e2e",
     "test": "ng test"
   },
   "private": true,

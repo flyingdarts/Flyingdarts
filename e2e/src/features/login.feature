@@ -4,4 +4,5 @@ Feature: Login
         Given the login page is loaded
         Then I cannot login
         When I select the checkbox
-        Then I can login
+        And I click the login with facebook button
+        Then The AWS Oauth window opens
