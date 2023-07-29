@@ -7,6 +7,7 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
     CommonModule,
     PublicRoutingModule,
     AmplifyAuthenticatorModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class PublicModule { }

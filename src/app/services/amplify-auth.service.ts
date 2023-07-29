@@ -26,7 +26,9 @@ export class AmplifyAuthService {
     var userInfo = await Auth.currentAuthenticatedUser();
     return userInfo["username"]
   }
-  
+  public signIn(): void {
+    Auth.federatedSignIn();
+  }
   public signOut(): void {
     localStorage.clear();
     Auth.signOut({ global: true });

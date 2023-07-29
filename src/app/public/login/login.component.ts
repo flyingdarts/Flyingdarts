@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isNullOrUndefined } from 'src/app/app.component';
@@ -16,6 +17,8 @@ export class LoginComponent implements OnInit {
   public loading$: Observable<boolean> = this.store.select(x=>x.loading);
   public loadingTitle: string = 'Welcome back!';
   public loadingSubtitle: string = 'Redirecting you to the lobby.'
+  public canLogin: boolean = false;
+  public accepted: boolean = false;
 
   constructor(
     private stateService: UserProfileStateService, 
@@ -24,6 +27,14 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private store: AppStore) {
 
+  }
+  accept() {
+    this.accepted = !this.accepted;
+    this.canLogin = this.accepted;
+  }
+
+  login() {
+    this.authService.signIn();
   }
   async ngOnInit() {
     console.log("public login oninit")
