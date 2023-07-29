@@ -1,53 +1,77 @@
-# Get the current working directory
-$source = Get-Location
+# Define the source and output directories
+$sourceDirectory = Join-Path $PWD "e2e/src"
+$outputDirectory = Join-Path $PWD "e2e/out"
 
-# Define the path to the 'e2e' directory (you can modify this path if needed)
-$sourceDirectory = Join-Path $source "e2e/src"
+# Define the steps and pages directories in the source folder
+$stepsSourceDirectory = Join-Path $sourceDirectory "steps"
+$pagesSourceDirectory = Join-Path $sourceDirectory "pages"
 
-# Define the path to the 'build' directory (you can modify this path if needed)
-$outputDirectory = Join-Path $source "e2e/out"
+# Define the steps and pages directories in the output folder
+$stepsOutputDirectory = Join-Path $outputDirectory "steps"
+$pagesOutputDirectory = Join-Path $outputDirectory "pages"
 
-# Check if the 'e2e' directory exists
-if (Test-Path $sourceDirectory -PathType Container) {
-    # Get all TypeScript files in the 'e2e' directory and its subdirectories
-    $tsFiles = Get-ChildItem -Path $sourceDirectory -Filter "*.ts" -Recurse
+# Create arrays to hold the steps and pages file paths
+$stepsFilePaths = @()
+$pagesFilePaths = @()
 
-    # Create the 'build' directory if it doesn't exist
-    if (-not (Test-Path $outputDirectory -PathType Container)) {
-        New-Item -ItemType Directory -Path $outputDirectory | Out-Null
-    }
+# Get all the .ts files in the source directories and their subdirectories
+$stepsTsFiles = Get-ChildItem -Path $stepsSourceDirectory -Recurse -Filter "*.ts" -File
+$pagesTsFiles = Get-ChildItem -Path $pagesSourceDirectory -Recurse -Filter "*.ts" -File
 
-    # Initialize a counter for the number of generated files
-    $counter = 0
+# Fill the arrays with the relative filePath + fileName of each .ts file
+foreach ($file in $stepsTsFiles) {
+    $filePath = $file.FullName.Replace($stepsSourceDirectory, "").TrimStart("\")
+    $stepsFilePaths += $filePath
+}
 
-    # Display the initial message
-    Write-Host "Compiling test files..."
+foreach ($file in $pagesTsFiles) {
+    $filePath = $file.FullName.Replace($pagesSourceDirectory, "").TrimStart("\")
+    $pagesFilePaths += $filePath
+}
 
-    # Loop through each TypeScript file and run 'tsc' on it
-    foreach ($file in $tsFiles) {
-        # Display the current file being compiled
-        Write-Host "Compiling file: $($file.FullName)"
+# Output every path in the console
+foreach ($path in $stepsFilePaths) {
+    Write-Host $path
+}
 
-        # Calculate the relative path of the TypeScript file to the 'src' directory
-        $relativePath = $file.DirectoryName.SubString($sourceDirectory.Length)
+foreach ($path in $pagesFilePaths) {
+    Write-Host $path
+}
 
-        # Define the output directory for the TypeScript file
-        $fileOutputDirectory = Join-Path $outputDirectory $relativePath
+# Create the steps and pages directories if they don't exist
+if (-not (Test-Path $stepsOutputDirectory)) {
+    New-Item -ItemType Directory -Path $stepsOutputDirectory | Out-Null
+}
 
-        # Create the output directory if it doesn't exist
-        if (-not (Test-Path $fileOutputDirectory -PathType Container)) {
-            New-Item -ItemType Directory -Path $fileOutputDirectory | Out-Null
-        }
+if (-not (Test-Path $pagesOutputDirectory)) {
+    New-Item -ItemType Directory -Path $pagesOutputDirectory | Out-Null
+}
 
-        # Run the 'tsc' command on the TypeScript file
-        & tsc $file.FullName --outDir $fileOutputDirectory
+# Compile and move TypeScript files to the output directories
+function CompileAndMoveTypeScript {
+    param(
+        [string]$source,
+        [string]$destination
+    )
 
-        # Increment the counter
-        $counter++
-    }
+    # Run 'tsc' for each file with the '--outDir' parameter
+    tsc $source
 
-    # Display the final message
-    Write-Host ("Done generating and moving {0} files to the 'build' folder inside 'e2e'" -f $counter)
-} else {
-    Write-Host "The 'e2e' directory was not found in the current working directory."
+    # Move the resulting .js file to the output directory
+    $jsFilePath = $source -replace "\.ts$", ".js"
+    $jsFileName = Split-Path $jsFilePath -Leaf
+    $destinationPath = Join-Path $destination $jsFileName
+    Move-Item $jsFilePath $destinationPath
+}
+
+# Compile and move TypeScript files for steps
+foreach ($path in $stepsFilePaths) {
+    $absolutePath = Join-Path $stepsSourceDirectory $path
+    CompileAndMoveTypeScript -source $absolutePath -destination $stepsOutputDirectory
+}
+
+# Compile and move TypeScript files for pages
+foreach ($path in $pagesFilePaths) {
+    $absolutePath = Join-Path $pagesSourceDirectory $path
+    CompileAndMoveTypeScript -source $absolutePath -destination $pagesOutputDirectory
 }
