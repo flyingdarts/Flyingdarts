@@ -1,5 +1,5 @@
 import { Given, Then, When } from "@cucumber/cucumber";
-import { PublicComponentPages } from "./../pages/public.page";
+import { PublicComponentPages } from "../pages/public.page";
 import { browser } from "protractor";
 import { assert, expect } from 'chai'; // Import expect from the chai library or the appropriate Jasmine library.
 

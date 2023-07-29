@@ -1,7 +1,7 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { browser } from 'protractor';
 import { assert, expect } from 'chai'; // Import expect from the chai library or the appropriate Jasmine library.
-import { OnboardingComponentPage } from './../pages/onboarding.component.page';
+import { OnboardingComponentPage } from '../pages/onboarding.component.page';
 
 let onboardingPage: OnboardingComponentPage;
 
