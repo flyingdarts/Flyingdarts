@@ -26,12 +26,12 @@ export class CameraComponent implements OnInit {
   }
   ngOnInit(): void {
     this.appStore.profile$.subscribe(x=> {
-      this.userProfileDetails = x;
+      console.log('GET: profile\ncamera component\nNavigating to lobby...')
+      this.router.navigate(['/lobby'])
     });
     this.accessCamera();
   }
   saveCamera() {
-    // this.router.navigate(['/lobby'])
     console.log(this.userProfileDetails);
     if (!isNullOrUndefined(this.userProfileDetails)) {
        this.userProfileService.createUserProfile(this.userProfileDetails!.cognitoUserId!, this.userProfileDetails!.cognitoUserName!, this.userProfileDetails!.Email, this.userProfileDetails!.UserName, this.userProfileDetails!.Country);
