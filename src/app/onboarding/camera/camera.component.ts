@@ -7,6 +7,10 @@ import { UserProfileApiService } from 'src/app/services/user-profile-api.service
 import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 import { UserProfileDetails } from 'src/app/shared/models/user-profile-details.model';
 import { isNullOrUndefined } from 'src/app/app.component';
+import { WebSocketService } from 'src/app/infrastructure/websocket/websocket.service';
+import { WebSocketActions } from 'src/app/infrastructure/websocket/websocket.actions.enum';
+import { CreateX01ScoreCommand } from 'src/app/requests/CreateX01ScoreCommand';
+import { JoinGameCommand } from 'src/app/requests/JoinGameCommand';
 
 @Component({
   selector: 'app-camera',
@@ -20,18 +24,31 @@ export class CameraComponent implements OnInit {
     private webcamService: WebcamService, 
     private userProfileService: UserProfileApiService,
     private userProfileStateService: UserProfileStateService,
+    private webSocketService: WebSocketService,
     private router: Router,
     private appStore: AppStore) {
     
   }
   ngOnInit(): void {
     this.appStore.profile$.subscribe(x=> {
-      console.log('GET: profile\ncamera component\nNavigating to lobby...')
-      this.router.navigate(['/lobby'])
+      this.userProfileDetails = x;
     });
+    
+    this.webSocketService.getMessages().subscribe((x) => {
+      switch (x.action) {
+        case WebSocketActions.UserProfileCreate:
+          this.onCreateProfile();
+          break;
+      }
+    });
+
     this.accessCamera();
   }
+  onCreateProfile() {
+    this.router.navigate(['/lobby']);
+  }
   saveCamera() {
+    // this.router.navigate(['/lobby'])
     console.log(this.userProfileDetails);
     if (!isNullOrUndefined(this.userProfileDetails)) {
        this.userProfileService.createUserProfile(this.userProfileDetails!.cognitoUserId!, this.userProfileDetails!.cognitoUserName!, this.userProfileDetails!.Email, this.userProfileDetails!.UserName, this.userProfileDetails!.Country);
