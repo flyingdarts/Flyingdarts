@@ -11,13 +11,15 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DartboardComponent } from './dartboard/dartboard.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 @NgModule({
   declarations: [
     LoadingComponent,
     CarouselComponent,
     NavigationBarComponent,
-    DartboardComponent
+    DartboardComponent,
+    LobbyComponent
   ],
   imports: [
     CommonModule,

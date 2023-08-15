@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LobbyComponent } from './shared/lobby/lobby.component';
+import { AuthorizationGuard } from './guards/authorization.guard';
+import { ProfileResolver } from './resolvers/profile.resolver';
 
 const routes: Routes = [
   // Private module routes
@@ -14,10 +17,6 @@ const routes: Routes = [
   { 
     path: 'onboarding',
     loadChildren: () => import('./onboarding/onboarding.module').then(mod => mod.OnboardingModule)
-  },
-  {
-    path: 'lobby',
-    loadChildren: () => import('./lobby/lobby.module').then(mod => mod.LobbyModule)
   },
   {
     path: 'x01',
