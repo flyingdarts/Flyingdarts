@@ -5,18 +5,22 @@ $outputDirectory = Join-Path $PWD "e2e/out"
 # Define the steps and pages directories in the source folder
 $stepsSourceDirectory = Join-Path $sourceDirectory "steps"
 $pagesSourceDirectory = Join-Path $sourceDirectory "pages"
+$hooksSourceDirectory = Join-Path $sourceDirectory "hooks"
 
 # Define the steps and pages directories in the output folder
 $stepsOutputDirectory = Join-Path $outputDirectory "steps"
 $pagesOutputDirectory = Join-Path $outputDirectory "pages"
+$hooksOutputDirectory = Join-Path $outputDirectory "hooks"
 
 # Create arrays to hold the steps and pages file paths
 $stepsFilePaths = @()
 $pagesFilePaths = @()
+$hooksFilePaths = @()
 
 # Get all the .ts files in the source directories and their subdirectories
-$stepsTsFiles = Get-ChildItem -Path $stepsSourceDirectory -Recurse -Filter "*.ts" -File
-$pagesTsFiles = Get-ChildItem -Path $pagesSourceDirectory -Recurse -Filter "*.ts" -File
+$stepsTsFiles = Get-ChildItem -Path $stepsSourceDirectory -Recurse -Filter "*.steps.ts" -File
+$pagesTsFiles = Get-ChildItem -Path $pagesSourceDirectory -Recurse -Filter "*.page.ts" -File
+$hooksTsFiles = Get-ChildItem -Path $hooksSourceDirectory -Recurse -Filter "*.hooks.ts" -File
 
 # Fill the arrays with the relative filePath + fileName of each .ts file
 foreach ($file in $stepsTsFiles) {
@@ -29,13 +33,9 @@ foreach ($file in $pagesTsFiles) {
     $pagesFilePaths += $filePath
 }
 
-# Output every path in the console
-foreach ($path in $stepsFilePaths) {
-    Write-Host $path
-}
-
-foreach ($path in $pagesFilePaths) {
-    Write-Host $path
+foreach ($file in $hooksTsFiles) {
+    $filePath = $file.FullName.Replace($hooksSourceDirectory, "").TrimStart("\")
+    $hooksFilePaths += $filePath
 }
 
 # Create the steps and pages directories if they don't exist
@@ -45,6 +45,10 @@ if (-not (Test-Path $stepsOutputDirectory)) {
 
 if (-not (Test-Path $pagesOutputDirectory)) {
     New-Item -ItemType Directory -Path $pagesOutputDirectory | Out-Null
+}
+
+if (-not (Test-Path $hooksOutputDirectory)) {
+    New-Item -ItemType Directory -Path $hooksOutputDirectory | Out-Null
 }
 
 # Compile and move TypeScript files to the output directories
@@ -74,5 +78,11 @@ foreach ($path in $stepsFilePaths) {
 foreach ($path in $pagesFilePaths) {
     $absolutePath = Join-Path $pagesSourceDirectory $path
     CompileAndMoveTypeScript -source $absolutePath -destination $pagesOutputDirectory
+}
+
+# Compile and move TypeScript files for pages
+foreach ($path in $hooksFilePaths) {
+    $absolutePath = Join-Path $hooksSourceDirectory $path
+    CompileAndMoveTypeScript -source $absolutePath -destination $hooksOutputDirectory
 }
 

@@ -1,3 +1,4 @@
+@requires-logged-in-user
 Feature: Onboarding
 
     Scenario: I can register my profile

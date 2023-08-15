@@ -14,7 +14,6 @@ const routes: Routes = [
         path: "profile",
         component: ProfileComponent,
         outlet: "onboarding-outlet",
-        resolve: { profile: ProfileResolver }
       },
       {
         path: "camera",
