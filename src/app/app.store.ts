@@ -27,7 +27,7 @@ export class AppStore extends ComponentStore<AppState> implements OnStoreInit {
             this.setLoading(false);
             if (x.action === WebSocketActions.UserProfileCreate) {
               console.log('got create, navigating to lobby...')
-              this.router.navigate(['/', 'lobby'])
+              this.router.navigate(['lobby'])
             }
           }
       }
