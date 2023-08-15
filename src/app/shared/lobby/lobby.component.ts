@@ -61,7 +61,7 @@ export class LobbyComponent implements OnInit {
         break;
       }
     })
-
+    this.store.setProfile(this.userProfileService.currentUserProfileDetails);
     this.clientId = this.userProfileService.currentUserProfileDetails.UserId!;
   }
 

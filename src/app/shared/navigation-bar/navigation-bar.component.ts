@@ -5,6 +5,9 @@ import { UserProfileStateService } from './../../services/user-profile-state.ser
 import { AnimationOptions } from 'ngx-lottie';
 import { WebSocketService } from "./../../infrastructure/websocket/websocket.service";
 import { isNullOrUndefined } from 'src/app/app.component';
+import { AppState } from 'src/app/app.state';
+import { Observable } from 'rxjs';
+import { AppStore } from 'src/app/app.store';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -18,6 +21,9 @@ export class NavigationBarComponent implements OnInit {
     loop: false
   };
   public userName: string = ''; // Initial value is an empty string
+  public userName$: Observable<string> = this.appStore.select(
+    (state) => state.profile?.UserName!
+  );
   public isAuthenticated!: boolean; // Initial value is false
   public isRegistered!: boolean; // Initial value is false
 
@@ -25,7 +31,8 @@ export class NavigationBarComponent implements OnInit {
     public router: Router,
     public amplifyAuthService: AmplifyAuthService, 
     public userProfileService: UserProfileStateService,
-    public webSocketService: WebSocketService
+    public webSocketService: WebSocketService,
+    private appStore: AppStore
   ) {
 
   }
