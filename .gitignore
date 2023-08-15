@@ -67,3 +67,4 @@ amplifytools.xcconfig
 *.key
 .vscode
 e2e/**/**.*.js
+e2e/local.properties
