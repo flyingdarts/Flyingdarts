@@ -20,50 +20,39 @@ import { JoinGameCommand } from 'src/app/requests/JoinGameCommand';
 export class CameraComponent implements OnInit {
   private userProfileDetails: UserProfileDetails | null = null;
   constructor(
-    public authenticator: AuthenticatorService, 
-    private webcamService: WebcamService, 
+    public authenticator: AuthenticatorService,
+    private webcamService: WebcamService,
     private userProfileService: UserProfileApiService,
     private userProfileStateService: UserProfileStateService,
     private webSocketService: WebSocketService,
     private router: Router,
     private appStore: AppStore) {
-    
+
   }
   ngOnInit(): void {
-    this.appStore.profile$.subscribe(x=> {
+    this.appStore.profile$.subscribe(x => {
       this.userProfileDetails = x;
     });
-    
-    this.webSocketService.getMessages().subscribe((x) => {
-      switch (x.action) {
-        case WebSocketActions.UserProfileCreate:
-          this.onCreateProfile();
-          break;
-      }
-    });
-
     this.accessCamera();
   }
-  onCreateProfile() {
-    this.router.navigate(['/lobby']);
-  }
+
   saveCamera() {
-    // this.router.navigate(['/lobby'])
     console.log(this.userProfileDetails);
     if (!isNullOrUndefined(this.userProfileDetails)) {
-       this.userProfileService.createUserProfile(this.userProfileDetails!.cognitoUserId!, this.userProfileDetails!.cognitoUserName!, this.userProfileDetails!.Email, this.userProfileDetails!.UserName, this.userProfileDetails!.Country);
-       this.userProfileStateService.currentUserProfileDetails = this.userProfileDetails;
+      this.userProfileService.createUserProfile(this.userProfileDetails!.cognitoUserId!, this.userProfileDetails!.cognitoUserName!, this.userProfileDetails!.Email, this.userProfileDetails!.UserName, this.userProfileDetails!.Country);
+      this.userProfileStateService.currentUserProfileDetails = this.userProfileDetails;
     }
+    this.router.navigate(['/lobby']);
   }
   async accessCamera() {
     const videoPlayer = document.querySelector('video') as HTMLVideoElement;
     await this.webcamService.requestCameraPermissions().then(stream => {
       videoPlayer.srcObject = stream;
       this.populateCameraSelectList();
-      this.appStore.patchProfileState({cameraPermissionGranted: true})
+      this.appStore.patchProfileState({ cameraPermissionGranted: true })
     }).catch(error => {
       console.error('Failed to attach stream to video element', error);
-      this.appStore.patchProfileState({cameraPermissionGranted: false})
+      this.appStore.patchProfileState({ cameraPermissionGranted: false })
     });
   }
   populateCameraSelectList() {
@@ -83,7 +72,7 @@ export class CameraComponent implements OnInit {
       });
     });
   }
-  
+
   // Get the available webcams and populate a select element with their names and IDs
   async populateWebcamSelectList(selectElement: HTMLSelectElement): Promise<MediaDeviceInfo[]> {
     // Get the list of available media devices
