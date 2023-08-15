@@ -39,6 +39,10 @@ export class LoginComponent implements OnInit {
   async ngOnInit() {
     console.log("public login oninit")
     this.store.setLoading(true);
+    if (this.stateService.currentUserProfileDetails) {
+      this.store.setLoading(false);
+      await this.router.navigate(['/', 'lobby'])
+    }
     try {
       var cognitoId = await this.authService.getCognitoId();
       var cognitoName = await this.authService.getCognitoName();
