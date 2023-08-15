@@ -1,10 +1,6 @@
-import { browser, ProtractorExpectedConditions } from "protractor"
-import { protractor } from "protractor/built/ptor"
+import { browser } from "protractor"
 
 export abstract class BasePage {
-
-    protected ec: ProtractorExpectedConditions = protractor.ExpectedConditions;
-
     protected abstract getPartialUrl(): string
 
     private getBaseUrl(): string {
@@ -33,16 +29,5 @@ export abstract class BasePage {
                 throw Error('Current URL ' + currentUrl + ' does not end with ' + this.getPartialUrl());
             }
         })
-    }
-
-    public async getAlertText(): Promise<string> {
-        await browser.wait(this.ec.alertIsPresent());
-        return await browser.switchTo().alert().getText()
-    }
-
-    public async acceptAlert(): Promise<void> {
-        await browser.wait(this.ec.alertIsPresent());
-        await browser.switchTo().alert().accept()
-        await browser.wait(this.ec.not(this.ec.alertIsPresent()));
     }
 }
