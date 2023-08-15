@@ -25,11 +25,11 @@ export class AppStore extends ComponentStore<AppState> implements OnStoreInit {
             this.setProfile(x.message as UserProfileDetails);
             this.userProfileService.currentUserProfileDetails = x.message as UserProfileDetails;
             this.setLoading(false);
+            if (x.action === WebSocketActions.UserProfileCreate) {
+              console.log('got create, navigating to lobby...')
+              this.router.navigate(['/', 'lobby'])
+            }
           }
-          break;
-      }
-      if (x.action === WebSocketActions.UserProfileCreate) {
-        this.router.navigate(['/', 'lobby'])
       }
     });
   }
