@@ -41,9 +41,10 @@ export class CameraComponent implements OnInit {
     if (!isNullOrUndefined(this.userProfileDetails)) {
       this.userProfileService.createUserProfile(this.userProfileDetails!.cognitoUserId!, this.userProfileDetails!.cognitoUserName!, this.userProfileDetails!.Email, this.userProfileDetails!.UserName, this.userProfileDetails!.Country);
       this.userProfileStateService.currentUserProfileDetails = this.userProfileDetails;
+      this.router.navigate(['/lobby']);
     }
-    this.router.navigate(['/lobby']);
   }
+
   async accessCamera() {
     const videoPlayer = document.querySelector('video') as HTMLVideoElement;
     await this.webcamService.requestCameraPermissions().then(stream => {
@@ -55,6 +56,7 @@ export class CameraComponent implements OnInit {
       this.appStore.patchProfileState({ cameraPermissionGranted: false })
     });
   }
+
   populateCameraSelectList() {
     if (!this.webcamService.checkCameraPermission()) {
       return;
