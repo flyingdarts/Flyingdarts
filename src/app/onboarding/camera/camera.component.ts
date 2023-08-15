@@ -41,7 +41,6 @@ export class CameraComponent implements OnInit {
     if (!isNullOrUndefined(this.userProfileDetails)) {
       this.userProfileService.createUserProfile(this.userProfileDetails!.cognitoUserId!, this.userProfileDetails!.cognitoUserName!, this.userProfileDetails!.Email, this.userProfileDetails!.UserName, this.userProfileDetails!.Country);
       this.userProfileStateService.currentUserProfileDetails = this.userProfileDetails;
-      this.router.navigate(['/lobby']);
     }
   }
 

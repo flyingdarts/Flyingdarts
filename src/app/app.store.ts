@@ -6,10 +6,11 @@ import { WebSocketActions } from "./infrastructure/websocket/websocket.actions.e
 import { Injectable } from "@angular/core";
 import { AppState, initialApplicationState } from "./app.state";
 import { UserProfileStateService } from "./services/user-profile-state.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AppStore extends ComponentStore<AppState> implements OnStoreInit {
-  constructor(private webSocketService: WebSocketService, private userProfileService: UserProfileStateService) {
+  constructor(private webSocketService: WebSocketService, private userProfileService: UserProfileStateService, private router: Router) {
     super(initialApplicationState);
   }
 
@@ -26,6 +27,9 @@ export class AppStore extends ComponentStore<AppState> implements OnStoreInit {
             this.setLoading(false);
           }
           break;
+      }
+      if (x.action === WebSocketActions.UserProfileCreate) {
+        this.router.navigate(['/', 'lobby'])
       }
     });
   }
