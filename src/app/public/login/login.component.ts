@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.store.setLoading(true);
     if (this.stateService.currentUserProfileDetails) {
       this.store.setLoading(false);
-      await this.router.navigate(['/', 'lobby'])
+      await this.router.navigate(['lobby'])
     }
     try {
       var cognitoId = await this.authService.getCognitoId();
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           } else if (x?.UserId != null)  {
             console.log('found profile, routing to lobby')
             this.store.setProfile(x!);
-            await this.router.navigate(['/', 'lobby'])
+            await this.router.navigate(['lobby'])
           }
         })
       } else {
