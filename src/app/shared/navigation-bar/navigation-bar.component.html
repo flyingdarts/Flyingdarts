@@ -8,11 +8,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul *ngIf="isRegistered" class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <a class="nav-link"> 
-            {{ (userName$ | async) }}
-          </a>
           <a class="nav-link" href="#" [routerLink]="['/', 'account', { outlets: { 'account-outlet': ['profile']}}]">
-            <i class="fa-solid fa-user-circle"></i>
+            {{ (userName$ | async) }}
+            <i class="fa-solid fa-user-circle user-name-icon"></i>
           </a>
           <a class="nav-link" href="#" [routerLink]="['/', 'account', { outlets: { 'account-outlet': ['settings']}}]">
             <i class="fa-solid fa-cog"></i>
