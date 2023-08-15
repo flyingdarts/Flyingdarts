@@ -9,7 +9,7 @@
             </div>
             <div *ngIf="!(loading$ | async)" class=" container-auth h-100">
 
-              <form [formGroup]="profileForm" class="form-group">
+              <form [formGroup]="profileForm" class="form-group" (ngSubmit)="submitForm()">
                 <h1 class="fw-bold my-sign-in-header">Play with friends</h1>
                 <div class="form-group">
                   <input formControlName="userName" placeholder="Nickname" type="text" class="form-control"

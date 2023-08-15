@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
       this.router.navigate(['/', 'lobby'])
     }
   }
-  async submitForm() {
+  submitForm() {
     if (this.profileForm.valid) {
       this.appStore.patchProfileState({
         UserName: this.profileForm.value.userName,
