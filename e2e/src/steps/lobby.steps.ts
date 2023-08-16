@@ -29,15 +29,9 @@ When("I click on the settings button", async () => {
 })
 
 Then("the account/profile page is loaded", async () => {
-    await browser.waitForAngularEnabled(false);
-    var currentUrl = await browser.getCurrentUrl();
-    await browser.waitForAngularEnabled(true);
-    expect(currentUrl).to.contain("profile");
+    expect(await browser.getCurrentUrl()).to.contain("profile");
 })
 
 Then("the account/settings page is loaded", async () => {
-    await browser.waitForAngularEnabled(false);
-    var currentUrl = await browser.getCurrentUrl();
-    await browser.waitForAngularEnabled(true);
-    expect(currentUrl).to.contain("settings");
+    expect(await browser.getCurrentUrl()).to.contain("settings");
 })
