@@ -29,7 +29,7 @@ export class NavigationBarComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public amplifyAuthService: AmplifyAuthService, 
+    public amplifyAuthService: AmplifyAuthService,
     public userProfileService: UserProfileStateService,
     public webSocketService: WebSocketService,
     private appStore: AppStore
@@ -38,12 +38,12 @@ export class NavigationBarComponent implements OnInit {
   }
 
   ngOnInit() {
-   if (!isNullOrUndefined(this.userProfileService.currentUserProfileDetails.UserId)) {
-    this.isRegistered = true;
-    this.userName = this.userProfileService.currentUserProfileDetails.UserName;
-   }
+    if (!isNullOrUndefined(this.userProfileService.currentUserProfileDetails.UserId)) {
+      this.isRegistered = true;
+      this.appStore.patchProfileState({ UserName: this.userProfileService.currentUserProfileDetails.UserName })
+    }
   }
-  
+
   title = 'flyingdarts';
 
   public signOut(): void {
