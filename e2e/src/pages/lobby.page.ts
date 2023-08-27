@@ -11,6 +11,7 @@ export class LobbyPage extends BasePage {
     private userNameField: ElementFinder = element(by.id("loggedInUserName"));
     private profileButtonField: ElementFinder = element(by.id("profileButton"));
     private settingsButtonField: ElementFinder = element(by.id("settingsButton"));
+    private gameWithFriendsButton: ElementFinder = element(by.id("gameWithFriendsButton"));
 
     async getNickname() {
         return await this.userNameField.getText();
@@ -26,5 +27,9 @@ export class LobbyPage extends BasePage {
 
     async getCurrentUrl() {
         return await browser.getCurrentUrl();
+    }
+
+    async clickGameWithFriends() {
+        return await this.gameWithFriendsButton.click();
     }
 }

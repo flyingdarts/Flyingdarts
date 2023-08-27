@@ -30,7 +30,7 @@ Before({ tags: "@requires-registered-user", timeout: 10 * 1000 }, async () => {
     await wait(2 * 1000);
 })
 
-After({ tags: "@requires-registered-user" }, async () => {
+After({ tags: "@requires-registered-user" }, async (s) => {
     await browser.executeScript('localStorage.clear();');
 })
 
