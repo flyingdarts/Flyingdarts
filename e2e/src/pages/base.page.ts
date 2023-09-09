@@ -30,4 +30,15 @@ export abstract class BasePage {
             }
         })
     }
+
+    public async wait(miliseconds: number): Promise<void> {
+        await wait(miliseconds);
+    }
+
+}
+
+function wait(ms: number): Promise<void> {
+    return new Promise<void>(resolve => {
+        setTimeout(resolve, ms);
+    });
 }

@@ -1,28 +1,22 @@
 
 export class X01Input {
   Sum: number;
-  Darts: number[];
-  constructor(sum: number, darts: number[]) {
+  Input: string;
+  constructor(sum: number, input: string) {
     this.Sum = sum;
-    this.Darts = darts;
+    this.Input = input;
   }
 
   public next(score: number) {
-    if (this.Darts.length == 3) {
-      this.Darts = this.Darts.slice(1); // Fifo
-      this.Darts.push(score); // Add new dart
-
-      //this.lastThreeString = this.lastThreeInputs.join(' ')
-      this.Sum = this.Darts.reduce((a, b) => {
-        return a + b;
-      });
-    }
+    this.Input += score;
+    this.Sum = Number(this.Input)
   }
   public reset(): void {
     this.Sum = 0
-    this.Darts = [0, 0, 0]
+    this.Input = ""
   }
-  public get getString(): string {
-    return this.Darts.join(' ');
+
+  public getSum(): string {
+    return this.Sum.toString();
   }
 }

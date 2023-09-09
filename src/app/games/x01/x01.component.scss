@@ -25,6 +25,9 @@ p {
     }
 }
 .calc-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .calc-header {
         padding-right: 20px !important;
 
@@ -211,6 +214,7 @@ ng-lottie {
 
 .stats-container {
     margin-bottom: 10px;
+    padding-left: 0px !important;
 }
 
 .button-container {
@@ -408,4 +412,61 @@ ng-lottie {
             }
         }
     }
+}
+
+table, tr, th, td { 
+    border: none !important;
+}
+
+td {
+    color: #7B81D8;
+}
+
+th, td:nth-of-type(1) {
+    padding-left: 0px !important;
+}
+.history {
+    height: -webkit-fill-available;
+}
+.calculator {
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 0 !important;
+       
+        .button {
+            width: 119px;
+            height: 80px;
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 70px;
+            cursor: pointer;
+            background-color: #FC3C60;
+            border-radius: 7px;
+            color: #E5E5E5;
+            
+        }
+        .clear-button, .check-button {
+            background-color: #3C46A7;
+            width: 30%
+        }
+
+        .no-score-button, .ok-button {
+            background-color: #3C46A7;
+            width: 39%
+        }
+
+    }
+    .input {
+        background: none !important;
+        color: #7B81D8 !important;
+        font-size: 96px !important;
+        width: 36% !important;
+        line-height: 0 !important;
+    }
+}
+.jitsi-container {
+    padding-left: 10px !important;
 }

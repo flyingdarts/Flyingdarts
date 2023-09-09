@@ -5,6 +5,7 @@ import { X01Component } from './x01.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentStore } from '@ngrx/component-store';
 import { X01RootComponent } from './x01-root.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { X01RootComponent } from './x01-root.component';
     CommonModule,
     X01RoutingModule,
     SharedModule,
+    FormsModule // Add FormsModule to the imports array
   ],
   providers: [ComponentStore]
 })

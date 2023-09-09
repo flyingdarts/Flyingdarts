@@ -1,4 +1,5 @@
 export interface X01State {
+  currentInput: string;
   player: X01PlayerState;
   opponent: X01PlayerState;
   loading: boolean;
@@ -16,10 +17,11 @@ export interface X01PlayerState {
 }
 
 export const initialX01State: X01State = {
+  currentInput: '',
   loading: false,
   error: '',
   player: {
-    name: 'player',
+    name: 'Mike',
     legs: 0,
     sets: 0,
     score: 501,
@@ -27,7 +29,7 @@ export const initialX01State: X01State = {
     total: 6
   },
   opponent: {
-    name: 'opponent',
+    name: 'Waiting...',
     legs: 0,
     sets: 0,
     score: 501,

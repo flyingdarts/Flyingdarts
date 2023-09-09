@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 import { isNullOrUndefined } from 'src/app/app.component';
+import { JitsiService } from 'src/app/services/jitsi.service';
 
 @Component({
   selector: 'app-x01',
@@ -22,14 +23,14 @@ import { isNullOrUndefined } from 'src/app/app.component';
 export class X01Component implements OnInit {
   public title: string = '';
 
-  public input: X01Input = new X01Input(0, [0, 0, 0]);
+  public input: X01Input = new X01Input(0, "");
 
   public vm$: Observable<X01State> = this.componentStore.select(
     (state) => state
   );
 
   private gameId?: string;
-
+  
   public clientId?: string;
   public shouldDisableInput: boolean = false;
   
@@ -39,7 +40,9 @@ export class X01Component implements OnInit {
     private authService: AmplifyAuthService,
     private x01ApiService: X01ApiService,
     private route: ActivatedRoute,
-    private userProfileService: UserProfileStateService
+    private userProfileService: UserProfileStateService,
+    private jitsiService: JitsiService,
+    private x01Store: X01Store
   ) {}
 
   async ngOnInit() {
@@ -84,6 +87,8 @@ export class X01Component implements OnInit {
 
     this.componentStore.setPlayerScore(message.Game!.X01.StartingScore);
     this.componentStore.setOpponentScore(message.Game!.X01.StartingScore);
+
+    //this.jitsiService.moveRoom(message.GameId, false);
 
     if (message.PlayerId == this.clientId) {
       this.componentStore.setPlayerName(message.PlayerName);
@@ -145,7 +150,48 @@ export class X01Component implements OnInit {
     this.input.reset();
   }
 
-  public onDartboardPressedEvent(input: number) {
-    this.input.next(input);
+  public inputScore(score: number) {
+    if ([26,41,45,60,85,100].includes(score)) {
+      if (this.input.Sum > 0) {
+        alert('Please clear before using shortcut buttons');
+        return;
+      }
+      this.input.reset();
+      this.input.next(score);
+      this.sendScore();
+      this.input.reset();
+      this.x01Store.setCurrentInput(this.input.getSum())
+      return;
+    } 
+    var nextInput = this.input.Input;
+    nextInput += score;
+    if (Number(nextInput) > 180) {
+      return;
+    }
+    this.input.next(score);
+    this.x01Store.setCurrentInput(this.input.getSum())
+  }
+
+  public noScore() {
+    this.input.reset();
+    this.x01Store.setCurrentInput(this.input.getSum())
+    this.sendScore();
+  }
+
+  public ok() {
+    this.sendScore();
+    this.input.reset();
+    this.x01Store.setCurrentInput(this.input.getSum())
+
+  }
+
+  public check() {
+    this.input.reset();
+    this.x01Store.setCurrentInput(this.input.getSum())
+  }
+
+  public clearScore() {
+    this.input.reset();
+    this.x01Store.setCurrentInput("0");
   }
 }
