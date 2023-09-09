@@ -59,7 +59,10 @@ jobs:
         
       - name: Install Angular CLI
         run: npm install -g @angular/cli  
-    
+
+      - name: Compile test files
+        run: tsc -p e2e/tsconfig.json
+
       - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
         uses: browserstack/github-actions/setup-env@master
         with:
@@ -74,8 +77,10 @@ jobs:
 
       - name: 'Running application under test'
         run: ./node_modules/.bin/http-server -p 8099 &
+
       - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
         run: npm run wdio-browserstack
+
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
         with:
