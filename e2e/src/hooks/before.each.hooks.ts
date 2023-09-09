@@ -1,18 +1,8 @@
-import { Before } from "@cucumber/cucumber";
-import { browser } from "protractor";
-
+import { Before } from "@wdio/cucumber-framework";
+import { browser } from "@wdio/globals";
 
 Before(async () => {
-    // Set browser size
-    await browser.manage().timeouts().implicitlyWait(5000);
-
-    await browser.manage().timeouts().pageLoadTimeout(2000);
-
-    await browser.manage().window().setSize(1920, 1080)
-    // Disable waiting for Angular during navigation
-    await browser.waitForAngularEnabled(false);
-    // Perform client-side navigation
-    await browser.get("http://localhost:4200");
-    // Re-enable waiting for Angular
-    await browser.waitForAngularEnabled(true);
+    await browser.setTimeout({implicit: 5000, pageLoad: 10000});
+    await browser.setWindowSize(1920, 1080);
+    await browser.url("http://localhost:4200");
 })

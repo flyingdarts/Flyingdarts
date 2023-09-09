@@ -41,11 +41,50 @@ jobs:
           webhook-url: ${{ secrets.DISCORD_DEVELOPMENT_ENDPOINTS_CHANNEL_WEBHOOK }}
           content: 'Build logs: Flyingdarts.Angular'
           filename: build_output.txt
+  browserstack:
+    name: BrowserSTack
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli  
+    
+      - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username:  {{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: {{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+      - name: 'BrowserStack Local Tunnel Setup'  # Invokes the setup-local action
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: start
+          local-identifier: random
+
+      - name: 'Running application under test'
+        run: ./node_modules/.bin/http-server -p 8099 &
+      - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
+        run: npm run wdio-browserstack
+      - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: stop
 
   test:
     name: Test
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, browserstack]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

@@ -1,4 +1,5 @@
-import { ElementFinder, browser, by, element } from "protractor";
+import { $, browser } from '@wdio/globals'
+
 import { BasePage } from "./base.page";
 import { expect } from 'chai';
 
@@ -9,69 +10,69 @@ export class GamePage extends BasePage {
         return this.partialUrl;
     }
 
-    inputField: ElementFinder = element(by.id("calcInputField"));
-
-    // Player fields
-    playerNameField: ElementFinder = element(by.id("playerNameField"));
-    playerSetsField: ElementFinder = element(by.id("playerSetsField"));
-    playerLegsField: ElementFinder = element(by.id("playerLegsField"));
-    playerScoreField: ElementFinder = element(by.id("playerScoreField"));
-    playerHistoryField: ElementFinder = element(by.id("playerHistoryField"));
-
-    // Opponent fields
-    opponentNameField: ElementFinder = element(by.id("opponentNameField"));
-    opponentSetsField: ElementFinder = element(by.id("opponentSetsField"));
-    opponentLegsField: ElementFinder = element(by.id("opponentLegsField"));
-    opponentScoreField: ElementFinder = element(by.id("opponentScoreField"));
-    opponentHistoryField: ElementFinder = element(by.id("opponentHistoryField"));
-
-    // Calculator buttons
-    calcButton_1: ElementFinder = element(by.id("calcButton1"));
-    calcButton_26: ElementFinder = element(by.id("calcButton26"));
-    calcButton_2: ElementFinder = element(by.id("calcButton2"));
-    calcButton_3: ElementFinder = element(by.id("calcButton3"));
-    calcButton_41: ElementFinder = element(by.id("calcButton41"));
-    calcButton_45: ElementFinder = element(by.id("calcButton45"));
-    calcButton_4: ElementFinder = element(by.id("calcButton4"));
-    calcButton_5: ElementFinder = element(by.id("calcButton5"));
-    calcButton_6: ElementFinder = element(by.id("calcButton6"));
-    calcButton_60: ElementFinder = element(by.id("calcButton60"));
-    calcButton_85: ElementFinder = element(by.id("calcButton85"));
-    calcButton_7: ElementFinder = element(by.id("calcButton7"));
-    calcButton_8: ElementFinder = element(by.id("calcButton8"));
-    calcButton_9: ElementFinder = element(by.id("calcButton9"));
-    calcButton_100: ElementFinder = element(by.id("calcButton100"));
-    calcButton_NOSCORE: ElementFinder = element(by.id("calcButtonNOSCORE"));
-    calcButton_0: ElementFinder = element(by.id("calcButton0"));
-    calcButton_OK: ElementFinder = element(by.id("calcButtonOK"));
-    calcButton_CLEAR: ElementFinder = element(by.id("calcButtonClear"));
-    calcButton_CHECK: ElementFinder = element(by.id("calcButtonCheck"));
+    public get inputField() { return $('#calcInputField'); }
+    public get playerNameField() { return $('#playerNameField'); }
+    public get playerSetsField() { return $('#playerSetsField'); }
+    public get playerLegsField() { return $('#playerLegsField'); }
+    public get playerScoreField() { return $('#playerScoreField'); }
+    public get playerHistoryField() { return $('#playerHistoryField'); }
+    public get opponentNameField() { return $('#opponentNameField'); }
+    public get opponentSetsField() { return $('#opponentSetsField'); }
+    public get opponentLegsField() { return $('#opponentLegsField'); }
+    public get opponentScoreField() { return $('#opponentScoreField'); }
+    public get opponentHistoryField() { return $('#opponentHistoryField'); }
+    public get calcButton_1() { return $('#calcButton1'); }
+    public get calcButton_26() { return $('#calcButton26'); }
+    public get calcButton_2() { return $('#calcButton2'); }
+    public get calcButton_3() { return $('#calcButton3'); }
+    public get calcButton_41() { return $('#calcButton41'); }
+    public get calcButton_45() { return $('#calcButton45'); }
+    public get calcButton_4() { return $('#calcButton4'); }
+    public get calcButton_5() { return $('#calcButton5'); }
+    public get calcButton_6() { return $('#calcButton6'); }
+    public get calcButton_60() { return $('#calcButton60'); }
+    public get calcButton_85() { return $('#calcButton85'); }
+    public get calcButton_7() { return $('#calcButton7'); }
+    public get calcButton_8() { return $('#calcButton8'); }
+    public get calcButton_9() { return $('#calcButton9'); }
+    public get calcButton_100() { return $('#calcButton100'); }
+    public get calcButton_NOSCORE() { return $('#calcButtonNOSCORE'); }
+    public get calcButton_0() { return $('#calcButton0'); }
+    public get calcButton_OK() { return $('#calcButtonOK'); }
+    public get calcButton_CLEAR() { return $('#calcButtonClear'); }
+    public get calcButton_CHECK() { return $('#calcButtonCheck'); }
 
     async validateInputField(input: string) {
-        var result = await this.inputField.getText();
-        expect(result).to.be.equal(input);
+        await browser.waitUntil(async () => {
+            return (await this.inputField.getText() == input)
+        })
     }
 
     // Player fields
     async validatePlayerNameField(input: string) {
-        var result = await this.playerNameField.getText();
-        expect(result).to.be.equal(input);
+        await browser.waitUntil(async () => {
+            return (await this.playerNameField.getText() == input);
+        });
     }
     async validatePlayerSetsField(input: string) {
-        var result = await this.playerSetsField.getText();
-        expect(result).to.be.equal(input);
+        await browser.waitUntil(async () => {
+            return (await this.playerSetsField.getText() == input);
+        });
     }
     async validatePlayerLegsField(input: string) {
-        var result = await this.playerLegsField.getText();
-        expect(result).to.be.equal(input);
+        await browser.waitUntil(async () => {
+            return (await this.playerLegsField.getText() == input);
+        });
     }
     async validatePlayerScoreField(input: string) {
-        var result = await this.playerScoreField.getText();
-        expect(result).to.be.equal(input);
+        await browser.waitUntil(async () => {
+            return (await this.playerScoreField.getText() == input)
+        })
     }
     async validatePlayerHistoryField(input: string) {
-        var result = await this.playerHistoryField.getText();
-        expect(result).to.be.equal(input);
+        await browser.waitUntil(async () => {
+            return (await this.playerHistoryField.getText() == input);
+        });
     }
 
     // Opponent fields

@@ -1,5 +1,5 @@
-import { ElementFinder, element, by, browser } from "protractor";
 import { BasePage } from "./base.page";
+import { $, browser } from '@wdio/globals'
 
 export class LobbyPage extends BasePage {
     readonly partialUrl: string = "/lobby"
@@ -8,10 +8,10 @@ export class LobbyPage extends BasePage {
         return this.partialUrl
     }
 
-    private userNameField: ElementFinder = element(by.id("loggedInUserName"));
-    private profileButtonField: ElementFinder = element(by.id("profileButton"));
-    private settingsButtonField: ElementFinder = element(by.id("settingsButton"));
-    private gameWithFriendsButton: ElementFinder = element(by.id("gameWithFriendsButton"));
+    public get userNameField () { return $('#loggedInUserName'); }
+    public get profileButtonField () { return $('#profileButton'); }
+    public get settingsButtonField () { return $('#settingsButton'); }
+    public get gameWithFriendsButton () { return $('#gameWithFriendsButton'); }
 
     async getNickname() {
         return await this.userNameField.getText();
@@ -25,8 +25,8 @@ export class LobbyPage extends BasePage {
         return await this.settingsButtonField.click();
     }
 
-    async getCurrentUrl() {
-        return await browser.getCurrentUrl();
+    async getUrl() {
+        return await browser.getUrl();
     }
 
     async clickGameWithFriends() {

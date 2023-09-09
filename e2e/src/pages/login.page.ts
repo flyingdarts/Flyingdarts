@@ -1,5 +1,5 @@
-import { element, by, browser, ElementFinder } from 'protractor';
 import { BasePage } from './base.page';
+import { $ } from '@wdio/globals'
 
 export class LoginPage extends BasePage {
     readonly partialUrl: string = "/login"
@@ -8,9 +8,9 @@ export class LoginPage extends BasePage {
         return this.partialUrl;
     }
 
-    private checkBox: ElementFinder = element(by.id("flexCheckChecked"));
-    private loginButton: ElementFinder = element(by.id("loginButton"));
-    private authenticator: ElementFinder = element(by.id("amplifyLogin"));
+    public get checkBox () { return $('#flexCheckChecked'); }
+    public get loginButton () { return $('#loginButton'); }
+    public get authenticator () { return $('#amplifyLogin'); }
 
     authenticatorLoaded(): boolean {
         return this.authenticator != null;

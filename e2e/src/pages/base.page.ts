@@ -1,4 +1,4 @@
-import { browser } from "protractor"
+import { browser } from '@wdio/globals'
 
 export abstract class BasePage {
     protected abstract getPartialUrl(): string
@@ -14,17 +14,12 @@ export abstract class BasePage {
     }
 
     public async open(): Promise<void> {
-        await browser.waitForAngular();
-        // Disable waiting for Angular during navigation
-        await browser.waitForAngularEnabled(false);
         // Perform client-side navigation
-        await browser.get(this.getBaseUrl() + this.getPartialUrl())
-        // Re-enable waiting for Angular
-        await browser.waitForAngularEnabled(true);
+        await browser.url(this.getBaseUrl() + this.getPartialUrl())
     }
 
     public async verify(): Promise<void> {
-        await browser.getCurrentUrl().then((currentUrl) => {
+        await browser.getUrl().then((currentUrl: string) => {
             if (!currentUrl.endsWith(this.getPartialUrl())) {
                 throw Error('Current URL ' + currentUrl + ' does not end with ' + this.getPartialUrl());
             }

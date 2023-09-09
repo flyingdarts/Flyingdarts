@@ -1,4 +1,4 @@
-import { Given } from '@cucumber/cucumber';
+import { Given, When, Then } from '@wdio/cucumber-framework';
 import { OnboardingPage } from '../pages/onboarding.page';
 
 let onboardingPage: OnboardingPage;

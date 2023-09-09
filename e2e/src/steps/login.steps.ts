@@ -1,6 +1,6 @@
-import { Given, When, Then } from '@cucumber/cucumber';
+import { Given, When, Then } from '@wdio/cucumber-framework';
 import { LoginPage } from '../pages/login.page';
-import { browser } from 'protractor';
+import { browser } from "@wdio/globals";
 import { expect } from 'chai';
 
 let loginPage: LoginPage;
@@ -29,8 +29,6 @@ Given("I click the login with facebook button", async () => {
 })
 
 Given("The AWS Oauth window opens", async () => {
-    await browser.waitForAngularEnabled(false);
-    var currentUrl = await browser.getCurrentUrl();
-    await browser.waitForAngularEnabled(true);
+    var currentUrl = await browser.getUrl();
     expect(currentUrl).to.contain("amazoncognito.com")
 })

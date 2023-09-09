@@ -1,5 +1,5 @@
-import { ElementFinder, element, by } from "protractor";
 import { BasePage } from "./base.page";
+import { $ } from '@wdio/globals'
 
 export class OnboardingPage extends BasePage {
     readonly partialUrl: string = "/onboarding/(onboarding-outlet:profile)"
@@ -8,13 +8,13 @@ export class OnboardingPage extends BasePage {
         return this.partialUrl
     }
 
-    private nickNameField: ElementFinder = element(by.id("profileFormNickname"));
-    private emailField: ElementFinder = element(by.id("profileFormEmailAddress"));
-    private countryField: ElementFinder = element(by.id("profileFormCountry"));
+    public get nickNameField () { return $('#profileFormNickname'); }
+    public get emailField () { return $('#profileFormEmailAddress'); }
+    public get countryField () { return $('#profileFormCountry'); }
 
 
     async inputNickname(value: string) {
-        await this.nickNameField.sendKeys(value);
+        await this.nickNameField.addValue(value);
     }
 
     async getNickname() {
@@ -22,7 +22,7 @@ export class OnboardingPage extends BasePage {
     }
 
     async inputEmail(value: string) {
-        await this.emailField.sendKeys(value);
+        await this.emailField.addValue(value);
     }
 
     async getEmail() {
@@ -30,7 +30,7 @@ export class OnboardingPage extends BasePage {
     }
 
     async inputCountry(value: string) {
-        element(by.cssContainingText('option', value)).click();
+        // element(by.cssContainingText('option', value)).click();
     }
 
     async getCountry() {

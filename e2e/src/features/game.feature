@@ -26,16 +26,19 @@ Feature: Game Page
     Scenario: Score updates when input is submitted
         Given the game page is loaded
         When I press the number '4'
+        Then the input is '4'
         And I press the number '8'
         Then the input is '48'
         When I press OK
         Then the player score is '453'
+        And the input is '0'
 
     Scenario: Clear button resets the input
         Given the game page is loaded
         When I press the number '7'
+        Then the input is '7'
         And I press the number '5'
         Then the input is '75'
         When I press CLEAR
-        Then the input is '0'
-        And the player score is '501'
+        Then the player score is '501'
+        And the input is '0'

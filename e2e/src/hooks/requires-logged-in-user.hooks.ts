@@ -1,8 +1,12 @@
-import { After, Before } from "@cucumber/cucumber";
-import { browser } from "protractor";
+import { After, Before } from "@wdio/cucumber-framework";
+import { browser } from "@wdio/globals";
 import PropertiesReader from "properties-reader";
 
 Before({ tags: "@requires-logged-in-user", timeout: 10 * 1000 }, async () => {
+    await browser.setTimeout({implicit: 5000, pageLoad: 10000});
+    await browser.setWindowSize(1920, 1080);
+    await browser.url("http://localhost:4200");
+
     const projectPropsPath: string = 'e2e/local.properties'
 
     const pool = String(PropertiesReader(projectPropsPath).get('pool'));
@@ -16,24 +20,16 @@ Before({ tags: "@requires-logged-in-user", timeout: 10 * 1000 }, async () => {
     const jsonString = String(PropertiesReader(projectPropsPath).get("userData"));
     const userData = JSON.parse(JSON.parse(jsonString))
 
-    await browser.executeScript(`localStorage.setItem("amplify-signin-with-hostedUI", "${signin}");`)
-    await browser.executeScript(`localStorage.setItem("amplify-redirected-from-hosted-ui", "${redirect}");`)
-    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.LastAuthUser","${user}");`)
-    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.accessToken","${accessToken}");`)
-    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.idToken","${idToken}");`)
-    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.clockDrift","${clockDrift}");`)
-    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.refreshToken","${refreshToken}");`)
-    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.userData",${JSON.stringify(userData)});`)
-
-    await wait(2 * 1000);
+    await browser.executeScript(`localStorage.setItem("amplify-signin-with-hostedUI", "${signin}");`, [])
+    await browser.executeScript(`localStorage.setItem("amplify-redirected-from-hosted-ui", "${redirect}");`, [])
+    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.LastAuthUser","${user}");`, [])
+    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.accessToken","${accessToken}");`, [])
+    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.idToken","${idToken}");`, [])
+    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.clockDrift","${clockDrift}");`, [])
+    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.refreshToken","${refreshToken}");`, [])
+    await browser.executeScript(`localStorage.setItem("CognitoIdentityServiceProvider.${pool}.${user}.userData",${JSON.stringify(userData)});`, [])
 })
 
 After({ tags: "@requires-logged-in-user" }, async () => {
-    await browser.executeScript('localStorage.clear();');
+    await browser.executeScript('localStorage.clear();', []);
 })
-
-function wait(ms: number): Promise<void> {
-    return new Promise<void>(resolve => {
-        setTimeout(resolve, ms);
-    });
-}

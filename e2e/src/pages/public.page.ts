@@ -1,5 +1,5 @@
-import { ElementFinder, by, element } from "protractor";
 import { BasePage } from "./base.page";
+import { $ } from '@wdio/globals'
 
 export class PublicPage extends BasePage {
     readonly partialUrl: string = ""
@@ -8,8 +8,8 @@ export class PublicPage extends BasePage {
         return this.partialUrl;
     }
 
-    private tosField: ElementFinder= element(by.id("tos-link"));
-    private ppField: ElementFinder= element(by.id("pp-link"));
+    public get tosField () { return $('#tos-link');}
+    public get ppField () { return $('#pp-link');}
 
     async clickTos() {
         await this.tosField.click();

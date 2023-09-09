@@ -168,6 +168,7 @@ export class X01Component implements OnInit {
     if (Number(nextInput) > 180) {
       return;
     }
+    this.sendScore();
     this.input.next(score);
     this.x01Store.setCurrentInput(this.input.getSum())
   }
