@@ -9,7 +9,7 @@ Given(/^the game page is loaded$/, { timeout: 10000 }, async () => {
     await gamePage.open();
     await gamePage.wait(5000);
     await gamePage.verify();
-})
+});
 
 When(/^I press the shortcut '(.*)'$/, { timeout: 10000 }, async (value: string) => {
     switch (value) {
@@ -34,7 +34,8 @@ When(/^I press the shortcut '(.*)'$/, { timeout: 10000 }, async (value: string) 
     }
     await gamePage.wait(5000);
 });
-When(/^I press the number '(.*)'$/, { timeout: 10000 }, async (value: string) => {    
+
+When(/^I press the number '(.*)'$/, { timeout: 10000 }, async (value: string) => {
     switch (Number(value)) {
         case 1:
             await gamePage.clickCalcButton_1();
@@ -67,17 +68,22 @@ When(/^I press the number '(.*)'$/, { timeout: 10000 }, async (value: string) =>
             await gamePage.clickCalcButton_0();
             break;
     }
-    await gamePage.wait(5000);
-})
+    await gamePage.wait(1000);
+});
 
 When(/^I press OK$/, { timeout: 10000 }, async () => {
     await gamePage.clickCalcButton_OK();
     await gamePage.wait(5000);
-})
+});
+
+When(/^I press CLEAR$/, { timeout: 10000 }, async () => {
+    await gamePage.clickCalcButton_CLEAR();
+    await gamePage.wait(1000);
+});
 
 Then(/^the input is '(.*)'$/, async (value: string) => {
     await gamePage.validateInputField(value);
-})
+});
 
 Then(/^the player name is '(.*)'$/, async (value: string) => {
     await gamePage.validatePlayerNameField(value);

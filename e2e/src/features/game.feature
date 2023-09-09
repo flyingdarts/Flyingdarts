@@ -30,3 +30,12 @@ Feature: Game Page
         Then the input is '48'
         When I press OK
         Then the player score is '453'
+
+    Scenario: Clear button resets the input
+        Given the game page is loaded
+        When I press the number '7'
+        And I press the number '5'
+        Then the input is '75'
+        When I press CLEAR
+        Then the input is '0'
+        And the player score is '501'

@@ -44,6 +44,8 @@ export class GamePage extends BasePage {
     calcButton_NOSCORE: ElementFinder = element(by.id("calcButtonNOSCORE"));
     calcButton_0: ElementFinder = element(by.id("calcButton0"));
     calcButton_OK: ElementFinder = element(by.id("calcButtonOK"));
+    calcButton_CLEAR: ElementFinder = element(by.id("calcButtonClear"));
+    calcButton_CHECK: ElementFinder = element(by.id("calcButtonCheck"));
 
     async validateInputField(input: string) {
         var result = await this.inputField.getText();
@@ -148,5 +150,11 @@ export class GamePage extends BasePage {
     }
     async clickCalcButton_OK() {
         return await this.calcButton_OK.click();
+    }
+    async clickCalcButton_CLEAR() {
+        return await this.calcButton_CLEAR.click();
+    }
+    async clickCalcButton_CHECK() {
+        return await this.calcButton_CHECK.click();
     }
 }
