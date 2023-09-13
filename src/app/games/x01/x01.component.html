@@ -87,7 +87,7 @@
                                 <td id="playerLegsField">{{ (vm$ | async)?.player?.legs }}</td>
                                 <td id="playerScoreField">{{ (vm$ | async)?.player?.score }}</td>
                             </tr>
-                            <tr  [class.throwing]="shouldDisableInput">
+                            <tr [class.throwing]="shouldDisableInput">
                                 <td id="opponentNameField" class="text-start">{{ (vm$ | async)?.opponent?.name }}</td>
                                 <td id="opponentSetsField"><i class="flag-icon"></i></td>
                                 <td>{{ (vm$ | async)?.opponent?.sets }}</td>
@@ -107,25 +107,31 @@
                     <a id="calcButtonCheck" (click)="check()" class="btn button check-button disabled">CHECK</a>
                 </div>
                 <div class="row">
-                    <a (click)="inputScore(26)" id="calcButton26" class="btn button">26</a>
+                    <a (disabled)="shouldDisableShortcuts" (click)="inputScore(26)" id="calcButton26"
+                        class="btn button">26</a>
                     <a (click)="inputScore(1)" id="calcButton1" class="btn button">1</a>
                     <a (click)="inputScore(2)" id="calcButton2" class="btn button">2</a>
                     <a (click)="inputScore(3)" id="calcButton3" class="btn button">3</a>
-                    <a (click)="inputScore(41)" id="calcButton41" class="btn button">41</a>
+                    <a (disabled)="shouldDisableShortcuts" (click)="inputScore(41)" id="calcButton41"
+                        class="btn button">41</a>
                 </div>
                 <div class="row">
-                    <a (click)="inputScore(45)" id="calcButton45" class="btn button">45</a>
+                    <a (disabled)="shouldDisableShortcuts" (disabled)="shouldDisableShortcuts" (click)="inputScore(45)"
+                        id="calcButton45" class="btn button">45</a>
                     <a (click)="inputScore(4)" id="calcButton4" class="btn button">4</a>
                     <a (click)="inputScore(5)" id="calcButton5" class="btn button">5</a>
                     <a (click)="inputScore(6)" id="calcButton6" class="btn button">6</a>
-                    <a (click)="inputScore(60)" id="calcButton60" class="btn button">60</a>
+                    <a (disabled)="shouldDisableShortcuts" (click)="inputScore(60)" id="calcButton60"
+                        class="btn button">60</a>
                 </div>
                 <div class="row">
-                    <a (click)="inputScore(85)" id="calcButton85" class="btn button">85</a>
+                    <a (disabled)="shouldDisableShortcuts" (click)="inputScore(85)" id="calcButton85"
+                        class="btn button">85</a>
                     <a (click)="inputScore(7)" id="calcButton7" class="btn button">7</a>
                     <a (click)="inputScore(8)" id="calcButton8" class="btn button">8</a>
                     <a (click)="inputScore(9)" id="calcButton9" class="btn button">9</a>
-                    <a (click)="inputScore(100)" id="calcButton100" class="btn button">100</a>
+                    <a (disabled)="shouldDisableShortcuts" (click)="inputScore(100)" id="calcButton100"
+                        class="btn button">100</a>
                 </div>
                 <div class="row">
                     <a (click)="noScore()" id="calcButtonNOSCORE" class="btn button no-score-button">NO SCORE</a>

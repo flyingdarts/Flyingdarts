@@ -48,6 +48,44 @@ export class GamePage extends BasePage {
         })
     }
 
+    async validateInputFieldsAreDisabled() {
+        await browser.waitUntil(async () => {
+            return (
+                !this.calcButton_1.isEnabled() &&
+                !this.calcButton_26.isEnabled() &&
+                !this.calcButton_2.isEnabled() &&
+                !this.calcButton_3.isEnabled() &&
+                !this.calcButton_41.isEnabled() &&
+                !this.calcButton_45.isEnabled() &&
+                !this.calcButton_4.isEnabled() &&
+                !this.calcButton_5.isEnabled() &&
+                !this.calcButton_6.isEnabled() &&
+                !this.calcButton_60.isEnabled() &&
+                !this.calcButton_85.isEnabled() &&
+                !this.calcButton_7.isEnabled() &&
+                !this.calcButton_8.isEnabled() &&
+                !this.calcButton_9.isEnabled() &&
+                !this.calcButton_100.isEnabled() &&
+                !this.calcButton_NOSCORE.isEnabled() &&
+                !this.calcButton_0.isEnabled() &&
+                !this.calcButton_OK.isEnabled() &&
+                !this.calcButton_CLEAR.isEnabled() &&
+                !this.calcButton_CHECK.isEnabled())
+        })
+    }
+
+    async validateShortcutsAreDisabled() {
+        await browser.waitUntil(async () => {
+            return (
+                !this.calcButton_26.isEnabled() &&
+                !this.calcButton_41.isEnabled() &&
+                !this.calcButton_45.isEnabled() &&
+                !this.calcButton_60.isEnabled() &&
+                !this.calcButton_85.isEnabled() &&
+                !this.calcButton_100.isEnabled());
+        })
+    }
+
     // Player fields
     async validatePlayerNameField(input: string) {
         await browser.waitUntil(async () => {

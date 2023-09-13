@@ -42,3 +42,18 @@ Feature: Game Page
         When I press CLEAR
         Then the player score is '501'
         And the input is '0'
+
+    Scenario: Input is disabled when there is no opponent
+        Given the game page is loaded
+        When the opponent name is 'Waiting...'
+        Then all input fields are disabled
+
+    Scenario: Input is disabled when its the opponent's turn
+        Given the game page is loaded
+        When I press the number '26'
+        Then all input fields are disabled
+
+    Scenario: The shortcuts are disabled when regular input is Given
+        Given the game page is loaded
+        And I press the number '7'
+        Then all shortcuts are disabled

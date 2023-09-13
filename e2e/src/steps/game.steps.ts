@@ -82,6 +82,14 @@ Then(/^the input is '(.*)'$/, async (value: string) => {
     await gamePage.validateInputField(value);
 });
 
+Then(/^all input fields are disabled$/, async () => {
+    await gamePage.validateInputFieldsAreDisabled()
+});
+
+Then(/^all shortcuts are disabled$/, async () => {
+    await gamePage.validateShortcutsAreDisabled()
+});
+
 Then(/^the player name is '(.*)'$/, async (value: string) => {
     await gamePage.validatePlayerNameField(value);
 });

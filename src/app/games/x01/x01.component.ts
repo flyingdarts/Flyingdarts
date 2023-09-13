@@ -30,10 +30,11 @@ export class X01Component implements OnInit {
   );
 
   private gameId?: string;
-  
+
   public clientId?: string;
   public shouldDisableInput: boolean = false;
-  
+  public shouldDisableShortcuts: boolean = false;
+
   constructor(
     private componentStore: X01Store,
     private webSocketService: WebSocketService,
@@ -43,7 +44,7 @@ export class X01Component implements OnInit {
     private userProfileService: UserProfileStateService,
     private jitsiService: JitsiService,
     private x01Store: X01Store
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.gameId = this.route.snapshot.paramMap.get('id')!;
@@ -151,7 +152,7 @@ export class X01Component implements OnInit {
   }
 
   public inputScore(score: number) {
-    if ([26,41,45,60,85,100].includes(score)) {
+    if ([26, 41, 45, 60, 85, 100].includes(score)) {
       if (this.input.Sum > 0) {
         alert('Please clear before using shortcut buttons');
         return;
@@ -162,28 +163,28 @@ export class X01Component implements OnInit {
       this.input.reset();
       this.x01Store.setCurrentInput(this.input.getSum())
       return;
-    } 
+    }
     var nextInput = this.input.Input;
     nextInput += score;
     if (Number(nextInput) > 180) {
       return;
     }
+
     this.sendScore();
     this.input.next(score);
-    this.x01Store.setCurrentInput(this.input.getSum())
+    this.x01Store.setCurrentInput(this.input.getSum());
   }
 
   public noScore() {
     this.input.reset();
-    this.x01Store.setCurrentInput(this.input.getSum())
     this.sendScore();
+    this.x01Store.setCurrentInput(this.input.getSum());
   }
 
   public ok() {
     this.sendScore();
     this.input.reset();
     this.x01Store.setCurrentInput(this.input.getSum())
-
   }
 
   public check() {
@@ -193,6 +194,9 @@ export class X01Component implements OnInit {
 
   public clearScore() {
     this.input.reset();
-    this.x01Store.setCurrentInput("0");
+    this.x01Store.setCurrentInput(this.input.getSum());
   }
+
+
+
 }
