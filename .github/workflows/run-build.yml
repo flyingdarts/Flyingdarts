@@ -80,6 +80,18 @@ jobs:
 
       - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
         run: npm run wdio-browserstack
+        env:
+          POOL: ${{ secrets.POOL }}
+          USER: ${{ secrets.USER }}
+          SIGNIN: ${{ secrets.SIGNIN }}
+          REDIRECT: ${{ secrets.REDIRECT }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ID_TOKEN: ${{ secrets.ID_TOKEN }}
+          CLOCK_DRIFT: ${{ secrets.CLOCK_DRIFT }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+          USER_DATA: ${{ secrets.USER_DATA }}
+          USER_PROFILE_DETAILS: ${{ secrets.USER_PROFILE_DETAILS }}
+
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
