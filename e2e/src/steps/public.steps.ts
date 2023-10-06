@@ -14,9 +14,9 @@ When("I click on Terms of Service", async () => {
 })
 
 Given("The Privacy Policy page is opened", async () => {
-    expect(await browser.getUrl()).to.be.equal('https://flyingdarts.net/privacy-policy');
+    expect(await browser.getUrl()).to.be.equal('https://localhost:4200/privacy-policy');
 })
 
 Given("The Terms of Service page is opened", async () => {
-    expect(await browser.getUrl()).to.be.equal('https://flyingdarts.net/terms-of-service');
+    expect(await browser.getUrl()).to.be.equal('https://localhost:4200/terms-of-service');
 })

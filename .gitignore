@@ -68,3 +68,4 @@ amplifytools.xcconfig
 .vscode
 e2e/**/**.*.js
 e2e/local.properties
+e2e/.env

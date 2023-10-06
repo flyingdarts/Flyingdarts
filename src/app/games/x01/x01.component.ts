@@ -13,6 +13,7 @@ import { AmplifyAuthService } from 'src/app/services/amplify-auth.service';
 import { UserProfileStateService } from 'src/app/services/user-profile-state.service';
 import { isNullOrUndefined } from 'src/app/app.component';
 import { JitsiService } from 'src/app/services/jitsi.service';
+import { Metadata } from './Metadata';
 
 @Component({
   selector: 'app-x01',
@@ -62,7 +63,7 @@ export class X01Component implements OnInit {
       switch (x.action) {
         case WebSocketActions.X01Join:
           this.onJoinRoomCommand(x.message as JoinGameCommand);
-          this.handleMetadata(x.message as JoinGameCommand);
+          this.handleMetadata(x);
           break;
         case WebSocketActions.X01Score:
           this.onScoreCommand(x.message as CreateX01ScoreCommand);
@@ -70,18 +71,15 @@ export class X01Component implements OnInit {
       }
     });
   }
-  private handleMetadata(data: JoinGameCommand) {
-    var metadata = data.Metadata;
+  private handleMetadata(message: any) {
+    var metadata: Metadata = message.Metadata;
     if (!isNullOrUndefined(metadata)) {
-      var currentPlayers = metadata.CurrentPlayers as JoinGameCommand[];
-      console.log('current players', currentPlayers);
-      for (var i = 0; i < currentPlayers.length; i++) {
-        currentPlayers[i].PlayerId == this.clientId
-          ? this.componentStore.setPlayerName(currentPlayers[i].PlayerName)
-          : this.componentStore.setOpponentName(currentPlayers[i].PlayerName);
-      }
+      console.log(metadata);
+    } else {
+      console.log("couldnt parse metadata from ", message);
     }
   }
+
   private onJoinRoomCommand(message: JoinGameCommand) {
     this.componentStore.setLoading(false);
     this.title = `Best of ${message.Game!.X01.Sets}/${message.Game!.X01.Legs}`;
